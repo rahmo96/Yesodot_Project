@@ -6,4 +6,4 @@ Team members:
 3. Rahamim Tadela 208189621
 4. Almog Ben Gur 207896697
 5. Tzion Getahon 206078388
-6. Artiom Zaifert 320825748
+6. Artiom Zaifert 320825748 -currently on duty (Miluim)
