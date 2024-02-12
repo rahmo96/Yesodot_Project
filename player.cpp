@@ -3,3 +3,8 @@
 //
 
 #include "player.h"
+
+Player::Player(const Player &player) {
+    this->name = player.name;
+    this->id = player.id;
+}
