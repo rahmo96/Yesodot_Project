@@ -2,11 +2,9 @@
 // Created by חי כרמי on 12/02/2024.
 #include <string>
 #include <iostream>
+#include "MyMain.h"
 using namespace std;
 int main() {
-    string bla = "hai";
-    string bli = bla;
-    bla="almog";
-    cout<< bli<< endl;
+    MyMain M1;
     return 0;
 }

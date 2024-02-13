@@ -6,15 +6,18 @@
 #define YESODOT_PROJECT_PLAYER_H
 #include <iostream>
 #include <string>
+#include "Date.h"
 
 using namespace std;
 
 class Player {
 private:
-    string name; // Consider using std::string for better memory management
+    string name;
     string id;
     string Address;
     long phone_number;
+    Date Birthday;
+
 public:
     Player();
     Player(const Player &player);
