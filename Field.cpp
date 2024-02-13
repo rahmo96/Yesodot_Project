@@ -5,7 +5,7 @@
 #include "Field.h"
 #include <iostream>
 
-Field::Field(int field_type, int field_city) {
+Field::Field(string field_type, string field_city) {
     this-> field_city = field_city;
     this -> field_type = field_type;
 }

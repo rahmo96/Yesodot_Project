@@ -6,6 +6,7 @@
 #define YESODOT_PROJECT_FIELD_H
 #include <iostream>
 #include <string>
+using namespace std;
 
 class Field {
 private:
