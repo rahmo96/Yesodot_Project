@@ -82,7 +82,7 @@ MyMain::MyMain() {
 
                     }
 
-                } while (choice_login_or_signup > 2);
+                } while (choice_login_or_signup > 2||choice_login_or_signup<1);
             }
             case field_manger: {
                 cout << "enter your name " << endl;
@@ -100,10 +100,11 @@ MyMain::MyMain() {
                 cout << "enter your Birthday year " << endl;
                 cin >> year;
                 Date Birthday(day, month, year);
+                break;
 
             }
         }
-    } while (choice > 2);
+    } while (choice > 2||choice<1);
 }
 
 
