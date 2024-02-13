@@ -22,6 +22,7 @@ public:
     Player(string namme, string id,string address, long phone_num,Date birthdy);
     Player(const Player &player);
     void Set_Name(string name){ this->name=name;}
+    void print_player();
 
 
 };

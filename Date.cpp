@@ -143,11 +143,11 @@ bool Date::check_valid_date() {
 
 
 
-void Date::date_tommorrow(){
-    if (day < 31 && month < 12 && check_valid_date() )
-        cout << day+1 << "/" << month << "/" << year << endl;
-    else if (day == 31)
-        cout << day << "/" << month+1 << "/" << year << endl;
+
+
+void Date::print() {
+    cout<<day<<"/"<<month<<"/" <<year<< endl;
+
 }
 
 

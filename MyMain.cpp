@@ -10,7 +10,7 @@ enum {
     Login = 1, sign_up
 };
 enum {
-    layer = 1, field_manger
+    pplayer = 1, field_manger
 };
 
 
@@ -43,33 +43,46 @@ MyMain::MyMain() {
         cin >> choice;
 
         switch (choice) {
-            case layer: {
-                int choice_login_or_signup;
-                print_Menu_login_registration();
-                switch (choice_login_or_signup) {
-                    case Login: {
-                        cout << "enter your id number " << endl;
-                        cin >> id;
-                        cout << "enter your password " << endl;
-                        cin >> password;
-                        break;
-                    }
-                    case sign_up: {
-                        cout << "enter your name " << endl;
-                        cin >> name;
-                        cout << "enter your id number " << endl;
-                        cin >> id;
-                        cout << "enter your Address " << endl;
-                        cin >> Address;
-                        cout << "enter your phone_number " << endl;
-                        cin >> phone_number;
-                        cout << "enter your Birthday " << endl;
+            case pplayer: {
+                int choice_login_or_signup = 0;
+                do {
+
+
+                    print_Menu_login_registration();
+                    cin >> choice_login_or_signup;
+                    switch (choice_login_or_signup) {
+                        case Login: {
+                            cout << "enter your id number " << endl;
+                            cin >> id;
+                            cout << "enter your password " << endl;
+                            cin >> password;
+                            break;
+                        }
+                        case sign_up: {
+                            cout << "enter your name " << endl;
+                            cin >> name;
+                            cout << "enter your id number " << endl;
+                            cin >> id;
+                            cout << "enter your Address " << endl;
+                            cin >> Address;
+                            cout << "enter your phone_number " << endl;
+                            cin >> phone_number;
+                            cout << "enter your Birthday day " << endl;
+                            cin >> day;
+                            cout << "enter your Birthday month " << endl;
+                            cin >> month;
+                            cout << "enter your Birthday year " << endl;
+                            cin >> year;
+                            Date Birthday(day, month, year);
+                            Player player1(name, id, Address, phone_number, Birthday);
+                            player1.print_player();
+                            break;
+
+                        }
 
                     }
 
-                }
-
-
+                } while (choice_login_or_signup > 2);
             }
             case field_manger: {
                 cout << "enter your name " << endl;
@@ -81,16 +94,16 @@ MyMain::MyMain() {
                 cout << "enter your phone_number " << endl;
                 cin >> phone_number;
                 cout << "enter your Birthday day " << endl;
-                cin>>day;
+                cin >> day;
                 cout << "enter your Birthday month " << endl;
-                cin>>month;
+                cin >> month;
                 cout << "enter your Birthday year " << endl;
-                cin>>year;
-                 Date Birthday(day,month,year);
-                 Player player1(name, id, Address, phone_number, Birthday);
+                cin >> year;
+                Date Birthday(day, month, year);
+
             }
         }
-    } while (choice < 2);
+    } while (choice > 2);
 }
 
 
