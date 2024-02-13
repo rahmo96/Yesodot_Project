@@ -3,9 +3,6 @@
 //
 
 #include "Date.h"
-//
-// Created by Daniella on 09/07/2023.
-//
 
 using namespace std;
 #include "Date.h"
