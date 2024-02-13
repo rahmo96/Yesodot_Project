@@ -140,10 +140,7 @@ bool Date::check_valid_date() {
 }
 
 
-Date::~Date() {
-    cout<< "destructor" << endl;
-    Print_Date();
-}
+
 
 
 void Date::date_tommorrow(){

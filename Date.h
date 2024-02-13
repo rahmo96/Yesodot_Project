@@ -24,7 +24,6 @@ public:
     void Print_month();
     int days_count();
     bool is_meubar();
-    ~Date();
     void date_tommorrow();
     bool check_valid_date();
 
