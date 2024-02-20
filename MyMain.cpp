@@ -4,7 +4,8 @@
 
 #include "MyMain.h"
 #include "Date.h"
-#include "player.h"
+#include "Player.h"
+#include "User.h"
 
 enum {
     Login = 1, sign_up
@@ -74,15 +75,19 @@ MyMain::MyMain() {
                             cout << "enter your Birthday year " << endl;
                             cin >> year;
                             Date Birthday(day, month, year);
-                            Player player1(name, id, Address, phone_number, Birthday);
-                            player1.print_player();
+                            Field F;
+                           Player Player1(name, id, Address, phone_number, Birthday,F);
+                           Player1.print_user();
                             break;
 
                         }
+                        default:
+                            break;
+
 
                     }
 
-                } while (choice_login_or_signup > 2||choice_login_or_signup<1);
+                } while (choice_login_or_signup > 2 || choice_login_or_signup < 1);
             }
             case field_manger: {
                 cout << "enter your name " << endl;
@@ -103,8 +108,11 @@ MyMain::MyMain() {
                 break;
 
             }
+            default:
+                break;
         }
-    } while (choice > 2||choice<1);
+    } while (choice > 2 || choice < 1);
+
 }
 
 

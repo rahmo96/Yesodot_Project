@@ -7,23 +7,19 @@
 #include <iostream>
 #include <string>
 #include "Date.h"
+#include "User.h"
+#include "Field.h"
+
 
 using namespace std;
 
-class Player {
+class Player: public virtual User{
 private:
-    string name;
-    string id;
-    string Address;
-    long phone_number;
-    Date Birthday;
+    Field field;
 
 public:
-    Player(string namme, string id,string address, long phone_num,Date birthdy);
+    Player(string name, string id, string address, long phone_num, Date birthdy,Field field);
     Player(const Player &player);
-    void Set_Name(string name){ this->name=name;}
-    void print_player();
-
 
 };
 

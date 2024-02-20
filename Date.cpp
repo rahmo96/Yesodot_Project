@@ -29,7 +29,7 @@ void Date::today() { //פונקציה שמקבלת תאריך של היום
 
 Date::Date(int day,int month,int year)
 {
-    if (!(setDay(int (day))) || !(setMonth(int (month))) || !(setYear(int (year))) || check_valid_date())
+    if (!(setDay(int (day))) || !(setMonth(int (month))) || !(setYear(int (year))) && check_valid_date())
         today();
     else {
         this->day = day;

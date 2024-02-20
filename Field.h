@@ -13,6 +13,7 @@ private:
     string field_type;
     string field_city;
 public:
+    Field();
     Field(const Field &other);
     Field(string field_type,string field_city);
     string get_field_type();

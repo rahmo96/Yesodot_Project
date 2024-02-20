@@ -27,3 +27,7 @@ void Field::print() {
     cout<<"The field sport type is: " << field_type << " " << endl;
     cout<<"The field location is: " << field_city << endl;
 }
+
+Field::Field() {
+
+}
