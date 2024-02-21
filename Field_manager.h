@@ -11,7 +11,7 @@ class Field_manager: public virtual User{
 private:
     Field field;
 public:
-    Field_manager(string namme, string id, string address, long phone_num, Date birthdy);
+    Field_manager(string namme, string id, string address, long phone_num, Date birthdy ,Field field1);
     Field_manager(const Field_manager &fieldManager);
 
 

@@ -33,7 +33,7 @@ MyMain::MyMain() {
     string Address;
     long phone_number;
     Date Birthday;
-    long password;
+    string password;
     int day;
     int month;
     int year;
@@ -76,8 +76,9 @@ MyMain::MyMain() {
                             cin >> year;
                             Date Birthday(day, month, year);
                             Field F;
-                           Player Player1(name, id, Address, phone_number, Birthday,F);
-                           Player1.print_user();
+                           Player* player1=new Player(name, id, Address, phone_number, Birthday,F);
+                           player1->print_user();
+                           clear_the_buffer();
                             break;
 
                         }
@@ -88,7 +89,9 @@ MyMain::MyMain() {
                     }
 
                 } while (choice_login_or_signup > 2 || choice_login_or_signup < 1);
+
             }
+            if (choice==99){
             case field_manger: {
                 cout << "enter your name " << endl;
                 cin >> name;
@@ -106,7 +109,7 @@ MyMain::MyMain() {
                 cin >> year;
                 Date Birthday(day, month, year);
                 break;
-
+            }
             }
             default:
                 break;
