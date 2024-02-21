@@ -17,12 +17,18 @@ public:
     void print_Menu_player_field_manger();
 
 //Clears the buffer
-    void clear_the_buffer() {
+static void clear_the_buffer() {
         while (getchar() != '\n') {
         }
     }
 
+ static bool check_ID(long id) {
+     if (id < 10000000 || id > 1000000000) {
+         return false;
+     }
 
+     return true;
+ }
 };
 
 

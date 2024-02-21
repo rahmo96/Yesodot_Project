@@ -18,7 +18,7 @@ private:
     Field field;
 
 public:
-    Player(string name, string id, string address, long phone_num, Date birthdy,Field field);
+    Player(string name, long id, string address, long phone_num, Date birthdy,Field field);
     Player(const Player &player);
 
 };

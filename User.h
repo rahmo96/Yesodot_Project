@@ -13,19 +13,27 @@ using namespace std;
 class User {
 private:
     string name;
-    string id;
+    long id;
     string Address;
     long phone_number;
     Date Birthday;
     string passowrd;
+    char gander;
+    string mail;
+    string user_name;
 
 
 public:
-    User(string namme, string id, string address, long phone_num, Date birthdy);
+    User(string namme, long id, string address, long phone_num, Date birthdy);
 
     User(const User &user);
 
     void Set_Name(string name) { this->name = name; }
+    void Set_phone_number(long phne_num) { this->phone_number = phne_num; }
+    void Set_mail(string mail) { this->mail =mail; }
+    void Set_Birthday(Date Birthday) { this->Birthday =Birthday; }
+    void Set_gander(char gander) { this->gander =gander; }
+    void Set_user_name(string user_name) { this->user_name =user_name; }
 
    virtual void print_user() ;
 

@@ -10,8 +10,8 @@ User::User(const User &user) {
     this->id = user.id;
 }
 
-User::User(string namme, string id, string address, long phone_num, Date birthdy) {
-    this->name = namme;
+User::User(string name, long id, string address, long phone_num, Date birthdy) {
+    this->name = name;
     this->id = id;
     this->phone_number = phone_num;
     this->Birthday = birthdy;

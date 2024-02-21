@@ -29,7 +29,7 @@ void MyMain::print_Menu_player_field_manger() {
 
 MyMain::MyMain() {
     string name;
-    string id;
+    long id;
     string Address;
     long phone_number;
     Date Birthday;
@@ -64,6 +64,11 @@ MyMain::MyMain() {
                             cin >> name;
                             cout << "enter your id number " << endl;
                             cin >> id;
+                            while (!check_ID(id)){
+                                cout<<"ID num must be 9 digits thanks\n";
+                                cin>>id;
+
+                            }
                             cout << "enter your Address " << endl;
                             cin >> Address;
                             cout << "enter your phone_number " << endl;
@@ -97,7 +102,12 @@ MyMain::MyMain() {
                 cin >> name;
                 cout << "enter your id number " << endl;
                 cin >> id;
-                cout << "enter your Address " << endl;
+                while (!check_ID(id)){
+                    cout<<"ID num must be 9 digits thanks\n";
+                    cin>>id;
+                }
+
+                    cout << "enter your Address " << endl;
                 cin >> Address;
                 cout << "enter your phone_number " << endl;
                 cin >> phone_number;
