@@ -16,6 +16,7 @@ using namespace std;
 class Player: public virtual User{
 private:
     Field field;
+    Field *favorite_field;
 
 public:
     Player(string name, long id, string address, long phone_num, Date birthdy,Field field);

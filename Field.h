@@ -10,15 +10,18 @@ using namespace std;
 
 class Field {
 private:
+    string field_name;
     string field_type;
     string field_city;
 public:
     Field();
     Field(const Field &other);
-    Field(string field_type,string field_city);
+    Field(string field_name,string field_type,string field_city);
+    string get_field_name();
     string get_field_type();
     string get_field_city();
     void print();
+    Field &operator=(const Field &other);
 
 };
 

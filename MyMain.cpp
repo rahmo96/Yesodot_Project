@@ -4,8 +4,7 @@
 
 #include "MyMain.h"
 #include "Date.h"
-#include "Player.h"
-#include "User.h"
+#include "player.h"
 
 enum {
     Login = 1, sign_up
@@ -29,11 +28,11 @@ void MyMain::print_Menu_player_field_manger() {
 
 MyMain::MyMain() {
     string name;
-    long id;
+    string id;
     string Address;
     long phone_number;
     Date Birthday;
-    string password;
+    long password;
     int day;
     int month;
     int year;
@@ -64,11 +63,6 @@ MyMain::MyMain() {
                             cin >> name;
                             cout << "enter your id number " << endl;
                             cin >> id;
-                            while (!check_ID(id)){
-                                cout<<"ID num must be 9 digits thanks\n";
-                                cin>>id;
-
-                            }
                             cout << "enter your Address " << endl;
                             cin >> Address;
                             cout << "enter your phone_number " << endl;
@@ -80,34 +74,22 @@ MyMain::MyMain() {
                             cout << "enter your Birthday year " << endl;
                             cin >> year;
                             Date Birthday(day, month, year);
-                            Field F;
-                           Player* player1=new Player(name, id, Address, phone_number, Birthday,F);
-                           player1->print_user();
-                           clear_the_buffer();
+                            Player player1(name, id, Address, phone_number, Birthday);
+                            player1.print_player();
                             break;
 
                         }
-                        default:
-                            break;
-
 
                     }
 
-                } while (choice_login_or_signup > 2 || choice_login_or_signup < 1);
-
+                } while (choice_login_or_signup > 2);
             }
-            if (choice==99){
             case field_manger: {
                 cout << "enter your name " << endl;
                 cin >> name;
                 cout << "enter your id number " << endl;
                 cin >> id;
-                while (!check_ID(id)){
-                    cout<<"ID num must be 9 digits thanks\n";
-                    cin>>id;
-                }
-
-                    cout << "enter your Address " << endl;
+                cout << "enter your Address " << endl;
                 cin >> Address;
                 cout << "enter your phone_number " << endl;
                 cin >> phone_number;
@@ -118,14 +100,10 @@ MyMain::MyMain() {
                 cout << "enter your Birthday year " << endl;
                 cin >> year;
                 Date Birthday(day, month, year);
-                break;
-            }
-            }
-            default:
-                break;
-        }
-    } while (choice > 2 || choice < 1);
 
+            }
+        }
+    } while (choice > 2);
 }
 
 

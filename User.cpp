@@ -8,6 +8,9 @@ User::User(const User &user) {
 
     this->name = user.name;
     this->id = user.id;
+    this->phone_number = user.phone_number;
+    this->Birthday = user.Birthday;
+    this->Address = user.Address;
 }
 
 User::User(string name, long id, string address, long phone_num, Date birthdy) {
