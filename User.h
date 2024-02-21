@@ -18,7 +18,7 @@ private:
     long phone_number;
     Date Birthday;
     string passowrd;
-    char gander;
+    char gender;
     string mail;
     string user_name;
 
@@ -32,7 +32,7 @@ public:
     void Set_phone_number(long phne_num) { this->phone_number = phne_num; }
     void Set_mail(string mail) { this->mail =mail; }
     void Set_Birthday(Date Birthday) { this->Birthday =Birthday; }
-    void Set_gander(char gander) { this->gander =gander; }
+    void Set_gander(char gander) { this->gender =gander; }
     void Set_user_name(string user_name) { this->user_name =user_name; }
 
    virtual void print_user() ;

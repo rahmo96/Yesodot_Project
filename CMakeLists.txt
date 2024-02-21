@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.27)
 project(Yesodot_Project)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -6,12 +6,16 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(Yesodot_Project
-        Date.cpp
-        Date.h
-        Field.cpp
         Field.h
         main.cpp
-        MyMain.cpp
+        Player.cpp
+        Player.h
+        Date.h
         MyMain.h
-        player.cpp
-        player.h User.cpp)
+        Date.cpp
+        MyMain.cpp
+        Field.cpp
+        User.h
+        User.cpp
+        Field_manager.h
+        Field_manager.cpp)
