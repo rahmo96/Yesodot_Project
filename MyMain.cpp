@@ -5,6 +5,7 @@
 #include "MyMain.h"
 #include "Date.h"
 #include "player.h"
+#include "sqlite3.h"
 
 enum {
     Login = 1, sign_up
@@ -28,10 +29,11 @@ void MyMain::print_Menu_player_field_manger() {
 
 MyMain::MyMain() {
     string name;
-    string id;
+    long id;
     string Address;
     long phone_number;
     Date Birthday;
+    char gender;
     long password;
     int day;
     int month;
@@ -67,6 +69,8 @@ MyMain::MyMain() {
                             cin >> Address;
                             cout << "enter your phone_number " << endl;
                             cin >> phone_number;
+                            cout<<"enter your gender (m/f)"<<endl;
+                            cin>>gender;
                             cout << "enter your Birthday day " << endl;
                             cin >> day;
                             cout << "enter your Birthday month " << endl;
@@ -74,7 +78,7 @@ MyMain::MyMain() {
                             cout << "enter your Birthday year " << endl;
                             cin >> year;
                             Date Birthday(day, month, year);
-                            Player player1(name, id, Address, phone_number, Birthday);
+                            Player player1(name, id, Address, phone_number,gender, Birthday);
                             player1.print_player();
                             break;
 

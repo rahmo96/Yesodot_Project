@@ -22,6 +22,7 @@ public:
     string get_field_city();
     void print();
     Field &operator=(const Field &other);
+    bool operator != (const Field &other);
 
 };
 

@@ -10,10 +10,20 @@
 using namespace std;
 
 
-Player::Player(string name ,long id, string address, long phone_num, Date birthday,Field field): User(name,  id,  address,  phone_num,  birthday) {
+Player::Player(string name ,long id, string address, long phone_num,char gender, Date birthday): User(name,  id,  address,  phone_num, gender,birthday) {
 this->field=field;
 }
 
 Player::Player(const Player &player) : User(player){
     this->field = player.field;
+}
+
+void Player::print_player() {
+    print_user();
+    cout<<"-----"<<endl;
+    cout<<"Favorite fields: "<<endl;
+    cout<<"-----";
+    favorite_field->print();
+    cout<<"-----"<<endl;
+
 }

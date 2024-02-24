@@ -19,8 +19,9 @@ private:
     Field *favorite_field;
 
 public:
-    Player(string name, long id, string address, long phone_num, Date birthdy,Field field);
+    Player(string name, long id, string address, long phone_num,char gender, Date birthdy);
     Player(const Player &player);
+    void print_player();
 
 };
 

@@ -21,4 +21,7 @@ add_executable(Yesodot_Project
         player.cpp
         player.h
         Favorites.cpp
-        Favorites.h)
+        Favorites.h
+        Field_manager.h
+        Field_manager.cpp
+        User.cpp)

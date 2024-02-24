@@ -7,12 +7,18 @@
 
 #include "User.h"
 #include "Field.h"
+#include <vector>
 class Field_manager: public virtual User{
 private:
-    Field field;
+    vector<Field> field;
 public:
-    Field_manager(string namme, long id, string address, long phone_num, Date birthdy ,Field field1);
+    Field_manager(string namme, long id, string address, long phone_num,char gender,Date b_day,vector<Field> field1);
     Field_manager(const Field_manager &fieldManager);
+    void print();
+    Field_manager &operator+=(const Field_manager &fieldManager);
+    Field_manager &operator-=(const Field_manager &fieldManager);
+
+
 
 
 };

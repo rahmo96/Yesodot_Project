@@ -35,7 +35,11 @@ void Field::print() {
     cout<<"_______"<<endl;
     cout<<"The field sport type is: " << field_type << " " << endl;
     cout<<"Located in: " << field_city << endl;
+    cout<<"_______"<<endl;
 }
+
+
+
 Field &Field::operator=(const Field &other) {
     this->field_name=other.field_name;
     this->field_city=other.field_city;
@@ -47,6 +51,18 @@ Field &Field::operator=(const Field &other) {
 
 
 Field::Field() {
+
+}
+
+bool Field::operator!=(const Field &other) {
+    if (field_name!=other.field_name)
+        return true;
+    if (field_city!=other.field_city)
+        return true;
+    if (field_type!=other.field_type)
+        return true;
+
+    return false;
 
 }
 

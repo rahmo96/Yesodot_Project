@@ -9,6 +9,7 @@
 #include <string>
 #include "Date.h"
 
+
 using namespace std;
 class User {
 private:
@@ -16,22 +17,22 @@ private:
     long id;
     string Address;
     long phone_number;
-    Date Birthday;
-    string passowrd;
     char gender;
+    Date b_day;
     string mail;
+    //Username and password
     string user_name;
+    string passowrd;
 
 
 public:
-    User(string namme, long id, string address, long phone_num, Date birthdy);
+    User(string name, long id, string address, long phone_num,char gender,Date b_day);
 
     User(const User &user);
 
     void Set_Name(string name) { this->name = name; }
     void Set_phone_number(long phne_num) { this->phone_number = phne_num; }
     void Set_mail(string mail) { this->mail =mail; }
-    void Set_Birthday(Date Birthday) { this->Birthday =Birthday; }
     void Set_gander(char gander) { this->gender =gander; }
     void Set_user_name(string user_name) { this->user_name =user_name; }
 
