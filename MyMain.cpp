@@ -8,6 +8,8 @@
 #include "sqlite3.h"
 #include "Functions.h"
 #include <Field_manager.h>
+#include <string>
+using namespace std;
 
 
 
@@ -21,20 +23,30 @@ enum {
 
 void MyMain::print_Menu_login_registration() {
     cout << "Please choose one of the following option" << endl;
-    cout << "1.Login  " << endl;
-    cout << "2.sign up" << endl;
+    cout << "1.	Login  " << endl;
+    cout << "2. sign up" << endl;
 }
 
 void MyMain::print_Menu_player_field_manger() {
     cout << "Please choose one of the following option" << endl;
-    cout << "1.player  " << endl;
-    cout << "2.field manger" << endl;
+    cout << "1. player  " << endl;
+    cout << "2. field manger" << endl;
 }
 
 MyMain::MyMain() {
     sqlite3 *db;
+
+    string name;
     long id;
-    long password;
+    string Address;
+    long phone_number;
+    Date Birthday;
+    string password;
+    int day;
+    int month;
+    int year;
+    char gander='f';
+
     int choice = 0;
     do {
         print_Menu_player_field_manger();
@@ -44,6 +56,8 @@ MyMain::MyMain() {
             case pplayer: {
                 int choice_login_or_signup = 0;
                 do {
+
+
                     print_Menu_login_registration();
                     cin >> choice_login_or_signup;
                     switch (choice_login_or_signup) {
@@ -60,7 +74,7 @@ MyMain::MyMain() {
                                 break;
                             }
 
-                            string sql = "SELECT id FROM Users WHERE ID=" + to_string(id) + " AND Password=" + to_string(password);
+                            string sql = "SELECT id FROM Users WHERE ID=" + to_string(id) + " AND Password=" +(password);
                             char* errorMsg;
                             rc = sqlite3_exec(db, sql.c_str(), NULL, 0, &errorMsg);
                             if (rc != SQLITE_OK) {
@@ -74,23 +88,77 @@ MyMain::MyMain() {
                             break;
                         }
                         case sign_up: {
-                            Player player =build_user<Player>();
-                            insert_to_DB(player);
+                            cout << "enter your name " << endl;
+                            cin >> name;
+                            cout << "enter your id number " << endl;
+                            cin >> id;
+                            while (!check_ID(id)) {
+                                cout << "ID num must be 9 digits thanks\n";
+                                cin >> id;
 
+                            }
+                            cout << "enter your Address " << endl;
+                            cin >> Address;
+                            cout << "enter your phone_number " << endl;
+                            cin >> phone_number;
+                            cout << "enter your Birthday day " << endl;
+                            cin >> day;
+                            cout << "enter your Birthday month " << endl;
+                            cin >> month;
+                            cout << "enter your Birthday year " << endl;
+                            cin >> year;
+                            Date Birthday(day, month, year);
+                            Field *field = new Field[1];
+                            field[0]("sport.com", "foot ball", "ashdod");
+                            field[1]("sporttttttt.com", "foot ballllll", "ashdodddddd");
+                            field[0].print();
+                            field->set_size(1);
+
+                            Player *player1 = new Player(name, id, Address, phone_number, gander ,Birthday, field);
+                            player1->print();
                             break;
+
                         }
+                        default:
+                            break;
+
+
                     }
-                } while (choice_login_or_signup > 2);
-                break;
+
+                } while (choice_login_or_signup > 2 || choice_login_or_signup < 1);
+
             }
-            case field_manger: {
-                Field_manager field_manager =build_user<Field_manager>();
-                insert_to_DB(field_manager);
+                if (choice == 99) {
+                    case field_manger: {
+                        cout << "enter your name " << endl;
+                        cin >> name;
+                        cout << "enter your id number " << endl;
+                        cin >> id;
+                        while (!check_ID(id)) {
+                            cout << "ID num must be 9 digits thanks\n";
+                            cin >> id;
+                        }
+
+                        cout << "enter your Address " << endl;
+                        cin >> Address;
+                        cout << "enter your phone_number " << endl;
+                        cin >> phone_number;
+                        cout << "enter your Birthday day " << endl;
+                        cin >> day;
+                        cout << "enter your Birthday month " << endl;
+                        cin >> month;
+                        cout << "enter your Birthday year " << endl;
+                        cin >> year;
+                        Date Birthday(day, month, year);
+                        break;
+                    }
+                }
+            default:
                 break;
-            }
         }
-    } while (choice > 2);
+    } while (choice > 2 || choice < 1);
+
 }
 
 
-    
+

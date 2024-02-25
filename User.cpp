@@ -9,28 +9,46 @@ User::User(const User &user) {
     this->name = user.name;
     this->id = user.id;
     this->phone_number = user.phone_number;
+    this->Birthday = user.Birthday;
     this->Address = user.Address;
     this->gender = user.gender;
-    this->b_day = user.b_day;
+    this->Birthday = user.Birthday;
     //
     this->passowrd = user.passowrd;
 }
 
-User::User(string name, long id, string address, long phone_num, char gender, Date b_day) {
-    this->name = name;
-    this->id = id;
-    this->phone_number = phone_num;
-    this->Address = address;
-    this->gender = gender;
-    this->b_day = b_day;
-}
+
+
+
+
+
 
 void User::print() {
     cout << "the name is:" << this->name << endl;
     cout << "the id is:" << id << endl;
     cout << "the Address is:" << Address << endl;
     cout << "the phone num is:" << phone_number << endl;
+    cout << "the Birthday is:";
+    Birthday.print();
 
+
+}
+
+Field *User::copy_arr_fild() {
+    Field *new_fild =new Field[this->field->get_size()];
+    for (int i = 0; i < this->field->get_size(); ++i) {
+        new_fild[i]=field[i];
+    }
+
+    return new_fild;
+}
+
+User::User(string namme, long id, string address, long phone_num, char gander, Date birthdy) {
+    this->name = name;
+    this->id = id;
+    this->phone_number = phone_num;
+    this->Birthday = birthdy;
+    this->Address = address;
 
 
 }

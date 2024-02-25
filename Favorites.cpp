@@ -52,18 +52,18 @@ Favorites Favorites::operator+=(Field &f_field) {
     return *this;
 }
 
-Favorites Favorites::operator-=(Field &f_field) {
-    Field *new_field = new Field[size - 1];
-    int j = 0;
-    for (int i = 0; i < size; ++i) {
-        if (favorite_field[i] != f_field) {
-            new_field[j] = favorite_field[i];
-            j++;
-        }
-    }
-    delete[] favorite_field;
-    favorite_field = new_field;
-    size--;
-    return *this;
-}
-
+//Favorites Favorites::operator-=(Field &f_field) {
+//    Field *new_field = new Field[size - 1];
+//    int j = 0;
+//    for (int i = 0; i < size; ++i) {
+//        if (favorite_field[i] != f_field) {
+//            new_field[j] = favorite_field[i];
+//            j++;
+//        }
+//    }
+//    delete[] favorite_field;
+//    favorite_field = new_field;
+//    size--;
+//    return *this;
+//}
+//
