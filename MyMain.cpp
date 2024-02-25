@@ -84,6 +84,11 @@ MyMain::MyMain() {
 
                                 sqlite3_close(db);
                             }
+                            int player_coice;
+                            do {
+                                player_menu();
+                            } while (player_coice != 7);
+
 
 
 

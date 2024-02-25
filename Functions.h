@@ -88,6 +88,6 @@ int insert_to_DB(T &p){
 
 }
 
-
+void player_menu();
 
 #endif //FUNCTIONS_H

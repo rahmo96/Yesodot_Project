@@ -32,6 +32,15 @@ bool IsValidIsraeliID(const std::string& israeliID) {
     return sum % 10 == 0;
 }
 
-
+void player_menu(){
+    cout<<"Choose one of the following option:"<<endl;
+    cout<<"1. Favorites"<<endl;
+    cout<<"2. Book field"<<endl;
+    cout<<"3. Cancel field"<<endl;
+    cout<<"4. Rate field"<<endl;
+    cout<<"5. Profile"<<endl;
+    cout<<"6. Booked fields"<<endl;
+    cout<<"7. Exit"<<endl;
+}
 
 

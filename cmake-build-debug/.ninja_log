@@ -10,3 +10,14 @@
 24	879	7305710446092201	CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.obj	9eaab6b88add9bf6
 78	1242	7305820068474395	CMakeFiles/Yesodot_Project.dir/Functions.cpp.obj	3e4832d4e5f2b5f9
 6	11936	7305527953805727	CMakeFiles/Yesodot_Project.dir/sqlite3.c.obj	501328780d9a2e1f
+20	1363	7305831463233450	CMakeFiles/Yesodot_Project.dir/Field.cpp.obj	f3c1d83be0fbbd89
+36	1370	7305831463253372	CMakeFiles/Yesodot_Project.dir/Favorites.cpp.obj	61008300666bb976
+92	1430	7305831463909465	CMakeFiles/Yesodot_Project.dir/Functions.cpp.obj	3e4832d4e5f2b5f9
+8	1448	7305831464091649	CMakeFiles/Yesodot_Project.dir/Date.cpp.obj	5542dbdcd517a6fa
+55	1449	7305831464102704	CMakeFiles/Yesodot_Project.dir/main.cpp.obj	64b8209b853b228d
+76	1468	7305831464296305	CMakeFiles/Yesodot_Project.dir/User.cpp.obj	79ee35feb1de7aee
+113	1630	7305831465882003	CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.obj	9eaab6b88add9bf6
+48	1657	7305831466138112	CMakeFiles/Yesodot_Project.dir/MyMain.cpp.obj	719aa3a00bc2b70b
+63	1770	7305831467295358	CMakeFiles/Yesodot_Project.dir/Player.cpp.obj	4cac5f13ad60d27f
+134	12281	7305831572040498	CMakeFiles/Yesodot_Project.dir/sqlite3.c.obj	501328780d9a2e1f
+12282	12669	7305831576227909	Yesodot_Project.exe	70a5bd009681b4b7
