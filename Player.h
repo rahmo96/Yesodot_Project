@@ -9,16 +9,20 @@
 #include "Date.h"
 #include "User.h"
 #include "Field.h"
+#include "Favorites.h"
 
 
 using namespace std;
 
 class Player: public virtual User{
 private:
+    Field *field;
+    Favorites f;
 
 public:
-    Player(string name, long id, string address, long phone_num, Date birthdy,Field* field);
+    Player(string name ,long id, string address, long phone_num,char gender, Date birthday,Field *field);
     Player(const Player &player);
+    void print() override;
 
 };
 

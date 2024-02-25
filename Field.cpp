@@ -35,6 +35,7 @@ void Field::print() {
     cout<<"_______"<<endl;
     cout<<"The field sport type is: " << field_type << " " << endl;
     cout<<"Located in: " << field_city << endl;
+    cout<<"_______"<<endl;
 }
 Field &Field::operator=(const Field &other) {
     this->field_name=other.field_name;

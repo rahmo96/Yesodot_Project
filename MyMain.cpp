@@ -5,6 +5,13 @@
 #include "MyMain.h"
 #include "Date.h"
 #include "player.h"
+#include "sqlite3.h"
+#include "Functions.h"
+#include <Field_manager.h>
+#include <string>
+using namespace std;
+
+
 
 enum {
     Login = 1, sign_up
@@ -27,6 +34,8 @@ void MyMain::print_Menu_player_field_manger() {
 }
 
 MyMain::MyMain() {
+    sqlite3 *db;
+
     string name;
     long id;
     string Address;
@@ -36,6 +45,7 @@ MyMain::MyMain() {
     int day;
     int month;
     int year;
+    char gander='f';
 
     int choice = 0;
     do {
@@ -52,10 +62,29 @@ MyMain::MyMain() {
                     cin >> choice_login_or_signup;
                     switch (choice_login_or_signup) {
                         case Login: {
-                            cout << "enter your id number " << endl;
+                            cout << "Enter your ID number: ";
                             cin >> id;
-                            cout << "enter your password " << endl;
+                            cout << "Enter your password: ";
                             cin >> password;
+
+                            int rc = sqlite3_open("Test player data DB.db", &db);
+                            if (rc) {
+                                cerr << "Can't open database: " << sqlite3_errmsg(db) << endl;
+                                sqlite3_close(db);
+                                break;
+                            }
+
+                            string sql = "SELECT id FROM Users WHERE ID=" + to_string(id) + " AND Password=" +(password);
+                            char* errorMsg;
+                            rc = sqlite3_exec(db, sql.c_str(), NULL, 0, &errorMsg);
+                            if (rc != SQLITE_OK) {
+                                cerr << "SQL error: " << errorMsg << endl;
+                                sqlite3_free(errorMsg);
+                            } else {
+                                cout << "Login successful!" << endl;
+                            }
+
+                            sqlite3_close(db);
                             break;
                         }
                         case sign_up: {
@@ -85,9 +114,8 @@ MyMain::MyMain() {
                             field[0].print();
                             field->set_size(1);
 
-                            Player *player1 = new Player(name, id, Address, phone_number, Birthday, field);
-                            player1->print_user();
-                            clear_the_buffer();
+                            Player *player1 = new Player(name, id, Address, phone_number, gander ,Birthday, field);
+                            player1->print();
                             break;
 
                         }

@@ -49,29 +49,8 @@ cmake_ninja_workdir = /Users/haikarmi/CLionProjects/Yesodot_Project/cmake-build-
 
 build cmake_object_order_depends_target_Yesodot_Project: phony || CMakeFiles/Yesodot_Project.dir
 
-build CMakeFiles/Yesodot_Project.dir/main.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/main.cpp || cmake_object_order_depends_target_Yesodot_Project
-  DEP_FILE = CMakeFiles/Yesodot_Project.dir/main.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
-  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
-
-build CMakeFiles/Yesodot_Project.dir/Player.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/Player.cpp || cmake_object_order_depends_target_Yesodot_Project
-  DEP_FILE = CMakeFiles/Yesodot_Project.dir/Player.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
-  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
-
 build CMakeFiles/Yesodot_Project.dir/Date.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/Date.cpp || cmake_object_order_depends_target_Yesodot_Project
   DEP_FILE = CMakeFiles/Yesodot_Project.dir/Date.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
-  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
-  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
-
-build CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.cpp || cmake_object_order_depends_target_Yesodot_Project
-  DEP_FILE = CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o.d
   FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
   OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
@@ -84,8 +63,29 @@ build CMakeFiles/Yesodot_Project.dir/Field.cpp.o: CXX_COMPILER__Yesodot_Project_
   OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
   OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
 
-build CMakeFiles/Yesodot_Project.dir/User.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/User.cpp || cmake_object_order_depends_target_Yesodot_Project
-  DEP_FILE = CMakeFiles/Yesodot_Project.dir/User.cpp.o.d
+build CMakeFiles/Yesodot_Project.dir/main.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/main.cpp || cmake_object_order_depends_target_Yesodot_Project
+  DEP_FILE = CMakeFiles/Yesodot_Project.dir/main.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
+  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
+
+build CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.cpp || cmake_object_order_depends_target_Yesodot_Project
+  DEP_FILE = CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
+  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
+
+build CMakeFiles/Yesodot_Project.dir/player.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/player.cpp || cmake_object_order_depends_target_Yesodot_Project
+  DEP_FILE = CMakeFiles/Yesodot_Project.dir/player.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
+  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
+
+build CMakeFiles/Yesodot_Project.dir/Favorites.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/Favorites.cpp || cmake_object_order_depends_target_Yesodot_Project
+  DEP_FILE = CMakeFiles/Yesodot_Project.dir/Favorites.cpp.o.d
   FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
   OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
@@ -98,6 +98,27 @@ build CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.o: CXX_COMPILER__Yesodot_
   OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
   OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
 
+build CMakeFiles/Yesodot_Project.dir/User.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/User.cpp || cmake_object_order_depends_target_Yesodot_Project
+  DEP_FILE = CMakeFiles/Yesodot_Project.dir/User.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
+  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
+
+build CMakeFiles/Yesodot_Project.dir/Functions.cpp.o: CXX_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/Functions.cpp || cmake_object_order_depends_target_Yesodot_Project
+  DEP_FILE = CMakeFiles/Yesodot_Project.dir/Functions.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
+  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
+
+build CMakeFiles/Yesodot_Project.dir/sqlite3.c.o: C_COMPILER__Yesodot_Project_unscanned_Debug /Users/haikarmi/CLionProjects/Yesodot_Project/sqlite3.c || cmake_object_order_depends_target_Yesodot_Project
+  DEP_FILE = CMakeFiles/Yesodot_Project.dir/sqlite3.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/haikarmi/CLionProjects/Yesodot_Project/.
+  OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
+  OBJECT_FILE_DIR = CMakeFiles/Yesodot_Project.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Yesodot_Project
@@ -106,7 +127,7 @@ build CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.o: CXX_COMPILER__Yesodot_
 #############################################
 # Link the executable Yesodot_Project
 
-build Yesodot_Project: CXX_EXECUTABLE_LINKER__Yesodot_Project_Debug CMakeFiles/Yesodot_Project.dir/main.cpp.o CMakeFiles/Yesodot_Project.dir/Player.cpp.o CMakeFiles/Yesodot_Project.dir/Date.cpp.o CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o CMakeFiles/Yesodot_Project.dir/Field.cpp.o CMakeFiles/Yesodot_Project.dir/User.cpp.o CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.o
+build Yesodot_Project: CXX_EXECUTABLE_LINKER__Yesodot_Project_Debug CMakeFiles/Yesodot_Project.dir/Date.cpp.o CMakeFiles/Yesodot_Project.dir/Field.cpp.o CMakeFiles/Yesodot_Project.dir/main.cpp.o CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o CMakeFiles/Yesodot_Project.dir/player.cpp.o CMakeFiles/Yesodot_Project.dir/Favorites.cpp.o CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.o CMakeFiles/Yesodot_Project.dir/User.cpp.o CMakeFiles/Yesodot_Project.dir/Functions.cpp.o CMakeFiles/Yesodot_Project.dir/sqlite3.c.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk
   OBJECT_DIR = CMakeFiles/Yesodot_Project.dir
   POST_BUILD = :
