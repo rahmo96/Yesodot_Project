@@ -37,6 +37,9 @@ void Field::print() {
     cout<<"Located in: " << field_city << endl;
     cout<<"_______"<<endl;
 }
+
+
+
 Field &Field::operator=(const Field &other) {
     this->field_name=other.field_name;
     this->field_city=other.field_city;
@@ -48,13 +51,23 @@ Field &Field::operator=(const Field &other) {
 
 
 Field::Field() {
+    this->field_name="";
+    this->field_type="";
+    this->field_city="";
 
 }
 
-void Field::operator()(const string field_name, const string field_type, const string field_city) {
-    this->field_name=field_name;
-    this->field_type=field_type;
-    this->field_city=field_city;
+bool Field::operator!=(const Field &other) {
+    if (field_name!=other.field_name)
+        return true;
+    if (field_city!=other.field_city)
+        return true;
+    if (field_type!=other.field_type)
+        return true;
 
+    return false;
 
 }
+
+
+

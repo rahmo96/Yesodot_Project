@@ -30,5 +30,4 @@ add_executable(Yesodot_Project
         User.h
         sqlite3.c
         sqlite3.h
-        Favorites.cpp
 )
