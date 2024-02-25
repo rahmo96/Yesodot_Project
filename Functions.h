@@ -46,7 +46,7 @@ using namespace std;
         cout<<"enter your password"<<endl;
         cin>>password;
         Date Birthday(day, month, year);
-        T player1(name, id, Address, phone_number, gender, Birthday);
+        T player1(name, id, Address, phone_number, gender, Birthday, password);
         player1.print();
         return player1;
     }

@@ -16,13 +16,14 @@ User::User(const User &user) {
     this->passowrd = user.passowrd;
 }
 
-User::User(string name, long id, string address, long phone_num, char gender, Date b_day) {
+User::User(string name, long id, string address, long phone_num, char gender, Date b_day, string password) {
     this->name = name;
     this->id = id;
     this->phone_number = phone_num;
     this->Address = address;
     this->gender = gender;
     this->b_day = b_day;
+    this->passowrd = password;
 }
 
 void User::print() {

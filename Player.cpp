@@ -10,10 +10,6 @@
 using namespace std;
 
 
-Player::Player(string name ,long id, string address, long phone_num,char gender, Date birthday): User(name,  id,  address,  phone_num, gender,birthday) {
-this->field=field;
-}
-
 Player::Player(const Player &player) : User(player){
     this->field = player.field;
 }

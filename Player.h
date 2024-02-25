@@ -21,7 +21,7 @@ private:
     Favorites f;
 
 public:
-    Player(string name, long id, string address, long phone_num,char gender, Date birthdy);
+    Player(string name, long id, string address, long phone_num,char gender, Date birthdy,string passowrd): User(name, id, address, phone_num,gender,birthdy,passowrd){};
     Player(const Player &player);
     void print() override;
 
