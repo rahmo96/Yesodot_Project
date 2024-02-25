@@ -1,0 +1,10 @@
+# ninja log v5
+3	347	1708816359415863925	CMakeFiles/Yesodot_Project.dir/Field.cpp.o	766833fa53bdf936
+0	44	1708863508365634149	build.ninja	9c0005a2cfd73d22
+4	587	1708848482323617898	CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o	9c0bb1fb0cf60448
+3	222	1707840141551342707	CMakeFiles/Yesodot_Project.dir/Date.cpp.o	ccde29dea1290d6b
+4	585	1708848482321449610	CMakeFiles/Yesodot_Project.dir/User.cpp.o	fd90f6b31d42bba0
+4	525	1708677886929753062	CMakeFiles/Yesodot_Project.dir/main.cpp.o	1decaaf0dbde28aa
+4	583	1708848482316597869	CMakeFiles/Yesodot_Project.dir/player.cpp.o	188d6a722ae8fd3d
+587	742	1708848482476366978	Yesodot_Project	a38afbf51dc22f9f
+4	583	1708848482316598328	CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.o	5ca7a3d06a1dbff7
