@@ -11,6 +11,14 @@ Field_manager::Field_manager(string name, long id, string address, long phone_nu
 
 void Field_manager::print() {
         for ( auto &field : field) {
+            User::print();
             field.print();
         }
         }
+
+Field_manager &Field_manager::operator+=(const Field_manager &fieldManager) {
+
+    field.insert(field.end(), fieldManager.field.begin(), fieldManager.field.end());
+    return *this;
+}
+

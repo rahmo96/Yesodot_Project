@@ -29,6 +29,10 @@ Field *Favorites::get_favorite_field() {
 }
 
 void Favorites::print() {
+    if (size == 0) {
+        cout << "No favorite fields yet " << endl;
+        return;
+    }
     for (int i = 0; i < size; ++i) {
         favorite_field[i].print();
         cout << endl;

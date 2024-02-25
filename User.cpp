@@ -13,7 +13,6 @@ User::User(const User &user) {
     this->gender = user.gender;
     this->b_day = user.b_day;
     //
-    this->user_name = user.user_name;
     this->passowrd = user.passowrd;
 }
 
@@ -26,7 +25,7 @@ User::User(string name, long id, string address, long phone_num, char gender, Da
     this->b_day = b_day;
 }
 
-void User::print_user() {
+void User::print() {
     cout << "the name is:" << this->name << endl;
     cout << "the id is:" << id << endl;
     cout << "the Address is:" << Address << endl;

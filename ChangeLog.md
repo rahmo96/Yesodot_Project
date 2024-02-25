@@ -1,3 +1,8 @@
+**25.02.24**
+- Fixed Favorites class
+- Add Functions
+
+
 **21.02.24**
 
 

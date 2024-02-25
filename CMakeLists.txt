@@ -24,4 +24,10 @@ add_executable(Yesodot_Project
         Favorites.h
         Field_manager.h
         Field_manager.cpp
-        User.cpp)
+        User.cpp
+        Functions.cpp
+        Functions.h
+        User.h
+        sqlite3.c
+        sqlite3.h
+)

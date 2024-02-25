@@ -51,6 +51,9 @@ Field &Field::operator=(const Field &other) {
 
 
 Field::Field() {
+    this->field_name="";
+    this->field_type="";
+    this->field_city="";
 
 }
 
@@ -65,5 +68,6 @@ bool Field::operator!=(const Field &other) {
     return false;
 
 }
+
 
 

@@ -18,12 +18,12 @@ Player::Player(const Player &player) : User(player){
     this->field = player.field;
 }
 
-void Player::print_player() {
-    print_user();
+void Player::print() {
+    User::print();
     cout<<"-----"<<endl;
     cout<<"Favorite fields: "<<endl;
-    cout<<"-----";
-    favorite_field->print();
+    cout<<"-----"<<endl;
+    f.print();
     cout<<"-----"<<endl;
 
 }
