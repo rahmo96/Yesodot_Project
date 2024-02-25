@@ -112,7 +112,7 @@ int Date::days_count() {
         return 31;
     else if (month == 4 || month == 6 || month == 9 || month == 11)
         return 30;
-    else if (month == 2 && !is_meubar())
+    else if (month == 2 && !is_meuberet())
         return 28;
     else
         return 29;
@@ -120,7 +120,7 @@ int Date::days_count() {
 
 
 
-bool Date::is_meubar() {
+bool Date::is_meuberet() {
     if (year % 4 != 0)
         return false;
 

@@ -17,13 +17,13 @@ public:
     void today();
     Date();
     Date(int day,int month,int year);
-    bool setDay(int day); //setDay
-    bool setMonth(int month);
+    bool setDay(int day);
+    bool setMonth(int month );
     bool setYear(int year);
     void Print_Date();
     void Print_month();
     int days_count();
-    bool is_meubar();
+    bool is_meuberet();
     bool check_valid_date();
     void print();
 
