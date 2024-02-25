@@ -15,10 +15,9 @@ using namespace std;
 
 class Player: public virtual User{
 private:
-    Field field;
 
 public:
-    Player(string name, long id, string address, long phone_num, Date birthdy,Field field);
+    Player(string name, long id, string address, long phone_num, Date birthdy,Field* field);
     Player(const Player &player);
 
 };

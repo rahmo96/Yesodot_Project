@@ -8,14 +8,22 @@ User::User(const User &user) {
 
     this->name = user.name;
     this->id = user.id;
+    this->phone_number = user.phone_number;
+    this->Birthday = user.Birthday;
+    this->Address = user.Address;
 }
 
-User::User(string name, long id, string address, long phone_num, Date birthdy) {
+User::User(string name, long id, string address, long phone_num, Date birthdy,Field *fild) {
     this->name = name;
     this->id = id;
     this->phone_number = phone_num;
     this->Birthday = birthdy;
     this->Address = address;
+    this->field=fild;
+
+
+
+
 }
 
 void User::print_user() {
@@ -28,3 +36,13 @@ void User::print_user() {
 
 
 }
+
+Field *User::copy_arr_fild() {
+    Field *new_fild =new Field[this->field->get_size()];
+    for (int i = 0; i < this->field->get_size(); ++i) {
+        new_fild[i]=field[i];
+    }
+
+    return new_fild;
+}
+

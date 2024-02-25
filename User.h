@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include "Date.h"
+#include "Field.h"
 
 using namespace std;
 class User {
@@ -21,10 +22,12 @@ private:
     char gender;
     string mail;
     string user_name;
+    Field *field;
+
 
 
 public:
-    User(string namme, long id, string address, long phone_num, Date birthdy);
+    User(string namme, long id, string address, long phone_num, Date birthdy,Field *fild);
 
     User(const User &user);
 
@@ -34,6 +37,7 @@ public:
     void Set_Birthday(Date Birthday) { this->Birthday =Birthday; }
     void Set_gander(char gander) { this->gender =gander; }
     void Set_user_name(string user_name) { this->user_name =user_name; }
+    Field* copy_arr_fild();
 
    virtual void print_user() ;
 

@@ -4,8 +4,7 @@
 
 #include "MyMain.h"
 #include "Date.h"
-#include "Player.h"
-#include "User.h"
+#include "player.h"
 
 enum {
     Login = 1, sign_up
@@ -64,9 +63,9 @@ MyMain::MyMain() {
                             cin >> name;
                             cout << "enter your id number " << endl;
                             cin >> id;
-                            while (!check_ID(id)){
-                                cout<<"ID num must be 9 digits thanks\n";
-                                cin>>id;
+                            while (!check_ID(id)) {
+                                cout << "ID num must be 9 digits thanks\n";
+                                cin >> id;
 
                             }
                             cout << "enter your Address " << endl;
@@ -80,10 +79,15 @@ MyMain::MyMain() {
                             cout << "enter your Birthday year " << endl;
                             cin >> year;
                             Date Birthday(day, month, year);
-                            Field F;
-                           Player* player1=new Player(name, id, Address, phone_number, Birthday,F);
-                           player1->print_user();
-                           clear_the_buffer();
+                            Field *field = new Field[1];
+                            field[0]("sport.com", "foot ball", "ashdod");
+                            field[1]("sporttttttt.com", "foot ballllll", "ashdodddddd");
+                            field[0].print();
+                            field->set_size(1);
+
+                            Player *player1 = new Player(name, id, Address, phone_number, Birthday, field);
+                            player1->print_user();
+                            clear_the_buffer();
                             break;
 
                         }
@@ -96,31 +100,31 @@ MyMain::MyMain() {
                 } while (choice_login_or_signup > 2 || choice_login_or_signup < 1);
 
             }
-            if (choice==99){
-            case field_manger: {
-                cout << "enter your name " << endl;
-                cin >> name;
-                cout << "enter your id number " << endl;
-                cin >> id;
-                while (!check_ID(id)){
-                    cout<<"ID num must be 9 digits thanks\n";
-                    cin>>id;
-                }
+                if (choice == 99) {
+                    case field_manger: {
+                        cout << "enter your name " << endl;
+                        cin >> name;
+                        cout << "enter your id number " << endl;
+                        cin >> id;
+                        while (!check_ID(id)) {
+                            cout << "ID num must be 9 digits thanks\n";
+                            cin >> id;
+                        }
 
-                    cout << "enter your Address " << endl;
-                cin >> Address;
-                cout << "enter your phone_number " << endl;
-                cin >> phone_number;
-                cout << "enter your Birthday day " << endl;
-                cin >> day;
-                cout << "enter your Birthday month " << endl;
-                cin >> month;
-                cout << "enter your Birthday year " << endl;
-                cin >> year;
-                Date Birthday(day, month, year);
-                break;
-            }
-            }
+                        cout << "enter your Address " << endl;
+                        cin >> Address;
+                        cout << "enter your phone_number " << endl;
+                        cin >> phone_number;
+                        cout << "enter your Birthday day " << endl;
+                        cin >> day;
+                        cout << "enter your Birthday month " << endl;
+                        cin >> month;
+                        cout << "enter your Birthday year " << endl;
+                        cin >> year;
+                        Date Birthday(day, month, year);
+                        break;
+                    }
+                }
             default:
                 break;
         }

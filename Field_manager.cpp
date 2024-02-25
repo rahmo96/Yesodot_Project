@@ -4,10 +4,8 @@
 
 #include "Field_manager.h"
 
-Field_manager::Field_manager(string name, long id, string address, long phone_num, Date birthdy,Field field1)
-: User(name, id,  address,  phone_num, birthdy) {
-
-
+Field_manager::Field_manager(string name, long id, string address, long phone_num, Date birthdy, Field *field1)
+        : User(name, id, address, phone_num, birthdy, field1) {
 
 
 }
