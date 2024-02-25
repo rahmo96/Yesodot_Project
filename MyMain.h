@@ -16,6 +16,7 @@ public:
     MyMain();    // Class constructor
     void print_Menu_player_field_manger();
 
+
 //Clears the buffer
 static void clear_the_buffer() {
         while (getchar() != '\n') {
