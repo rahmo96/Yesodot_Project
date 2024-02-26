@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Yesodot_Project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Yesodot_Project">
+				<Option output="C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Yesodot_Project.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/raha1/CLionProjects/Yesodot_Project/."/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 Yesodot_Project"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Yesodot_Project/fast">
+				<Option output="C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Yesodot_Project.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="C:/Users/raha1/CLionProjects/Yesodot_Project/."/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
+					<Add directory="C:/Program Files/JetBrains/CLion 2023.3.4/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 Yesodot_Project/fast"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.4/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/raha1/CLionProjects/Yesodot_Project/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/.idea/.gitignore">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/.idea/Yesodot_Project.iml">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/.idea/modules.xml">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/.idea/vcs.xml">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/.idea/workspace.xml">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Date.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Date.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Favorites.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Favorites.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Field.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Field.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Field_manager.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Field_manager.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Functions.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Functions.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/MyMain.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/MyMain.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Player.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/Player.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/User.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/User.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/main.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/sqlite3.c">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/sqlite3.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="C:/Users/raha1/CLionProjects/Yesodot_Project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

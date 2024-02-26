@@ -4,7 +4,9 @@
 
 #ifndef YESODOT_PROJECT_DATE_H
 #define YESODOT_PROJECT_DATE_H
+#include <string>
 
+using namespace std;
 
 class Date {
 
@@ -20,7 +22,7 @@ public:
     bool setDay(int day);
     bool setMonth(int month );
     bool setYear(int year);
-    void Print_Date();
+    string toSqlDate();
     void Print_month();
     int days_count();
     bool is_meuberet();

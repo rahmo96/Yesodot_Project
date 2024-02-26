@@ -66,9 +66,12 @@ MyMain::MyMain() {
                                     break;
                                 }
 
-                                string sql = "SELECT id FROM Users WHERE ID='" + to_string(id) + "' AND Password='" + password + "'";
+                                string sql = "SELECT id FROM Users WHERE ID='" + to_string(id) + "' AND Password='" + password + "';";
+                                cout << "SQL Query: " << sql << endl;
+                                long id_found = 0;
+
                                 char* errorMsg;
-                                rc = sqlite3_exec(db, sql.c_str(), NULL, 0, &errorMsg);
+                                rc = sqlite3_exec(db, sql.c_str(), NULL,&id_found, &errorMsg);
                                 if (rc != SQLITE_OK) {
                                     cerr << "SQL error: " << errorMsg << endl;
                                     sqlite3_free(errorMsg);
@@ -84,6 +87,7 @@ MyMain::MyMain() {
 
                                 sqlite3_close(db);
                             }
+
                             int player_coice;
                             do {
                                 player_menu();

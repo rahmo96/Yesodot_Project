@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Test player data DB.db" uuid="e067f591-d9d2-42a6-9881-6c45a831315f">
-      <driver-ref>sqlite.xerial</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/cmake-build-debug/Test player data DB.db</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="Test player data DB.db [2]" uuid="fd474ebd-b2a3-41ef-b927-799ed6f05a0f">
+    <data-source source="LOCAL" name="Test player data DB.db" uuid="fd474ebd-b2a3-41ef-b927-799ed6f05a0f">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

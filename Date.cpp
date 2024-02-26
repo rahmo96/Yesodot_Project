@@ -8,6 +8,7 @@ using namespace std;
 #include "Date.h"
 #include <ctime>
 #include <iostream>
+#include <sstream>
 
 
 
@@ -60,10 +61,12 @@ bool Date::setYear(int year) { //בדיקת שנה
     return true;
 }
 
-
-
-void Date::Print_Date(){
-    cout << day << "/" << month << "/" << year <<endl;
+string Date:: toSqlDate() {
+    std::ostringstream ss;
+    ss << year << "-"
+       << (month < 10 ? "0" : "") << month << "-"
+       << (day < 10 ? "0" : "") << day;
+    return ss.str();
 }
 
 void Date::Print_month() {
@@ -141,13 +144,8 @@ bool Date::check_valid_date() {
 
 
 
-
-
-
-
 void Date::print() {
     cout<<day<<"/"<<month<<"/" <<year<< endl;
-
 }
 
 
