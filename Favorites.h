@@ -18,7 +18,7 @@ public:
     //void set_favorite_field(Field *favorite_field);
     //void set_size(int size);
     Field *get_favorite_field();
-    int get_size();
+    int get_size() const {return size;};
     void print();
     Favorites operator+=(Field& f_field);
     Favorites operator-=(Field& f_field);

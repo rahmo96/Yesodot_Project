@@ -8,9 +8,13 @@
 #include "User.h"
 #include "Field.h"
 #include <vector>
+#include "Player.h"
 class Field_manager: public User{
 private:
+    friend class Functions;
+    static int counter;
     vector<Field> field;
+    long occupied[5][12];
 public:
     Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd): User(name, id, address, phone_num,gender,b_day,passowrd){}
     Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd,vector<Field> field1);
@@ -18,7 +22,13 @@ public:
     void print() override;
     Field_manager &operator+=(const Field_manager &fieldManager);
 
-
+    //booking helpers
+    bool is_hour_occupied(const std::string& city, int day, int hour) const;
+    bool is_day_occupied(const std::string& city, int day) const;
+    void book_field_in_city_at_day_hour(Player &p, const std::string& city, int day, int hour);
+    Field find_fields_with_id(long id);
+    bool is_field_booked_by(long id);
+    bool cancel_field_booking(long id);
 
 
 

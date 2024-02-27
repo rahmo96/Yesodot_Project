@@ -1,4 +1,10 @@
 **27.02.24**
+- created menues:
+  1. book field
+  2. cancel field
+  3. print favorites
+  4. profile- not finished.
+**27.02.24**
 - seperated the database to 2 tables: 1. Players  
   Field mangagers.
 - Fixed login and registration problem.

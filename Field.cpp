@@ -18,17 +18,7 @@ Field::Field(const Field &other) {
     this -> field_city = other.field_city;
 }
 
-string Field::get_field_name() {
-    return field_name;
-}
 
-string Field::get_field_city() {
-    return field_city;
-}
-
-string Field::get_field_type() {
-    return field_type;
-}
 
 void Field::print() {
     cout<<field_name<<endl;

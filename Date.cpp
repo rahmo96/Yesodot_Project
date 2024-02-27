@@ -40,7 +40,7 @@ Date::Date(int day,int month,int year)
     }
 }
 
-void Date::setDateFromString(const std::string& date) {
+bool Date::setDateFromString(const std::string& date) {
     std::stringstream ss(date);
     char delim;
 
@@ -48,8 +48,9 @@ void Date::setDateFromString(const std::string& date) {
 
     if (!check_valid_date()){
         std::cout << "invalid date" << std::endl;
-        return;
+        return false;
     }
+    return true;
 }
 
 

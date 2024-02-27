@@ -16,6 +16,7 @@ using namespace std;
 
 class Player : public User {
 private:
+    friend class Functions;
     vector<Field> field;
     Favorites f;
 

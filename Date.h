@@ -20,7 +20,7 @@ public:
     void today();
     Date();
     Date(int day,int month,int year);
-    void setDateFromString(const std::string& date);
+    bool setDateFromString(const std::string& date);
 
     //setters
     bool setDay(int day);
@@ -28,9 +28,9 @@ public:
     bool setYear(int year);
 
     //getters
-    int get_Day(){return day;}
-    int get_Month(){return month;}
-    int get_Year(){return year;}
+    int get_Day() const {return day;}
+    int get_Month() const {return month;}
+    int get_Year() const {return year;}
 
     string toSqlDate();
     void Print_month();
