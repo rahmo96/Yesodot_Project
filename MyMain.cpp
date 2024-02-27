@@ -69,7 +69,7 @@ MyMain::MyMain() {
                                     break;
                                 }
 
-                                if (checkLogin_P(db, to_string(id), password))  // Check if the login is successful
+                                if (Functions::checkLogin_P(db, to_string(id), password))  // Check if the login is successful
                                     cout<<"Login successful!"<<endl;
                                 else
                                     cout<<"Login failed!"<<endl;
@@ -80,14 +80,14 @@ MyMain::MyMain() {
 
                             int player_coice;
                             do {
-                                player_menu();
+                                Functions::player_menu_1();
                             } while (player_coice != 7);
 
                             break;
                         }
                         case sign_up: {
-                            Player player =build_user<Player>();
-                            P_insert_to_DB(player);
+                            Player player =Functions::build_user<Player>();
+                            Functions::P_insert_to_DB(player);
                             break;
                         }
                     }
@@ -95,8 +95,8 @@ MyMain::MyMain() {
                 break;
             }
             case field_manger: {
-                Field_manager field_manager =build_user<Field_manager>();
-                FM_insert_to_DB(field_manager);
+                Field_manager field_manager =Functions::build_user<Field_manager>();
+                Functions::FM_insert_to_DB(field_manager);
                 break;
             }
         }

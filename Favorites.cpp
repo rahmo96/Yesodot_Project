@@ -20,9 +20,6 @@ Favorites::Favorites(const Favorites &other) {
 
 }
 
-int Favorites::get_size() {
-    return size;
-}
 
 Field *Favorites::get_favorite_field() {
     return favorite_field;

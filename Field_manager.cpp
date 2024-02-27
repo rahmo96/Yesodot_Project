@@ -78,11 +78,10 @@ bool Field_manager::cancel_field_booking( long id) {
     return bookingCanceled;
 }
 
-Field Field_manager::find_fields_with_id(long id) {
-    for (const Field& field : field) {
-        if (field) { // Assuming is_booked() returns true if the field is booked
+void Field_manager::find_fields_with_id(long id) {
+    for (Field& field : field) {
+        if (this->is_field_booked_by(id)) { // Assuming is_booked_by() checks if the field is booked by the given ID
             field.print();
         }
     }
-
 }

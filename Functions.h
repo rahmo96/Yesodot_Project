@@ -19,10 +19,10 @@ class Functions{
 public:
     static bool IsValidIsraeliID(const string& israeliID);
     static int GetDouble(long i);
-    bool checkLogin_P(sqlite3* db, const string& id, const string& password);
+    static bool checkLogin_P(sqlite3* db, const string& id, const string& password);
     bool checkLogin_FM(sqlite3* db, const string& id, const string& password);
     template<typename T>
-    T build_user() {
+    static T build_user() {
         string name;
         long id;
         string Address;
@@ -69,12 +69,12 @@ public:
         return player1;
     }
 
-    int P_insert_to_DB(Player &p);
+    static int P_insert_to_DB(Player &p);
 
-    int FM_insert_to_DB(Field_manager &p);
+    static int FM_insert_to_DB(Field_manager &p);
 
 //Menus
-    void player_menu_1();
+    static void player_menu_1();
     void player_menu_favorites(Player &p);
     void player_menu_booking(Player &p,Field_manager *f);
     void player_menu_cancel(Player &p,Field_manager *fm);

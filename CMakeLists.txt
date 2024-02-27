@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(Yesodot_Project
-        User.h
         Functions.h
+        User.h
+
         Date.h
         Field.h
         MyMain.h

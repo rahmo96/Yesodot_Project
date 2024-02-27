@@ -267,4 +267,6 @@ CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.obj: \
  C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/nlohmann/detail/macro_unscope.hpp \
  C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/nlohmann/thirdparty/hedley/hedley_undef.hpp \
  C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\MyMain.h \
- C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\Field.h
+ C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\Field.h \
+ C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\Player.h \
+ C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\Favorites.h
