@@ -69,7 +69,7 @@ MyMain::MyMain() {
                                     break;
                                 }
 
-                                if (checkLogin(db, to_string(id), password))  // Check if the login is successful
+                                if (checkLogin_P(db, to_string(id), password))  // Check if the login is successful
                                     cout<<"Login successful!"<<endl;
                                 else
                                     cout<<"Login failed!"<<endl;

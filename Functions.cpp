@@ -33,9 +33,25 @@ bool IsValidIsraeliID(const std::string& israeliID) {
 }
 
 
-bool checkLogin(sqlite3* db, const string& id, const string& password) {
+bool checkLogin_P(sqlite3* db, const string& id, const string& password) {
     sqlite3_stmt *stmt;
-    string sql = "SELECT * FROM Users WHERE ID='" + id + "' AND Password='" + password + "'";
+    string sql = "SELECT * FROM [Player_Accounts] WHERE ID='" + id + "' AND Password='" + password + "'";
+    int rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, NULL);
+
+    if (rc != SQLITE_OK) {
+        cerr << "Failed to execute query: " << sql << "\n";
+        cerr << "Error: " << sqlite3_errmsg(db) << "\n";
+        return false;
+    }
+
+    bool loginSuccess = sqlite3_step(stmt) == SQLITE_ROW;
+    sqlite3_finalize(stmt);
+    return loginSuccess;
+}
+
+bool checkLogin_FM(sqlite3* db, const string& id, const string& password) {
+    sqlite3_stmt *stmt;
+    string sql = "SELECT * FROM [Field_Manager_Accounts] WHERE ID='" + id + "' AND Password='" + password + "'";
     int rc = sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, NULL);
 
     if (rc != SQLITE_OK) {

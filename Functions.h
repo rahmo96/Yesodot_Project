@@ -19,7 +19,8 @@ using namespace std;
 
 static bool IsValidIsraeliID(const string& israeliID);
 static int GetDouble(long i);
-bool checkLogin(sqlite3* db, const string& id, const string& password);
+bool checkLogin_P(sqlite3* db, const string& id, const string& password);
+bool checkLogin_FM(sqlite3* db, const string& id, const string& password);
 template<typename T>
 T build_user() {
         std::string name;
