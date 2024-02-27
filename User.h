@@ -8,13 +8,14 @@
 #include <iostream>
 #include <string>
 #include "Date.h"
-#include "Functions.h"
+#include "MyMain.h"
 
 
 using namespace std;
 class User {
+    friend MyMain;
 
-protected:
+    protected:
     string name;
     long id;
     string Address;
@@ -32,7 +33,7 @@ public:
 
     //Setters
     void Set_Name(string name) { this->name = name; }
-    void Set_phone_number(long phne_num) { this->phone_number = phne_num; }
+    void Set_phone_number(long phone_num) { this->phone_number = phone_num; }
     void Set_gender(char gender) { this->gender =gender; }
 
 
@@ -45,7 +46,8 @@ public:
     string get_password() { return passowrd; }
 
 
-   virtual void print() ;
+    virtual void print() ;
+    string date_to_string();
 
 
 };

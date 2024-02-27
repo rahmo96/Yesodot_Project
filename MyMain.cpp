@@ -4,10 +4,13 @@
 
 #include "MyMain.h"
 #include "Date.h"
-#include "player.h"
+#include "User.h"
+#include "Player.h"
 #include "sqlite3.h"
 #include "Functions.h"
-#include <Field_manager.h>
+#include "Field_manager.h"
+
+using namespace std;
 
 
 
@@ -66,24 +69,11 @@ MyMain::MyMain() {
                                     break;
                                 }
 
-                                string sql = "SELECT id FROM Users WHERE ID='" + to_string(id) + "' AND Password='" + password + "';";
-                                cout << "SQL Query: " << sql << endl;
-                                long id_found = 0;
+                                if (checkLogin(db, to_string(id), password))  // Check if the login is successful
+                                    cout<<"Login successful!"<<endl;
+                                else
+                                    cout<<"Login failed!"<<endl;
 
-                                char* errorMsg;
-                                rc = sqlite3_exec(db, sql.c_str(), NULL,&id_found, &errorMsg);
-                                if (rc != SQLITE_OK) {
-                                    cerr << "SQL error: " << errorMsg << endl;
-                                    sqlite3_free(errorMsg);
-                                } else {
-                                    int rows = sqlite3_changes(db); // Check if any rows were affected
-                                    if (rows > 0) {
-                                        cout << "Login successful!" << endl;
-                                        loggedIn = true; // Set flag to exit the loop
-                                    } else {
-                                        cout << "Login failed. Please try again." << endl;
-                                    }
-                                }
 
                                 sqlite3_close(db);
                             }
@@ -93,15 +83,11 @@ MyMain::MyMain() {
                                 player_menu();
                             } while (player_coice != 7);
 
-
-
-
                             break;
                         }
                         case sign_up: {
                             Player player =build_user<Player>();
-                            insert_to_DB(player);
-
+                            P_insert_to_DB(player);
                             break;
                         }
                     }
@@ -110,7 +96,7 @@ MyMain::MyMain() {
             }
             case field_manger: {
                 Field_manager field_manager =build_user<Field_manager>();
-                insert_to_DB(field_manager);
+                FM_insert_to_DB(field_manager);
                 break;
             }
         }

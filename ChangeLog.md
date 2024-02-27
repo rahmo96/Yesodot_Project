@@ -1,3 +1,12 @@
+**27.02.24**
+- seperated the database to 2 tables: 1. Players  
+  Field mangagers.
+- Fixed login and registration problem.
+- Added SQlite functions to insert data.
+- Added funcions to Date
+- Added getters to User
+
+
 **25.02.24**
 - Fixed Favorites class
 - Add Functions

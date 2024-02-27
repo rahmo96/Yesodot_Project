@@ -3,6 +3,7 @@
 //
 
 #include "Date.h"
+#include <sstream>
 
 using namespace std;
 #include "Date.h"
@@ -36,6 +37,18 @@ Date::Date(int day,int month,int year)
         this->day = day;
         this->month = month;
         this->year = year;
+    }
+}
+
+void Date::setDateFromString(const std::string& date) {
+    std::stringstream ss(date);
+    char delim;
+
+    ss >> day >> delim >> month >> delim >> year;
+
+    if (!check_valid_date()){
+        std::cout << "invalid date" << std::endl;
+        return;
     }
 }
 
@@ -134,12 +147,15 @@ bool Date::is_meuberet() {
 }
 
 bool Date::check_valid_date() {
-    if (day > 29 && (month == 4 || month == 6 || month == 9 || month == 11 || month == 2 ))
+    if (day > 31 ||
+        (day > 30 && (month == 4 || month == 6 || month == 9 || month == 11)) ||
+        (day > 28 && month == 2)) // This doesn't account for leap years
+    {
         return false;
-    else if ( day > 30 && (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12))
-        return false;
-    else
+    }
+    else {
         return true;
+    }
 }
 
 
@@ -147,6 +163,8 @@ bool Date::check_valid_date() {
 void Date::print() {
     cout<<day<<"/"<<month<<"/" <<year<< endl;
 }
+
+
 
 
 

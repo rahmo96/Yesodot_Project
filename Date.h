@@ -5,6 +5,7 @@
 #ifndef YESODOT_PROJECT_DATE_H
 #define YESODOT_PROJECT_DATE_H
 #include <string>
+#include "nlohmann/json.hpp"
 
 using namespace std;
 
@@ -19,9 +20,18 @@ public:
     void today();
     Date();
     Date(int day,int month,int year);
+    void setDateFromString(const std::string& date);
+
+    //setters
     bool setDay(int day);
     bool setMonth(int month );
     bool setYear(int year);
+
+    //getters
+    int get_Day(){return day;}
+    int get_Month(){return month;}
+    int get_Year(){return year;}
+
     string toSqlDate();
     void Print_month();
     int days_count();

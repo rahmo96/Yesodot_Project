@@ -6,16 +6,15 @@
 #define YESODOT_PROJECT_PLAYER_H
 #include <iostream>
 #include <string>
-#include "Date.h"
 #include "User.h"
+#include "Date.h"
 #include "Field.h"
 #include "Favorites.h"
 #include "vector"
-
-
 using namespace std;
 
-class Player: public virtual User{
+
+class Player : public User {
 private:
     vector<Field> field;
     Favorites f;

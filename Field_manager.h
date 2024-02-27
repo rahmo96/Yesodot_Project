@@ -8,7 +8,7 @@
 #include "User.h"
 #include "Field.h"
 #include <vector>
-class Field_manager: public virtual User{
+class Field_manager: public User{
 private:
     vector<Field> field;
 public:

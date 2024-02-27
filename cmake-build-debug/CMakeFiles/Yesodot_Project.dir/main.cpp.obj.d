@@ -1,5 +1,5 @@
 CMakeFiles/Yesodot_Project.dir/main.cpp.obj: \
- C:\Users\raha1\CLionProjects\Yesodot_Project\main.cpp \
+ C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\main.cpp \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/string \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
@@ -134,4 +134,4 @@ CMakeFiles/Yesodot_Project.dir/main.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ostream.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/istream \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.4/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
- C:\Users\raha1\CLionProjects\Yesodot_Project\MyMain.h
+ C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\MyMain.h

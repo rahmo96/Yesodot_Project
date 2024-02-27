@@ -31,7 +31,11 @@ void User::print() {
     cout << "the id is:" << id << endl;
     cout << "the Address is:" << Address << endl;
     cout << "the phone num is:" << phone_number << endl;
+    cout << "the gender is:" << gender << endl;
+    cout << "the birth day is:" << date_to_string() << endl;
+    }
 
-
-
+string User::date_to_string() {
+        if (b_day.check_valid_date())
+            return to_string(b_day.get_Day()) + "-" + to_string(b_day.get_Month()) + "-" + to_string(b_day.get_Year());
 }
