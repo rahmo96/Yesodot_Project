@@ -30,7 +30,7 @@ void Field::print() {
 
 
 
-Field &Field::operator=(const Field &other) {
+Field Field::operator=(const Field &other) {
     this->field_name=other.field_name;
     this->field_city=other.field_city;
     this->field_type=other.field_type;
@@ -56,6 +56,24 @@ bool Field::operator!=(const Field &other) {
         return true;
 
     return false;
+
+}
+
+void Field::to_json(json &j) const {
+
+    j={
+            {field_name,"Field name"},
+            {field_type,"Field type"},
+            {field_city,"Field city"}
+    };
+
+}
+
+void Field::from_json(const json &j) {
+
+    field_name = j.at("Field name");
+    field_type = j.at("Field type");
+    field_city = j.at("Field city");
 
 }
 

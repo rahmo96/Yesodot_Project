@@ -39,6 +39,11 @@ public:
     bool check_valid_date();
     void print();
 
+    //send it to json
+    void to_json(nlohmann::json& j) const;
+    //get it from json
+    void from_json(const nlohmann::json& j);
+
 };
 
 

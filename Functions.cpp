@@ -66,8 +66,8 @@ bool Functions:: checkLogin_FM(sqlite3* db, const string& id, const string& pass
 }
 
 
-
-int Functions:: P_insert_to_DB(Player &p) {
+//Insert User data to DB
+int Functions::P_insert_to_DB(Player &p) {
     sqlite3* db;
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc) {
@@ -76,14 +76,20 @@ int Functions:: P_insert_to_DB(Player &p) {
         return rc;
     }
 
-    const char* sql = "INSERT INTO [Player_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Insert player account data
+    const char* insert_sql = "INSERT INTO [Player_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Class_data) VALUES (?,?,?,?,?,?,?,?)";
     sqlite3_stmt* stmt;
-    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+    rc = sqlite3_prepare_v2(db, insert_sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
         std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
         sqlite3_close(db);
         return rc;
     }
+    // Convert field and favorites to JSON strings
+    json player_class_json;
+
+    p.to_json(player_class_json);
+
     string gender(1, p.Get_gender());
 
     sqlite3_bind_text(stmt, 1, p.Get_Name().c_str(), -1, SQLITE_STATIC);
@@ -93,6 +99,8 @@ int Functions:: P_insert_to_DB(Player &p) {
     sqlite3_bind_text(stmt, 5, p.Get_Address().c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 6, p.date_to_string().c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 7, p.get_password().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 8, player_class_json.dump().c_str(), -1, SQLITE_STATIC);
+
 
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE) {
@@ -102,12 +110,9 @@ int Functions:: P_insert_to_DB(Player &p) {
         return rc;
     }
 
-    sqlite3_finalize(stmt);
-    sqlite3_close(db);
-    return SQLITE_OK;
-}
 
-int Functions:: FM_insert_to_DB(Field_manager &p){
+}
+int Functions:: FM_insert_to_DB(Field_manager &fm){
     sqlite3* db;
 
     int rc = sqlite3_open("Test player data DB.db", &db);
@@ -117,7 +122,8 @@ int Functions:: FM_insert_to_DB(Field_manager &p){
         return rc;
     }
 
-    const char* sql = "INSERT INTO [Field_Manager_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    const char* sql = "INSERT INTO [Field_Manager_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Owned_Fields, Occupied_Fields) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
     sqlite3_stmt* stmt;
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
@@ -125,15 +131,19 @@ int Functions:: FM_insert_to_DB(Field_manager &p){
         sqlite3_close(db);
         return rc;
     }
-    string gender(1, p.Get_gender());
+    string gender(1, fm.Get_gender());
 
-    sqlite3_bind_text(stmt, 1, p.Get_Name().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_int(stmt, 2, p.Get_id());
-    sqlite3_bind_int(stmt, 3, p.Get_phone_number());
+    json data_json;
+    fm.to_json(data_json);
+
+    sqlite3_bind_text(stmt, 1, fm.Get_Name().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, fm.Get_id());
+    sqlite3_bind_int(stmt, 3, fm.Get_phone_number());
     sqlite3_bind_text(stmt, 4, gender.c_str(), 1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 5, p.Get_Address().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 6, p.date_to_string().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 7, p.get_password().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 5, fm.Get_Address().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 6, fm.date_to_string().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 7, fm.get_password().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 8, data_json.dump().c_str(), -1, SQLITE_STATIC);
 
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE) {
@@ -149,19 +159,46 @@ int Functions:: FM_insert_to_DB(Field_manager &p){
 }
 
 //Menus
-void Functions:: player_menu_1(){
-    cout<<"Choose one of the following option:"<<endl;
-    cout<<"1. Favorites"<<endl;
-    cout<<"2. Book field"<<endl;
-    cout<<"3. Cancel field"<<endl;
-    cout<<"4. Rate field"<<endl;
-    cout<<"5. Profile"<<endl;
-    cout<<"6. Booked fields"<<endl;
-    cout<<"7. Exit"<<endl;
+int Functions::player_menu_1(Player &p, Field_manager *fm) {
+    cout << "Choose one of the following options:" << endl;
+
+    // Define the menu options and corresponding actions
+    std::map<int, std::function<void()>> menu = {
+            {1, [&p]() { cout << "Favorites" << endl; p.f.print(); }},
+            {2, [&p, fm]() { cout << "Book field" << endl; player_menu_booking(p, fm); }},
+            {3, [&p, fm]() { cout << "Cancel field" << endl; player_menu_cancel(p, fm); }},
+            {4, []() { cout << "Rate field" << endl; /* Add code to handle Rate field */ }},
+            {5, [&p]() { cout << "Profile" << endl; player_menu_profile(p); }},
+            {6, []() { cout << "Booked fields" << endl; /* Add code to handle Booked fields */ }},
+            {7, []() { cout << "Exiting..." << endl; return 0;}},
+    };
+
+    int choice;
+    do {
+        cout << "1. Favorites" << endl;
+        cout << "2. Book field" << endl;
+        cout << "3. Cancel field" << endl;
+        cout << "4. Rate field" << endl;
+        cout << "5. Profile" << endl;
+        cout << "6. Booked fields" << endl;
+        cout << "7. Exit" << endl;
+        cin >> choice;
+
+        // Execute the corresponding action based on the user's choice
+        auto it = menu.find(choice);
+        if (it != menu.end()) {
+            it->second();
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+
+        // Exit the loop if the user chooses the 'Exit' option
+        if (choice == 7) {
+            break;
+        }
+    } while (true);
 }
-void Functions:: player_menu_favorites(Player &p){
-    p.f.print();
-}
+
 
 void Functions::player_menu_booking(Player &p, Field_manager *f) {
     std::vector<std::string> cities;
@@ -288,40 +325,66 @@ void Functions::player_menu_cancel(Player &p, Field_manager *fm) {
 }
 
 void Functions::player_menu_profile(Player &p) {
-    cout<<"You are logged in as "<<p.Get_Name()<<endl;
-    cout<<"Choose an option:"<<endl;
-    cout<<"1. View your profile"<<endl;
-    cout<<"2. Edit your profile"<<endl;
-    cout<<"3. View your bookings"<<endl;
-    cout<<"4. Logout"<<endl;
+    cout << "You are logged in as " << p.Get_Name() << endl;
+
+    // Define the menu options and corresponding actions
+    std::map<int, std::function<void(Player &)>> menu = {
+            {1, [](Player &p) { p.print(); }},
+            {2, [](Player &p) { profile_menu_2(p); }},
+            {3, [](Player &p) { cout << "Logging out..." << endl; /* Logout */ }},
+    };
+
+    int choice;
+    do {
+        cout << "Choose an option:" << endl;
+        cout << "1. View your profile" << endl;
+        cout << "2. Edit your profile" << endl;
+        cout << "3. Logout" << endl;
+        cin >> choice;
+
+        // Execute the corresponding action based on the user's choice
+        auto it = menu.find(choice);
+        if (it != menu.end()) {
+            it->second(p);
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 4);
 }
 
-void Functions::profile_menu_1(User &u) {
-    u.print();
-
-}
 void Functions::profile_menu_2(User &u) {
-    cout<<"Choose what to edit:"<<endl;
-    cout<<"1. Name"<<endl;
-    cout<<"2. Address"<<endl;
-    cout<<"3. Phone number"<<endl;
-    cout<<"4. Gender"<<endl;
-    cout<<"5. Birth date"<<endl;
-    cout<<"6. Password"<<endl;
-    cout<<"7. Back"<<endl;
+    cout << "Choose what to edit:" << endl;
+
+    // Define the menu options and corresponding actions
+    std::map<int, std::function<void(User &)>> menu = {
+            {1, [](User &u) { u.Set_Name(); }},
+            {2, [](User &u) { u.Set_Address(); }},
+            {3, [](User &u) { u.Set_phone_number(); }},
+            {4, [](User &u) { u.Set_gender(); }},
+            {5, [](User &u) { u.Set_password(); }},
+            {6, [](User &u) { cout << "Going back..." << endl; /* Go back */ }},
+    };
+
+    int choice;
+    do {
+        cout << "1. Name" << endl;
+        cout << "2. Address" << endl;
+        cout << "3. Phone number" << endl;
+        cout << "4. Gender" << endl;
+        cout << "5. Password" << endl;
+        cout << "6. Back" << endl;
+        cin >> choice;
+
+        // Execute the corresponding action based on the user's choice
+        auto it = menu.find(choice);
+        if (it != menu.end()) {
+            it->second(u);
+        } else {
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    } while (choice != 7);
 }
 
-void Functions::profile_menu_3() {
-
-    cout<<"Choose what to edit:"<<endl;
-    cout<<"1. Name"<<endl;
-    cout<<"2. Address"<<endl;
-    cout<<"3. Phone number"<<endl;
-    cout<<"4. Gender"<<endl;
-    cout<<"5. Birth date"<<endl;
-    cout<<"6. Password"<<endl;
-    cout<<"7. Back"<<endl;
-}
 
 
 

@@ -5,6 +5,7 @@
 #ifndef YESODOT_PROJECT_MYMAIN_H
 #define YESODOT_PROJECT_MYMAIN_H
 #include <iostream>
+#include <map>
 using namespace std;
 
 class MyMain {
@@ -18,14 +19,13 @@ static void clear_the_buffer() {
         }
     }
 
- static bool check_ID(long id) {
-     if (id < 10000000 || id > 1000000000) {
-         return false;
-     }
+    void runMenu();
+    static void print_Menu(const std::map<int, std::string>& menuOptions);
 
-     return true;
- }
-
+    static void loginMenu();
+    static void P_login();
+    static void FM_login();
+    void retrieve_field_managers_from_db();
 };
 
 

@@ -4,8 +4,10 @@
 
 #include "Date.h"
 #include <sstream>
+#include "nlohmann/json.hpp"
 
 using namespace std;
+using namespace nlohmann;
 #include "Date.h"
 #include <ctime>
 #include <iostream>
@@ -163,6 +165,21 @@ bool Date::check_valid_date() {
 
 void Date::print() {
     cout<<day<<"/"<<month<<"/" <<year<< endl;
+}
+
+void Date::to_json(json &j) const {
+
+    j={
+            {"day",day},
+            {"month",month},
+            {"year",year}
+    };
+}
+
+void Date::from_json(const json &j) {
+    day = j.at("day").get<int>();
+    month = j.at("month").get<int>();
+    year = j.at("year").get<int>();
 }
 
 

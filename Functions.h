@@ -20,7 +20,7 @@ public:
     static bool IsValidIsraeliID(const string& israeliID);
     static int GetDouble(long i);
     static bool checkLogin_P(sqlite3* db, const string& id, const string& password);
-    bool checkLogin_FM(sqlite3* db, const string& id, const string& password);
+    static bool checkLogin_FM(sqlite3* db, const string& id, const string& password);
     template<typename T>
     static T build_user() {
         string name;
@@ -71,16 +71,16 @@ public:
 
     static int P_insert_to_DB(Player &p);
 
-    static int FM_insert_to_DB(Field_manager &p);
+    static int FM_insert_to_DB(Field_manager &fm);
 
 //Menus
-    static void player_menu_1();
+    static int player_menu_1(Player &p,Field_manager *fm);
     void player_menu_favorites(Player &p);
-    void player_menu_booking(Player &p,Field_manager *f);
-    void player_menu_cancel(Player &p,Field_manager *fm);
-    void player_menu_profile(Player &p);
+    static void player_menu_booking(Player &p, Field_manager *f);
+    static void player_menu_cancel(Player &p, Field_manager *fm);
+    static void player_menu_profile(Player &p);
     void profile_menu_1(User &u);
-    void profile_menu_2(User &u);
+    static void profile_menu_2(User &u);
     void profile_menu_3();
     void profile_menu_4();
     void profile_menu_5();

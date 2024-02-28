@@ -3,6 +3,10 @@
 //
 
 #include "Favorites.h"
+#include "nlohmann/json.hpp"
+
+using namespace std;
+using namespace nlohmann;
 
 Favorites::Favorites() : favorite_field(nullptr), size(0) {}
 
@@ -62,5 +66,41 @@ Favorites Favorites::operator-=(Field &f_field) {
     favorite_field = new_field;
     size--;
     return *this;
+}
+
+void Favorites::to_json(json &j) const {
+    nlohmann::json array_json;
+    for (int i = 0; i < size; ++i) {
+        nlohmann::json field_json;
+        favorite_field[i].to_json(field_json); // Assuming Field has a to_json method
+        array_json.push_back(field_json);
+    }
+    j = {
+            {"favorite_field", array_json},
+            {"size", size}
+    };
+}
+
+
+Favorites& Favorites::operator=(const Favorites& f_field) {
+    if (this != &f_field) {
+        this->size = f_field.size;
+        delete[] this->favorite_field;
+        this->favorite_field = new Field[size];
+        for (int i = 0; i < size; ++i) {
+            this->favorite_field[i] = f_field.favorite_field[i];
+        }
+    }
+    return *this;
+}
+
+void Favorites::from_json(const json &j) {
+    size = j.at("size");
+    delete[] favorite_field;
+    favorite_field = new Field[size];
+    for (int i = 0; i < size; ++i) {
+        favorite_field[i].from_json(j["favorite_field"][i]);
+    }
+
 }
 

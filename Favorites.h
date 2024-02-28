@@ -2,6 +2,7 @@
 // Created by raha1 on 21/02/2024.
 //
 #include "Field.h"
+#include "nlohmann/json.hpp"
 #ifndef YESODOT_PROJECT_FAVORITES_H
 #define YESODOT_PROJECT_FAVORITES_H
 
@@ -22,6 +23,12 @@ public:
     void print();
     Favorites operator+=(Field& f_field);
     Favorites operator-=(Field& f_field);
+    Favorites &operator=(const Favorites &f_field);
+
+    //send it to json
+    void to_json(nlohmann::json& j) const;
+    //get it from json
+    void from_json(const nlohmann::json& j);
 
 
 };

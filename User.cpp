@@ -38,4 +38,79 @@ void User::print() {
 string User::date_to_string() {
         if (b_day.check_valid_date())
             return to_string(b_day.get_Day()) + "-" + to_string(b_day.get_Month()) + "-" + to_string(b_day.get_Year());
+        else
+            return "";
 }
+
+void User::Set_Name() {
+    string name;
+    cout<<"Enter name: "<<endl;
+    cin>>name;
+    this->name=name;
+
+}
+
+void User::Set_phone_number() {
+    long phone_num;
+    cout<<"Enter phone number: "<<endl;
+    cin>>phone_num;
+    this->phone_number=phone_num;
+
+}
+
+void User::Set_gender() {
+    char gender;
+    cout<<"Enter gender: "<<endl;
+    cin>>gender;
+    this->gender=gender;
+}
+
+void User::Set_Address() {
+    string address;
+    cout<<"Enter address: "<<endl;
+    cin>>address;
+    this->Address=address;
+}
+
+void User::Set_password() {
+    string old_password;
+    cout<<"Enter old password: "<<endl;
+    cin>>old_password;
+    if (old_password==this->passowrd){
+        string new_password;
+        cout<<"Enter new password: "<<endl;
+        cin>>new_password;
+        this->passowrd=new_password;
+    } else{
+        cout<<"Wrong password"<<endl;
+        return;
+    }
+
+
+}
+
+void User::to_json(nlohmann::json &j) {
+
+    j = {
+            {"name", name},
+            {"id", id},
+            {"address", Address},
+            {"phone_num", phone_number},
+            {"gender", gender},
+            {"b_day", date_to_string()},
+            {"password", passowrd}
+    };
+
+}
+
+void User::from_json(const nlohmann::json &j) {
+
+    name = j["name"];
+    id = j["id"];
+    Address = j["address"];
+    phone_number = j["phone_num"];
+    passowrd = j["password"];
+
+}
+
+

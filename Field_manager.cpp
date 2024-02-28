@@ -85,3 +85,74 @@ void Field_manager::find_fields_with_id(long id) {
         }
     }
 }
+
+void Field_manager::to_json(nlohmann::json &j) {
+    json user_data;
+    User::to_json(user_data);
+
+    nlohmann::json field_json;
+    for (const auto& field_item : field) {
+        nlohmann::json field_obj;
+        field_item.to_json(field_obj);
+        field_json.push_back(field_obj);
+    }
+
+    nlohmann::json occupied_json;
+    for (size_t i = 0; i < 5; ++i) {
+        nlohmann::json row_json;
+        for (size_t j = 0; j < 12; ++j) {
+            row_json.push_back(occupied[i][j]);
+        }
+        occupied_json.push_back(row_json);
+    }
+
+
+    j = {
+
+            {"Field", field_json},
+            {"occupied", occupied_json}
+    };
+
+}
+
+void Field_manager::from_json(const nlohmann::json &j) {
+    // Deserialize the 'field' array
+    const nlohmann::json& field_json = j.at("field");
+    field.clear(); // Clear existing fields
+    for (const auto& field_obj : field_json) {
+        Field field_item;
+        field_item.from_json(field_obj);
+        field.push_back(field_item);
+    }
+
+    // Deserialize the 'occupied' 2D array
+    const nlohmann::json& occupied_json = j.at("occupied");
+    for (size_t i = 0; i < 5; ++i) {
+        for (size_t j = 0; j < 12; ++j) {
+            occupied[i][j] = occupied_json.at(i).at(j);
+        }
+    }
+
+}
+
+Field_manager::Field_manager() {
+
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 12; ++j) {
+            occupied[i][j] = 0; // Initialize the occupied array
+        }
+    }
+
+    field_managers;
+    counter++;
+
+}
+
+Field_manager Field_manager::build_from_json(string json_str) {
+    nlohmann::json j = nlohmann::json::parse(json_str);
+    Field_manager fm;
+    fm.from_json(j);
+    return fm;
+}
+
+

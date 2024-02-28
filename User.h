@@ -31,10 +31,14 @@ public:
 
     User(const User &user);
 
+    User():b_day(){};
+
     //Setters
-    void Set_Name(string name) { this->name = name; }
-    void Set_phone_number(long phone_num) { this->phone_number = phone_num; }
-    void Set_gender(char gender) { this->gender =gender; }
+    void Set_Name();
+    void Set_phone_number();
+    void Set_gender();
+    void Set_password();
+    void Set_Address();
 
 
     //Getters
@@ -46,8 +50,15 @@ public:
     string get_password() { return passowrd; }
 
 
+    //Send it to json
+    virtual void to_json(nlohmann::json& j);
+    //Get it from json
+    virtual void from_json(const nlohmann::json& j);
+
+
     virtual void print() ;
     string date_to_string();
+
 
 
 };
