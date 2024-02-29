@@ -41,7 +41,9 @@ public:
     void from_json(const nlohmann::json& j);
 
     static Player build_from_DB(long id);
+    Player set_Player_from_json(json j);
 
+    bool update_to_DB();
 
 };
 

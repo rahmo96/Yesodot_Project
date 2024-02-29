@@ -222,4 +222,31 @@ void Field_manager::Set_field_manager(string name, long id, string address, long
 
 }
 
+bool Field_manager::update_to_DB() {
+        // Serialize the updated Player object to a JSON string
+        nlohmann::json player_data;
+        this->to_json(player_data);
+
+        sqlite3 *db;
+        if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
+            std::cerr << "Error opening database" << std::endl;
+            return false;
+        }
+
+        // Update the Class_data column in the database with the updated JSON string
+        std::string update_query =
+                "UPDATE [Field_Manager_Accounts] SET [Class_data] = '" + player_data.dump() + "' WHERE id = " +
+                std::to_string(this->Get_id());
+        const char *sql = update_query.c_str();
+        if (sqlite3_exec(db, sql, nullptr, nullptr, nullptr) != SQLITE_OK) {
+            std::cerr << "Error updating database" << std::endl;
+            sqlite3_close(db);
+            return false;
+        }
+
+        sqlite3_close(db);
+        return true;
+    }
+
+
 

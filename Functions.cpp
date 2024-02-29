@@ -109,7 +109,7 @@ int Functions::P_insert_to_DB(Player &p) {
         sqlite3_close(db);
         return rc;
     }
-
+    return SQLITE_OK;
 
 }
 int Functions:: FM_insert_to_DB(Field_manager &fm){

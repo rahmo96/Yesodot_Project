@@ -61,6 +61,8 @@ public:
     Field_manager build_from_json(string json_str);
     static Field_manager build_from_DB(long id);
 
+    bool update_to_DB();
+
 
 };
 

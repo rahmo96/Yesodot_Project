@@ -82,6 +82,7 @@ void Favorites::to_json(json &j) const {
 }
 
 
+
 Favorites& Favorites::operator=(const Favorites& f_field) {
     if (this != &f_field) {
         this->size = f_field.size;

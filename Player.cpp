@@ -109,3 +109,53 @@ Player Player::build_from_DB(long id) {
     }
 }
 
+Player Player::set_Player_from_json(json j) {
+    Player p;
+    p.name = j.at("Name");
+    p.id = j.at("id");
+    p.Address = j.at("address");
+    p.phone_number = j.at("phone_num");
+    string g = j.at("gender");
+    p.gender =g[0];
+    p.b_day.setDateFromString(j.at("b_day"));
+    p.passowrd = j.at("password");
+    const nlohmann::json& field_json = j.at("Field");
+    for (const auto& field_obj : field_json) {
+        Field field_item;
+        field_item.from_json(field_obj);
+        p.field.push_back(field_item);
+    }
+    const nlohmann::json& favorites_json = j.at("Favorites");
+    p.f.from_json(favorites_json);
+    return p;
+
+}
+
+bool Player::update_to_DB() {
+    // Serialize the updated Player object to a JSON string
+    nlohmann::json player_data;
+    this->to_json(player_data);
+
+    sqlite3 *db;
+    if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
+        std::cerr << "Error opening database" << std::endl;
+        return false;
+    }
+
+    // Update the Class_data column in the database with the updated JSON string
+    std::string update_query =
+            "UPDATE [Player_Accounts] SET [Class_data] = '" + player_data.dump() + "' WHERE id = " +
+            std::to_string(this->Get_id());
+    const char *sql = update_query.c_str();
+    if (sqlite3_exec(db, sql, nullptr, nullptr, nullptr) != SQLITE_OK) {
+        std::cerr << "Error updating database" << std::endl;
+        sqlite3_close(db);
+        return false;
+    }
+
+    sqlite3_close(db);
+    return true;
+
+
+}
+
