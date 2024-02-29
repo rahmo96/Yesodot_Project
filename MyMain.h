@@ -45,6 +45,9 @@ static void clear_the_buffer() {
     void profile_menu_5();
     void player_menu_rate(Player &p,Field_manager *fm);
     void player_menu_booked_fields(Player &p);
+
+    //Field manager menus
+    void field_manager_menu();
 };
 
 

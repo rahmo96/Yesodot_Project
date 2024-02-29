@@ -177,12 +177,14 @@ int MyMain::runMenu() {
                 switch (choice2) {
                     case 1:{
                         Field_manager fm=FM_login();
+                        field_manager_menu();
                         break;}
                     case 2:{
                         Field_manager *fm= new Field_manager();
                         *fm =Functions::build_user<Field_manager>();
                         Functions::FM_insert_to_DB(*fm);
                         all_field_managers.push_back(fm);
+                        field_manager_menu();
                         break;}
                     case 3:
                         break;
@@ -512,4 +514,51 @@ void MyMain::profile_menu_2(User &u) {
             cout << "Invalid choice. Please try again." << endl;
         }
     } while (choice != 7);
+}
+
+//Field manager menu
+void MyMain::field_manager_menu() {
+    int choice;
+    bool exitMenu = false;
+
+    while (!exitMenu) {
+        // Display menu options
+        std::cout << "Field Manager Menu" << std::endl;
+        std::cout << "1. Add Field" << std::endl;
+        std::cout << "2. Remove Field" << std::endl;
+        std::cout << "3. Profile" << std::endl;
+        std::cout << "4. Closed Hours in Field" << std::endl;
+        std::cout << "5. Back" << std::endl;
+        std::cout << "Enter your choice: ";
+
+        // Get user choice
+        std::cin >> choice;
+
+        // Process user choice
+        switch (choice) {
+            case 1:
+                std::cout << "Adding a new field..." << std::endl;
+                // Add field logic
+                break;
+            case 2:
+                std::cout << "Removing a field..." << std::endl;
+                // Remove field logic
+                break;
+            case 3:
+                std::cout << "Viewing profile..." << std::endl;
+                // Profile logic
+                break;
+            case 4:
+                std::cout << "Viewing closed hours in field..." << std::endl;
+                // Closed hours logic
+                break;
+            case 5:
+                std::cout << "Going back..." << std::endl;
+                exitMenu = true;
+                break;
+            default:
+                std::cout << "Invalid choice. Please try again." << std::endl;
+                break;
+        }
+    }
 }

@@ -133,23 +133,53 @@ nlohmann::json User::P_from_DB(long id) {
 }
 nlohmann::json User::FM_from_DB(long id) {
     sqlite3 *db;
-    sqlite3_stmt *stmt;
+    sqlite3_stmt *stmt = nullptr;
     nlohmann::json j;
-    sqlite3_open("Test player data DB.db", &db);
 
-    std::string query = "SELECT Class_data FROM [Field_Manager_Accounts] WHERE id =" + std::to_string(id);
-    const char* sql = query.c_str();
-
-    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
-
-    while (sqlite3_step(stmt) == SQLITE_ROW) {
-        j = nlohmann::json::parse((char *) sqlite3_column_text(stmt, 0));
+    // Open the database
+    if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
+        std::cerr << "Error opening database" << std::endl;
+        return j;
     }
+
+    // Prepare the SQL query
+    std::string query = "SELECT Class_data FROM [Field_Manager_Accounts] WHERE id = ?";
+    if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_close(db);
+        return j;
+    }
+
+    // Bind the id parameter
+    if (sqlite3_bind_int(stmt, 1, id) != SQLITE_OK) {
+        std::cerr << "Error binding parameter: " << sqlite3_errmsg(db) << std::endl;
+        sqlite3_finalize(stmt);
+        sqlite3_close(db);
+        return j;
+    }
+
+    // Execute the query
+    if (sqlite3_step(stmt) == SQLITE_ROW) {
+        const char* json_text = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        try {
+            j = nlohmann::json::parse(json_text);
+            // Check if JSON object is null
+            if (j.is_null()) {
+                std::cerr << "Error: JSON object is null" << std::endl;
+            }
+        } catch (const nlohmann::json::parse_error& e) {
+            std::cerr << "Error parsing JSON: " << e.what() << std::endl;
+        }
+    }
+
+    // Finalize the statement and close the database connection
     sqlite3_finalize(stmt);
     sqlite3_close(db);
-    return j;
 
+    return j;
 }
+
+
 
 void User::send_name_to_DB(string name) {
     sqlite3 *db;
