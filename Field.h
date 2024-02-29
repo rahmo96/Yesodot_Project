@@ -17,6 +17,8 @@ private:
     string field_name;
     string field_type;
     string field_city;
+    float rating;
+    int counter_rating=1;
 public:
     Field();
     Field(const Field &other);
@@ -24,6 +26,8 @@ public:
     string get_field_name() const {return field_name;};
     string get_field_type() const {return field_type;};
     string get_field_city() const {return field_city;}
+    float get_ratung() const {return rating;}
+
     void print();
     Field operator=(const Field &other);
     bool operator != (const Field &other);
@@ -32,6 +36,7 @@ public:
     void to_json(json& j) const;
     //Get it from json
     void from_json(const json& j);
+    void Rating_change(float rat);
 
 };
 
