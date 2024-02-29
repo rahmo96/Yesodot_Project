@@ -92,11 +92,11 @@ void User::Set_password() {
 void User::to_json(nlohmann::json &j) {
 
     j = {
-            {"name", name},
+            {"Name", name},
             {"id", id},
             {"address", Address},
             {"phone_num", phone_number},
-            {"gender", gender},
+            {"gender", to_string(gender)},
             {"b_day", date_to_string()},
             {"password", passowrd}
     };
@@ -105,7 +105,7 @@ void User::to_json(nlohmann::json &j) {
 
 void User::from_json(const nlohmann::json &j) {
 
-    name = j["name"];
+    name = j["Name"];
     id = j["id"];
     Address = j["address"];
     phone_number = j["phone_num"];

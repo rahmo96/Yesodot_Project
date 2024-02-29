@@ -41,12 +41,12 @@ void Player::to_json(nlohmann::json &j) {
     json favorites_json;
     f.to_json(favorites_json);
 
-    j = {
-            {"Player", player_data_json},
-            {"Field", field_json},
-            {"Favorites", favorites_json}
-    };
-
+    // Merge all JSON objects into one
+    j = player_data_json;
+    j.merge_patch({
+                          {"Field", field_json},
+                          {"Favorites", favorites_json}
+                  });
 }
 
 
@@ -88,7 +88,7 @@ Player Player::build_from_DB(long id) {
         string password = j.at("password");
 
         vector<Field> fields;
-        const nlohmann::json& field_json = j.at("field");
+        const nlohmann::json& field_json = j.at("Field");
         for (const auto& field_obj : field_json) {
             Field field_item;
             field_item.from_json(field_obj);
@@ -96,7 +96,7 @@ Player Player::build_from_DB(long id) {
         }
 
         Favorites f;
-        const nlohmann::json& favorites_json = j.at("favorites");
+        const nlohmann::json& favorites_json = j.at("Favorites");
         f.from_json(favorites_json);
         Player p;
         p.Set_player(name, id, Address, phone_number, gender, b_day, password, fields, f);
