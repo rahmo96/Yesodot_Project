@@ -42,8 +42,15 @@ void Player::to_json(nlohmann::json &j) {
     f.to_json(favorites_json);
 
     // Merge all JSON objects into one
-    j = player_data_json;
+
     j.merge_patch({
+                          {"Name", name},
+                          {"id", id},
+                          {"address", Address},
+                          {"phone_num", phone_number},
+                          {"gender", std::string(1, gender)},
+                          {"b_day", date_to_string()},
+                          {"password", passowrd},
                           {"Field", field_json},
                           {"Favorites", favorites_json}
                   });

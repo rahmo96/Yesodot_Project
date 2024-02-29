@@ -199,10 +199,13 @@ int MyMain::runMenu() {
                             switch (choice) {
                                 case 1:{
                                     std::cout << "Adding a new field..." << std::endl;
-                                    Field field = Field::add_field();}
+                                    Field field = Field::add_field();
+                                    fm.field.push_back(field);
+                                    fm.update_to_DB();}
                                     break;
                                 case 2:
                                     std::cout << "Removing a field..." << std::endl;
+
                                     // Remove field logic
                                     break;
                                 case 3:
