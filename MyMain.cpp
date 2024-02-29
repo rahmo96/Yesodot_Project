@@ -466,9 +466,8 @@ void MyMain::profile_menu_2(User &u) {
             {1, [](User &u) { u.Set_Name(); }},
             {2, [](User &u) { u.Set_Address(); }},
             {3, [](User &u) { u.Set_phone_number(); }},
-            {4, [](User &u) { u.Set_gender(); }},
-            {5, [](User &u) { u.Set_password(); }},
-            {6, [](User &u) { cout << "Going back..." << endl; /* Go back */ }},
+            {4, [](User &u) { u.Set_password(); }},
+            {5, [](User &u) { cout << "Going back..." << endl; /* Go back */ }},
     };
 
     int choice;
@@ -476,9 +475,8 @@ void MyMain::profile_menu_2(User &u) {
         cout << "1. Name" << endl;
         cout << "2. Address" << endl;
         cout << "3. Phone number" << endl;
-        cout << "4. Gender" << endl;
-        cout << "5. Password" << endl;
-        cout << "6. Back" << endl;
+        cout << "4. Password" << endl;
+        cout << "5. Back" << endl;
         cin >> choice;
 
         // Execute the corresponding action based on the user's choice

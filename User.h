@@ -34,7 +34,6 @@ public:
     //Setters
     void Set_Name();
     void Set_phone_number();
-    void Set_gender();
     void Set_password();
     void Set_Address();
 
@@ -56,6 +55,12 @@ public:
 
     virtual void print() ;
     string date_to_string();
+
+    //void send_name_to_DB();
+    void send_name_to_DB(string name);
+    void send_address_to_DB(string address);
+    void send_phone_number_to_DB(long phone_num);
+    void send_password_to_DB(string password);
 
     static nlohmann::json from_DB(long id);
 
