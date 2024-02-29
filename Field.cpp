@@ -79,5 +79,20 @@ void Field::from_json(const json &j) {
 
 }
 
+Field Field::add_field() {
+    string name; string type; string city;
+    cout << "Enter field name: " << endl;
+    cin >> name;
+    cout << "Enter field type: " << endl;
+    cin >> type;
+    cout << "Enter field city: " << endl;
+    cin >> city;
+
+
+    return Field(name, type, city);
+}
+
+
+
 
 

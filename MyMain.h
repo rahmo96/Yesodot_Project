@@ -37,8 +37,9 @@ static void clear_the_buffer() {
     void player_menu_favorites(Player &p);
     static void player_menu_booking(Player &p, vector<Field_manager*> field_managers);
     static void player_menu_cancel(Player &p,vector<Field_manager*> field_managers);
-    static void player_menu_profile(Player &p);
-    void profile_menu_1(User &u);
+    static void player_menu_profile(User &p);
+    template<typename UserType>
+    void menu_profile(UserType &u);
     static void profile_menu_2(User &u);
     void profile_menu_3();
     void profile_menu_4();

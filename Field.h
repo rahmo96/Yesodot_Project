@@ -38,6 +38,9 @@ public:
     void from_json(const json& j);
     void Rating_change(float rat);
 
+    static Field add_field();
+    Field remove_field();
+
 };
 
 

@@ -144,7 +144,7 @@ int MyMain::runMenu() {
                                     break;
                                 case 5:
                                     cout << "Profile" << endl;
-                                    player_menu_profile(p);
+                                    menu_profile<Player>(p);
                                     break;
                                 case 6:
                                     cout << "Booked fields" << endl;
@@ -177,14 +177,107 @@ int MyMain::runMenu() {
                 switch (choice2) {
                     case 1:{
                         Field_manager fm=FM_login();
-                        field_manager_menu();
+                        int choice;
+                        bool exitMenu = false;
+
+                        while (!exitMenu) {
+                            // Display menu options
+                            std::cout << "Field Manager Menu" << std::endl;
+                            std::cout << "1. Add Field" << std::endl;
+                            std::cout << "2. Remove Field" << std::endl;
+                            std::cout << "3. Profile" << std::endl;
+                            std::cout << "4. Closed Hours in Field" << std::endl;
+                            std::cout << "5. Back" << std::endl;
+                            std::cout << "Enter your choice: ";
+
+                            // Get user choice
+                            std::cin >> choice;
+
+                            // Process user choice
+                            switch (choice) {
+                                case 1:{
+                                    std::cout << "Adding a new field..." << std::endl;
+                                    Field field = Field::add_field();}
+                                    break;
+                                case 2:
+                                    std::cout << "Removing a field..." << std::endl;
+                                    // Remove field logic
+                                    break;
+                                case 3:
+                                    std::cout << "Viewing profile..." << std::endl;
+                                    menu_profile<Field_manager>(fm);
+                                    break;
+                                case 4:
+                                    std::cout << "Viewing closed hours in field..." << std::endl;
+                                    // Closed hours logic
+                                    break;
+                                case 5:
+                                    std::cout << "Going back..." << std::endl;
+                                    exitMenu = true;
+                                    break;
+                                default:
+                                    std::cout << "Invalid choice. Please try again." << std::endl;
+                                    break;
+                            }
+                        }
                         break;}
                     case 2:{
                         Field_manager *fm= new Field_manager();
                         *fm =Functions::build_user<Field_manager>();
                         Functions::FM_insert_to_DB(*fm);
                         all_field_managers.push_back(fm);
-                        field_manager_menu();
+                        int choice;
+                        bool exitMenu = false;
+
+                        while (!exitMenu) {
+                            // Display menu options
+                            std::cout << "Field Manager Menu" << std::endl;
+                            std::cout << "1. Add Field" << std::endl;
+                            std::cout << "2. Remove Field" << std::endl;
+                            std::cout << "3. Profile" << std::endl;
+                            std::cout << "4. Closed Hours in Field" << std::endl;
+                            std::cout << "5. Back" << std::endl;
+                            std::cout << "Enter your choice: ";
+
+                            // Get user choice
+                            std::cin >> choice;
+
+                            // Process user choice
+                            switch (choice) {
+                                case 1:{
+                                    std::cout << "Adding a new field..." << std::endl;
+                                    Field field = Field::add_field();
+                                    fm->field.push_back(field);
+                                    break;}
+                                case 2:{
+                                    std::cout << "Removing a field..." << std::endl;
+                                    cout << "Enter the name of the field you want to remove: ";
+                                    string name;
+                                    cin >> name;
+                                    for (int i = 0; i < fm->field.size(); i++) {
+                                        if (fm->field[i].get_field_name() == name) {
+                                            fm->field.erase(fm->field.begin() + i);
+                                            break;
+                                        }
+                                    }
+                                    break;}
+                                case 3:
+                                    std::cout << "Viewing profile..." << std::endl;
+                                    menu_profile<Field_manager>(*fm);
+                                    break;
+                                case 4:
+                                    std::cout << "Viewing closed hours in field..." << std::endl;
+                                    // Closed hours logic
+                                    break;
+                                case 5:
+                                    std::cout << "Going back..." << std::endl;
+                                    exitMenu = true;
+                                    break;
+                                default:
+                                    std::cout << "Invalid choice. Please try again." << std::endl;
+                                    break;
+                            }
+                        }
                         break;}
                     case 3:
                         break;
@@ -457,14 +550,15 @@ void MyMain::player_menu_cancel(Player &p,vector<Field_manager*> field_managers)
     }
 }
 
-void MyMain::player_menu_profile(Player &p) {
-    cout << "You are logged in as " << p.Get_Name() << endl;
+template<typename UserType>
+void MyMain::menu_profile(UserType &u) {
+    cout << "You are logged in as " << u.Get_Name() << endl;
 
     // Define the menu options and corresponding actions
-    std::map<int, std::function<void(Player &)>> menu = {
-            {1, [](Player &p) { p.print(); }},
-            {2, [](Player &p) { profile_menu_2(p); }},
-            {3, [](Player &p) { cout << "Logging out..." << endl; /* Logout */ }},
+    std::map<int, std::function<void(UserType &)>> menu = {
+            {1, [](UserType &u) { u.print(); }},
+            {2, [](UserType &u) { profile_menu_2(u); }},
+            {3, [](UserType &u) { cout << "Logging out..." << endl; /* Logout */ }},
     };
 
     int choice;
@@ -478,12 +572,14 @@ void MyMain::player_menu_profile(Player &p) {
         // Execute the corresponding action based on the user's choice
         auto it = menu.find(choice);
         if (it != menu.end()) {
-            it->second(p);
+            it->second(u);
         } else {
             cout << "Invalid choice. Please try again." << endl;
         }
-    } while (choice != 4);
+    } while (choice != 3); // Corrected loop condition
 }
+
+
 
 void MyMain::profile_menu_2(User &u) {
     cout << "Choose what to edit:" << endl;
@@ -516,49 +612,3 @@ void MyMain::profile_menu_2(User &u) {
     } while (choice != 7);
 }
 
-//Field manager menu
-void MyMain::field_manager_menu() {
-    int choice;
-    bool exitMenu = false;
-
-    while (!exitMenu) {
-        // Display menu options
-        std::cout << "Field Manager Menu" << std::endl;
-        std::cout << "1. Add Field" << std::endl;
-        std::cout << "2. Remove Field" << std::endl;
-        std::cout << "3. Profile" << std::endl;
-        std::cout << "4. Closed Hours in Field" << std::endl;
-        std::cout << "5. Back" << std::endl;
-        std::cout << "Enter your choice: ";
-
-        // Get user choice
-        std::cin >> choice;
-
-        // Process user choice
-        switch (choice) {
-            case 1:
-                std::cout << "Adding a new field..." << std::endl;
-                // Add field logic
-                break;
-            case 2:
-                std::cout << "Removing a field..." << std::endl;
-                // Remove field logic
-                break;
-            case 3:
-                std::cout << "Viewing profile..." << std::endl;
-                // Profile logic
-                break;
-            case 4:
-                std::cout << "Viewing closed hours in field..." << std::endl;
-                // Closed hours logic
-                break;
-            case 5:
-                std::cout << "Going back..." << std::endl;
-                exitMenu = true;
-                break;
-            default:
-                std::cout << "Invalid choice. Please try again." << std::endl;
-                break;
-        }
-    }
-}
