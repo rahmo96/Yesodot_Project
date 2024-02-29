@@ -73,19 +73,9 @@ public:
 
     static int FM_insert_to_DB(Field_manager &fm);
 
-//Menus
-    static int player_menu_1(Player &p,Field_manager *fm);
-    void player_menu_favorites(Player &p);
-    static void player_menu_booking(Player &p, Field_manager *f);
-    static void player_menu_cancel(Player &p, Field_manager *fm);
-    static void player_menu_profile(Player &p);
-    void profile_menu_1(User &u);
-    static void profile_menu_2(User &u);
-    void profile_menu_3();
-    void profile_menu_4();
-    void profile_menu_5();
-    void player_menu_rate(Player &p,Field_manager *fm);
-    void player_menu_booked_fields(Player &p);
+
+
+
 
 
 

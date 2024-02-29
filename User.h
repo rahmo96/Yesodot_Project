@@ -8,13 +8,11 @@
 #include <iostream>
 #include <string>
 #include "Date.h"
-#include "MyMain.h"
+#include "sqlite3.h"
 
 
 using namespace std;
 class User {
-    friend MyMain;
-
     protected:
     string name;
     long id;
@@ -58,6 +56,8 @@ public:
 
     virtual void print() ;
     string date_to_string();
+
+    static nlohmann::json from_DB(long id);
 
 
 
