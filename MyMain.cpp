@@ -61,8 +61,8 @@ void MyMain::FM_login() {
 #include "MyMain.h"
 
 
-void MyMain::runMenu() {
-    vector<Field_manager*> all_field_managers;
+int MyMain::runMenu() {
+    vector<Field_manager> all_field_managers;
     retrieve_field_managers_from_db();
     sqlite3 *db;
 
@@ -106,6 +106,51 @@ void MyMain::runMenu() {
                 switch (choice1) {
                     case 1:{
                         Player p= P_login();
+                        int choice;
+                        do {
+                            cout << "Choose one of the following options:" << endl;
+                            cout << "1. Favorites" << endl;
+                            cout << "2. Book field" << endl;
+                            cout << "3. Cancel field" << endl;
+                            cout << "4. Rate field" << endl;
+                            cout << "5. Profile" << endl;
+                            cout << "6. Booked fields" << endl;
+                            cout << "7. Exit" << endl;
+                            cin >> choice;
+
+                            switch (choice) {
+                                case 1:
+                                    cout << "Favorites" << endl;
+                                    p.f.print();
+                                    break;
+                                case 2:
+                                    cout << "Book field" << endl;
+                                    player_menu_booking(p, all_field_managers);
+                                    break;
+                                case 3:
+                                    cout << "Cancel field" << endl;
+                                    player_menu_cancel(p, all_field_managers);
+                                    break;
+                                case 4:
+                                    cout << "Rate field" << endl;
+                                    // Add code to handle Rate field
+                                    break;
+                                case 5:
+                                    cout << "Profile" << endl;
+                                    player_menu_profile(p);
+                                    break;
+                                case 6:
+                                    cout << "Booked fields" << endl;
+                                    // Add code to handle Booked fields
+                                    break;
+                                case 7:
+                                    cout << "Exiting..." << endl;
+                                    return 0;
+                                default:
+                                    cout << "Invalid choice. Please try again." << endl;
+                            }
+
+                        } while (true);
                         break;}
                     case 2:{
                         Player p=Functions::build_user<Player>();
@@ -125,10 +170,11 @@ void MyMain::runMenu() {
                 switch (choice2) {
                     case 1:
                         FM_login();
+
                         break;
                     case 2:{
                         Field_manager fm=Functions::build_user<Field_manager>();
-                        all_field_managers.push_back(&fm);
+                        //all_field_managers.push_back(&fm);
                         Functions::FM_insert_to_DB(fm);
                         break;}
                     case 3:
@@ -139,7 +185,7 @@ void MyMain::runMenu() {
                 break;}
                 break;
             case 3:
-                return;
+                return 0;
             default:
                 std::cout << "Invalid choice. Please try again." << std::endl;
         }
@@ -197,22 +243,13 @@ void MyMain::retrieve_field_managers_from_db() {
 }
 
 //Menus
-int MyMain::player_menu_1(Player &p, Field_manager *fm) {
-    cout << "Choose one of the following options:" << endl;
-
-    // Define the menu options and corresponding actions
-    std::map<int, std::function<void()>> menu = {
-            {1, [&p]() { cout << "Favorites" << endl; p.f.print(); }},
-            {2, [&p, fm]() { cout << "Book field" << endl; player_menu_booking(p, fm); }},
-            {3, [&p, fm]() { cout << "Cancel field" << endl; player_menu_cancel(p, fm); }},
-            {4, []() { cout << "Rate field" << endl; /* Add code to handle Rate field */ }},
-            {5, [&p]() { cout << "Profile" << endl; player_menu_profile(p); }},
-            {6, []() { cout << "Booked fields" << endl; /* Add code to handle Booked fields */ }},
-            {7, []() { cout << "Exiting..." << endl; return 0;}},
-    };
+/*
+int MyMain::player_menu_1() {
+     // Assuming you need to pass a Field_manager pointer
 
     int choice;
     do {
+        cout << "Choose one of the following options:" << endl;
         cout << "1. Favorites" << endl;
         cout << "2. Book field" << endl;
         cout << "3. Cancel field" << endl;
@@ -222,32 +259,59 @@ int MyMain::player_menu_1(Player &p, Field_manager *fm) {
         cout << "7. Exit" << endl;
         cin >> choice;
 
-        // Execute the corresponding action based on the user's choice
-        auto it = menu.find(choice);
-        if (it != menu.end()) {
-            it->second();
-        } else {
-            cout << "Invalid choice. Please try again." << endl;
+        switch (choice) {
+            case 1:
+                cout << "Favorites" << endl;
+                p.f.print();
+                break;
+            case 2:
+                cout << "Book field" << endl;
+                player_menu_booking(p, fm);
+                break;
+            case 3:
+                cout << "Cancel field" << endl;
+                player_menu_cancel(p, fm);
+                break;
+            case 4:
+                cout << "Rate field" << endl;
+                // Add code to handle Rate field
+                break;
+            case 5:
+                cout << "Profile" << endl;
+                player_menu_profile(p);
+                break;
+            case 6:
+                cout << "Booked fields" << endl;
+                // Add code to handle Booked fields
+                break;
+            case 7:
+                cout << "Exiting..." << endl;
+                return 0;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
         }
 
-        // Exit the loop if the user chooses the 'Exit' option
-        if (choice == 7) {
-            break;
-        }
     } while (true);
+
+    return 0;
 }
+*/
 
 
-void MyMain::player_menu_booking(Player &p, Field_manager *f) {
+
+void MyMain::player_menu_booking(Player &p,vector<Field_manager> field_managers) {
     std::vector<std::string> cities;
     std::cout << "Choose from which city you want to book a field:" << std::endl;
 
     // Collect unique cities from the fields
     for (int i = 0; i < Field_manager::counter; ++i) {
-        std::string city = f->field[i].get_field_city();
-        if (std::find(cities.begin(), cities.end(), city) == cities.end()) {
-            cities.push_back(city);
+        for (int j = 0; j < field_managers[i].field.size(); ++j) {
+            std::string city = field_managers[i].field[j].get_field_city();
+            if (std::find(cities.begin(), cities.end(), city) == cities.end()) {
+                cities.push_back(city);
+            }
         }
+
     }
 
     // Display the unique cities
@@ -266,11 +330,11 @@ void MyMain::player_menu_booking(Player &p, Field_manager *f) {
         // Display available days for booking in the chosen city
         std::cout << "Available days for booking in " << chosenCity << ":" << std::endl;
         for (int day = 0; day < 5; ++day) { // Assuming 5 days (0 to 4)
-            if (!f->is_day_occupied(chosenCity, day)) {
+            if (!field_managers[day].is_day_occupied(chosenCity, day)) {
                 std::cout << day << ": "; // You might want to convert day to a weekday name
                 // Display available hours for booking on this day
                 for (int hour = 8; hour < 20; ++hour) { // Assuming hours are from 8 to 19
-                    if (!f->is_hour_occupied(chosenCity, day, hour)) {
+                    if (!field_managers[hour-8].is_hour_occupied(chosenCity, day, hour)) {
                         std::cout << hour << ":00 ";
                     }
                 }
@@ -284,16 +348,16 @@ void MyMain::player_menu_booking(Player &p, Field_manager *f) {
         std::cin >> dayChoice;
 
         // Validate and process user choice for day
-        if (dayChoice >= 0 && dayChoice < 5 && !f->is_day_occupied(chosenCity, dayChoice)) {
+        if (dayChoice >= 0 && dayChoice < 5 && !field_managers[dayChoice].is_day_occupied(chosenCity, dayChoice)) {
             // Get user choice for hour
             int hourChoice;
             std::cout << "Choose an hour: ";
             std::cin >> hourChoice;
 
             // Validate and process user choice for hour
-            if (hourChoice >= 8 && hourChoice < 20 && !f->is_hour_occupied(chosenCity, dayChoice, hourChoice)) {
+            if (hourChoice >= 8 && hourChoice < 20 && !field_managers[hourChoice-8].is_hour_occupied(chosenCity, dayChoice, hourChoice)) {
                 // Process the booking for the chosen city, day, and hour
-                f->book_field_in_city_at_day_hour(p, chosenCity, dayChoice, hourChoice);
+                field_managers[hourChoice-8].book_field_in_city_at_day_hour(p, chosenCity, dayChoice, hourChoice);
 
                 // Ask the user if they want to add the field to their favorites
                 char choice_favorites;
@@ -310,7 +374,7 @@ void MyMain::player_menu_booking(Player &p, Field_manager *f) {
                 if (choice_favorites == 'y' || choice_favorites == 'Y') {
                     // Find the index of the chosen city in the cities vector
                     int index = cityChoice - 1;
-                    Field chosen(f->field[index].get_field_name(), f->field[index].get_field_type(), f->field[index].get_field_city());
+                    Field chosen(field_managers[index].field[index].get_field_name(), field_managers[index].field[index].get_field_type() ,field_managers[index].field[index].get_field_city());
                     p.f += chosen;
                     std::cout << "Field added to favorites." << std::endl;
                 }
@@ -325,13 +389,17 @@ void MyMain::player_menu_booking(Player &p, Field_manager *f) {
     }
 }
 
-void MyMain::player_menu_cancel(Player &p, Field_manager *fm) {
+void MyMain::player_menu_cancel(Player &p,vector<Field_manager> field_managers) {
     // Find all fields booked by the player
     std::vector<Field> temp_field;
     for (int i = 0; i < Field_manager::counter; ++i) {
-        if (fm[i].is_field_booked_by(p.Get_id())) {
-            temp_field.push_back(fm->field[i]);
+        for (int j = 0; j < p.f.get_size(); ++j) {
+            if (field_managers[i].is_field_booked_by(p.Get_id())) {
+                temp_field.push_back(field_managers[j].field[i]);
+            }
+
         }
+
     }
 
     // Display the booked fields
@@ -351,7 +419,7 @@ void MyMain::player_menu_cancel(Player &p, Field_manager *fm) {
 
         // Validate and process user choice
         if (choice >= 1 && choice <= static_cast<int>(temp_field.size())) {
-            if (fm->cancel_field_booking(p.Get_id())){
+            if (field_managers[choice-1].cancel_field_booking(p.Get_id())){
                 cout << "Field booking canceled." <<endl;
             } else {
                 std::cout << "Failed to cancel field booking." << std::endl;

@@ -24,7 +24,7 @@ static void clear_the_buffer() {
         }
     }
 
-    void runMenu();
+    int runMenu();
     static void print_Menu(const std::map<int, std::string>& menuOptions);
 
     static void loginMenu();
@@ -33,10 +33,10 @@ static void clear_the_buffer() {
     void retrieve_field_managers_from_db();
 
     //Menus
-    static int player_menu_1(Player &p,Field_manager *fm);
+    static int player_menu_1();
     void player_menu_favorites(Player &p);
-    static void player_menu_booking(Player &p, Field_manager *f);
-    static void player_menu_cancel(Player &p, Field_manager *fm);
+    static void player_menu_booking(Player &p, vector<Field_manager> field_managers);
+    static void player_menu_cancel(Player &p,vector<Field_manager> field_managers);
     static void player_menu_profile(Player &p);
     void profile_menu_1(User &u);
     static void profile_menu_2(User &u);
