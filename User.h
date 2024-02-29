@@ -62,7 +62,9 @@ public:
     void send_phone_number_to_DB(long phone_num);
     void send_password_to_DB(string password);
 
-    static nlohmann::json from_DB(long id);
+    static nlohmann::json P_from_DB(long id);
+    static nlohmann::json FM_from_DB(long id);
+
 
 
 

@@ -123,7 +123,7 @@ int Functions:: FM_insert_to_DB(Field_manager &fm){
     }
 
 
-    const char* sql = "INSERT INTO [Field_Manager_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Owned_Fields, Occupied_Fields) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
+    const char* sql = "INSERT INTO [Field_Manager_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Class_data) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
     sqlite3_stmt* stmt;
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {

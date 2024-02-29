@@ -76,7 +76,7 @@ Player::Set_player(string name, long id, string address, long phone_num, char ge
 
 Player Player::build_from_DB(long id) {
     try {
-        json j = User::from_DB(id);
+        json j = User::P_from_DB(id);
         string name = j.at("Name");
         long id = j.at("id");
         string Address = j.at("address");

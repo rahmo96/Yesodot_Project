@@ -20,7 +20,7 @@ private:
     bool promoting_funded;
 public:
     Field_manager();
-    Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd, bool promoting_funded=0): User(name, id, address, phone_num,gender,b_day,passowrd){}
+    Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd, bool promoting_funded=0): User(name, id, address, phone_num,gender,b_day,passowrd){counter++;}
     Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd,vector<Field> field1, bool promoting_funded=0);
     Field_manager(const Field_manager& fieldManager)
             : User(fieldManager), field(fieldManager.field) {
@@ -30,6 +30,7 @@ public:
                 occupied[i][j] = fieldManager.occupied[i][j];
             }
         }
+        counter++;
     };
     void print() override;
     Field_manager &operator+=(const Field_manager &fieldManager);
@@ -48,6 +49,9 @@ public:
     vector<Field> Get_field() const {return field;};
     static vector<Field_manager*> Get_field_managers() {return field_managers;}
 
+    //Setters
+    void Set_field_manager(string name, long id, string address, long phone_num, char gender, Date b_day, string passowrd, vector<Field> field1, bool promoting_funded);
+
 //send it to json
     void to_json(nlohmann::json& j);
     //get it from json
@@ -55,6 +59,7 @@ public:
 
     //Build from json
     Field_manager build_from_json(string json_str);
+    static Field_manager build_from_DB(long id);
 
 
 };

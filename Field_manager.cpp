@@ -7,7 +7,7 @@
 
 Field_manager::Field_manager(string name, long id, string address, long phone_num, char gender, Date b_day,
                              string passowrd, vector<Field> field1, bool promoting_funded)
-        : User(name, id, address, phone_num, gender, b_day, passowrd), field(field1) {}
+        : User(name, id, address, phone_num, gender, b_day, passowrd), field(field1) {counter++;}
 
 
 void Field_manager::print() {
@@ -97,9 +97,6 @@ void Field_manager::find_fields_with_id(long id) {
 }
 
 void Field_manager::to_json(nlohmann::json &j) {
-    json user_data;
-    User::to_json(user_data);
-
     nlohmann::json field_json;
     for (const auto &field_item: field) {
         nlohmann::json field_obj;
@@ -116,14 +113,20 @@ void Field_manager::to_json(nlohmann::json &j) {
         occupied_json.push_back(row_json);
     }
 
-
     j = {
-
-            {"Field",    field_json},
-            {"occupied", occupied_json}
+            {"Name", name},
+            {"id", id},
+            {"address", Address},
+            {"phone_num", phone_number},
+            {"gender", std::string(1, gender)},
+            {"b_day", date_to_string()},
+            {"password", passowrd},
+            {"Field", field_json},
+            {"occupied", occupied_json},
+            {"promoting_funded", promoting_funded}
     };
-
 }
+
 
 void Field_manager::from_json(const nlohmann::json &j) {
     // Deserialize the 'field' array
@@ -163,6 +166,60 @@ Field_manager Field_manager::build_from_json(string json_str) {
     Field_manager fm;
     fm.from_json(j);
     return fm;
+}
+
+Field_manager Field_manager::build_from_DB(long id) {
+    try {
+        json j = User::FM_from_DB(id);
+        string name = j.at("Name");
+        long id = j.at("id");
+        string Address = j.at("address");
+        long phone_number = j.at("phone_num");
+        string g = j.at("gender");
+        char gender = g[0];
+        Date b_day;
+        b_day.setDateFromString(j.at("b_day"));
+        string password = j.at("password");
+
+        vector<Field> fields;
+        const nlohmann::json& field_json = j.at("Field");
+        for (const auto& field_obj : field_json) {
+            Field field_item;
+            field_item.from_json(field_obj);
+            fields.push_back(field_item);
+        }
+        const nlohmann::json &occupied_json = j.at("occupied");
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 12; ++j) {
+                //occupied[i][j] = occupied_json.at(i).at(j);
+            }
+        }
+        const nlohmann::json &promoting_funded_json = j.at("promoting_funded");
+        bool promoting_funded = promoting_funded_json;
+        Field_manager fm;
+        fm.Set_field_manager(name, id, Address, phone_number, gender, b_day, password, fields, promoting_funded);
+        return fm;
+
+    } catch (const std::exception& e) {
+        std::cerr << "Error building Player from JSON: " << e.what() << std::endl;
+        // Handle the error appropriately, such as returning a default-constructed Player or re-throwing the exception
+        throw;
+    }
+}
+
+void Field_manager::Set_field_manager(string name, long id, string address, long phone_num, char gender, Date b_day,
+                                      string passowrd, vector<Field> field1, bool promoting_funded) {
+
+    this->name = name;
+    this->id = id;
+    this->Address = address;
+    this->phone_number = phone_num;
+    this->gender = gender;
+    this->b_day = b_day;
+    this->passowrd = passowrd;
+    this->field = field1;
+    this->promoting_funded = promoting_funded;
+
 }
 
 

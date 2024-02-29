@@ -112,13 +112,32 @@ void User::from_json(const nlohmann::json &j) {
 
 }
 
-nlohmann::json User::from_DB(long id) {
+nlohmann::json User::P_from_DB(long id) {
     sqlite3 *db;
     sqlite3_stmt *stmt;
     nlohmann::json j;
     sqlite3_open("Test player data DB.db", &db);
 
     std::string query = "SELECT Class_data FROM [Player_Accounts] WHERE id =" + std::to_string(id);
+    const char* sql = query.c_str();
+
+    sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        j = nlohmann::json::parse((char *) sqlite3_column_text(stmt, 0));
+    }
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+    return j;
+
+}
+nlohmann::json User::FM_from_DB(long id) {
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+    nlohmann::json j;
+    sqlite3_open("Test player data DB.db", &db);
+
+    std::string query = "SELECT Class_data FROM [Field_Manager_Accounts] WHERE id =" + std::to_string(id);
     const char* sql = query.c_str();
 
     sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
