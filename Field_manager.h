@@ -17,10 +17,11 @@ private:
     static vector<Field_manager*> field_managers;
     vector<Field> field;
     long occupied[5][12];
+    bool promoting_funded;
 public:
     Field_manager();
-    Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd): User(name, id, address, phone_num,gender,b_day,passowrd){}
-    Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd,vector<Field> field1);
+    Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd, bool promoting_funded=0): User(name, id, address, phone_num,gender,b_day,passowrd){}
+    Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd,vector<Field> field1, bool promoting_funded=0);
     Field_manager(const Field_manager& fieldManager)
             : User(fieldManager), field(fieldManager.field) {
         // Copy the 'occupied' array
@@ -40,6 +41,7 @@ public:
     void find_fields_with_id(long id);
     bool is_field_booked_by(long id);
     bool cancel_field_booking(long id);
+    void set_promoting_funded(bool prom){promoting_funded=prom;}
 
 
     //Getters

@@ -18,7 +18,7 @@ private:
     string field_type;
     string field_city;
     float rating;
-    int counter_rating=1;
+    int counter_rating=0;
 public:
     Field();
     Field(const Field &other);
