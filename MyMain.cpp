@@ -68,10 +68,9 @@ Field_manager MyMain::FM_login() {
 #include "Field_manager.h"
 #include "MyMain.h"
 
-
+vector<Field_manager*> Field_manager::field_managers;
 int MyMain::runMenu() {
-    vector<Field_manager*> all_field_managers;
-    //retrieve_field_managers_from_db();
+
     sqlite3 *db;
 
     std::map<int, std::string> playerFieldManagerMenu = {
@@ -133,12 +132,12 @@ int MyMain::runMenu() {
                                     break;
                                 case 2:
                                     cout << "Book field" << endl;
-                                    player_menu_booking(p, all_field_managers);
+                                    player_menu_booking(p, Field_manager::field_managers);
                                     p.update_to_DB();
                                     break;
                                 case 3:
                                     cout << "Cancel field" << endl;
-                                    player_menu_cancel(p, all_field_managers);
+                                    player_menu_cancel(p, Field_manager::field_managers);
                                     break;
                                 case 4:
                                     cout << "Rate field" << endl;
@@ -201,7 +200,12 @@ int MyMain::runMenu() {
                                     std::cout << "Adding a new field..." << std::endl;
                                     Field field = Field::add_field();
                                     fm.field.push_back(field);
-                                    fm.update_to_DB();}
+                                    fm.update_to_DB();
+                                    Field_manager::field_managers.push_back(&fm);}
+                                    for (auto& fm : Field_manager::field_managers) {
+                                        fm->print();
+                                    }
+
                                     break;
                                 case 2:
                                     std::cout << "Removing a field..." << std::endl;
@@ -230,7 +234,7 @@ int MyMain::runMenu() {
                         Field_manager *fm= new Field_manager();
                         *fm =Functions::build_user<Field_manager>();
                         Functions::FM_insert_to_DB(*fm);
-                        all_field_managers.push_back(fm);
+                        Field_manager::field_managers.push_back(fm);
                         int choice;
                         bool exitMenu = false;
 
@@ -301,15 +305,10 @@ int MyMain::runMenu() {
 }
 
 MyMain::MyMain() {
+   retrieve_field_managers_from_db();
     runMenu();
 }
 
-#include <iostream>
-#include <sqlite3.h>
-#include <vector>
-#include "Field_manager.h"
-
-std::vector<Field_manager*> Field_manager::field_managers;
 
 void MyMain::retrieve_field_managers_from_db() {
     sqlite3* db;
@@ -333,11 +332,7 @@ void MyMain::retrieve_field_managers_from_db() {
         // Retrieve JSON data from the current row
         const char* json_data = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
 
-
-    // Print the JSON data for debugging
-        std::cout << "JSON data: " << json_data << std::endl;
-
-    // Parse JSON data and create Field_manager object
+        // Parse JSON data and create Field_manager object
         nlohmann::json j;
         try {
             j = nlohmann::json::parse(json_data);
@@ -347,16 +342,12 @@ void MyMain::retrieve_field_managers_from_db() {
             continue;
         }
 
+
+
+        // Create a new Field_manager object and add it to your collection
         Field_manager* fm = new Field_manager();
         fm->from_json(j);
-
-        // Parse JSON data and create Field_manager object
-        nlohmann::json j1 = nlohmann::json::parse(json_data);
-        Field_manager* fm1 = new Field_manager();
-        fm1->from_json(j);
-
-        // Add Field_manager object to your collection
-        Field_manager::field_managers.push_back(fm1);
+        Field_manager::field_managers.push_back(fm);
     }
 
     if (rc != SQLITE_DONE) {
@@ -366,6 +357,7 @@ void MyMain::retrieve_field_managers_from_db() {
     sqlite3_finalize(stmt);
     sqlite3_close(db);
 }
+
 
 
 //Menus

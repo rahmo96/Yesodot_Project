@@ -19,7 +19,18 @@ private:
     long occupied[5][12];
     bool promoting_funded;
 public:
-    Field_manager();
+    Field_manager():User() {
+
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 12; ++j) {
+                occupied[i][j] = 0; // Initialize the occupied array
+            }
+        }
+
+        promoting_funded = 0;
+        counter++;
+
+    }
     Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd, bool promoting_funded=0): User(name, id, address, phone_num,gender,b_day,passowrd){counter++;}
     Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd,vector<Field> field1, bool promoting_funded=0);
     Field_manager(const Field_manager& fieldManager)
@@ -55,7 +66,7 @@ public:
 //send it to json
     void to_json(nlohmann::json& j);
     //get it from json
-    void from_json(const nlohmann::json& j);
+    Field_manager from_json(const nlohmann::json& j);
 
     //Build from json
     Field_manager build_from_json(string json_str);

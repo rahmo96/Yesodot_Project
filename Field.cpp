@@ -64,18 +64,18 @@ bool Field::operator!=(const Field &other) {
 void Field::to_json(json &j) const {
 
     j = {
-            {field_name, "Field name"},
-            {field_type, "Field type"},
-            {field_city, "Field city"}
+            {"Field_name", field_name},
+            {"Field_type", field_type},
+            {"Field_city", field_city}
     };
 
 }
 
 void Field::from_json(const json &j) {
 
-    field_name = j.at("Field name");
-    field_type = j.at("Field type");
-    field_city = j.at("Field city");
+    field_name = j.at("Field_name");
+    field_type = j.at("Field_type");
+    field_city = j.at("Field_city");
 
 }
 

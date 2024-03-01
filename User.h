@@ -50,7 +50,7 @@ public:
     //Send it to json
     virtual void to_json(nlohmann::json& j);
     //Get it from json
-    virtual void from_json(const nlohmann::json& j);
+     void from_json(const nlohmann::json& j);
 
 
     virtual void print() ;

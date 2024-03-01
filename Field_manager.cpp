@@ -11,19 +11,21 @@ Field_manager::Field_manager(string name, long id, string address, long phone_nu
 
 
 void Field_manager::print() {
-    for (auto &field: field) {
-        if (promoting_funded == true) {
-            User::print();
-            field.print();
-        }
+    User::print(); // Print user details
+
+    // Print fields
+    for (auto &f : field) {
+        f.print(); // Print field details
     }
-    for (auto &field: field) {
-        if (promoting_funded == false) {
-            User::print();
-            field.print();
-        }
+
+    // Print promotion status
+    if (promoting_funded) {
+        cout << "Promoted!" << endl;
+    } else {
+        cout << "Not promoted yet!" << endl;
     }
 }
+
 
 Field_manager &Field_manager::operator+=(const Field_manager &fieldManager) {
 
@@ -97,6 +99,8 @@ void Field_manager::find_fields_with_id(long id) {
 }
 
 void Field_manager::to_json(nlohmann::json &j) {
+    json player_json;
+    User::to_json(player_json);
     nlohmann::json field_json;
     for (const auto &field_item: field) {
         nlohmann::json field_obj;
@@ -107,30 +111,39 @@ void Field_manager::to_json(nlohmann::json &j) {
     nlohmann::json occupied_json;
     for (size_t i = 0; i < 5; ++i) {
         nlohmann::json row_json;
-        for (size_t j = 0; j < 12; ++j) {
-            row_json.push_back(occupied[i][j]);
+        for (size_t k = 0; k < 12; ++k) {
+            row_json.push_back(occupied[i][k]);
         }
         occupied_json.push_back(row_json);
     }
 
     j = {
-            {"Name", name},
-            {"id", id},
-            {"address", Address},
-            {"phone_num", phone_number},
-            {"gender", std::string(1, gender)},
-            {"b_day", date_to_string()},
-            {"password", passowrd},
-            {"Field", field_json},
-            {"occupied", occupied_json},
-            {"promoting_funded", promoting_funded}
+            {"Name",             name},
+            {"id",               id},
+            {"address",          Address},
+            {"phone_num",        phone_number},
+            {"b_day",            date_to_string()},
+            {"gender",           string (1, gender)},
+            {"password",         passowrd},
+            {"promoting_funded", promoting_funded},
+            {"Field",            field_json},
+            {"Occupied",         occupied_json}
     };
 }
 
 
-void Field_manager::from_json(const nlohmann::json &j) {
+
+Field_manager Field_manager::from_json(const nlohmann::json &j) {
+    this->name = j.at("Name");
+    this->id = j.at("id");
+    this->Address = j.at("address");
+    this->phone_number = j.at("phone_num");
+    string gender_str = j.at("gender");
+    this->gender =gender_str[0];
+    this->passowrd = j.at("password");
+    this->promoting_funded = j.at("promoting_funded");
     // Deserialize the 'field' array
-    const nlohmann::json &field_json = j.at("field");
+    const nlohmann::json &field_json = j.at("Field");
     field.clear(); // Clear existing fields
     for (const auto &field_obj: field_json) {
         Field field_item;
@@ -139,27 +152,18 @@ void Field_manager::from_json(const nlohmann::json &j) {
     }
 
     // Deserialize the 'occupied' 2D array
-    const nlohmann::json &occupied_json = j.at("occupied");
+    const nlohmann::json &occupied_json = j.at("Occupied");
     for (size_t i = 0; i < 5; ++i) {
         for (size_t j = 0; j < 12; ++j) {
             occupied[i][j] = occupied_json.at(i).at(j);
         }
     }
 
-}
-
-Field_manager::Field_manager() {
-
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 12; ++j) {
-            occupied[i][j] = 0; // Initialize the occupied array
-        }
-    }
-
-    field_managers;
-    counter++;
+    return *this;
 
 }
+
+
 
 Field_manager Field_manager::build_from_json(string json_str) {
     nlohmann::json j = nlohmann::json::parse(json_str);
@@ -188,7 +192,7 @@ Field_manager Field_manager::build_from_DB(long id) {
             field_item.from_json(field_obj);
             fields.push_back(field_item);
         }
-        const nlohmann::json &occupied_json = j.at("occupied");
+        const nlohmann::json &occupied_json = j.at("Occupied");
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 12; ++j) {
                 //occupied[i][j] = occupied_json.at(i).at(j);
