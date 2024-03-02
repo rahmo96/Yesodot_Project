@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Yesodot_Project.dir/Booked.cpp.obj"
+  "CMakeFiles/Yesodot_Project.dir/Booked.cpp.obj.d"
   "CMakeFiles/Yesodot_Project.dir/Date.cpp.obj"
   "CMakeFiles/Yesodot_Project.dir/Date.cpp.obj.d"
   "CMakeFiles/Yesodot_Project.dir/Favorites.cpp.obj"

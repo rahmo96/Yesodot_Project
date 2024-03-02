@@ -29,5 +29,7 @@ add_executable(Yesodot_Project
         main.cpp
         sqlite3.c
         sqlite3.h
+        Booked.cpp
+        Booked.h
 
 )

@@ -67,8 +67,11 @@ bool Functions:: checkLogin_FM(sqlite3* db, const string& id, const string& pass
 
 
 //Insert User data to DB
-int Functions::P_insert_to_DB(Player &p) {
+int Functions::P_insert_to_DB(Player &fm) {
+    // Insert player account data
+    const char* insert_sql = "INSERT INTO [Player_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Class_data) VALUES (?,?,?,?,?,?,?,?)";
     sqlite3* db;
+
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc) {
         std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
@@ -76,31 +79,30 @@ int Functions::P_insert_to_DB(Player &p) {
         return rc;
     }
 
-    // Insert player account data
-    const char* insert_sql = "INSERT INTO [Player_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Class_data) VALUES (?,?,?,?,?,?,?,?)";
+
+    const char* sql = "INSERT INTO [Player_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Class_data) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
     sqlite3_stmt* stmt;
-    rc = sqlite3_prepare_v2(db, insert_sql, -1, &stmt, nullptr);
+    rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
         std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
         sqlite3_close(db);
         return rc;
     }
-    // Convert field and favorites to JSON strings
-    json player_class_json;
+    const char* gender = fm.Get_gender() == 'M' ? "Male" : "Female";
 
-    p.to_json(player_class_json);
 
-    string gender(1, p.Get_gender());
+    json data_json;
+    fm.to_json(data_json);
+    std::string json_str =data_json.dump();
 
-    sqlite3_bind_text(stmt, 1, p.Get_Name().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_int(stmt, 2, p.Get_id());
-    sqlite3_bind_int(stmt, 3, p.Get_phone_number());
-    sqlite3_bind_text(stmt, 4, gender.c_str(), 1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 5, p.Get_Address().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 6, p.date_to_string().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 7, p.get_password().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 8, player_class_json.dump().c_str(), -1, SQLITE_STATIC);
-
+    sqlite3_bind_text(stmt, 1, fm.Get_Name().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, fm.Get_id());
+    sqlite3_bind_int(stmt, 3, fm.Get_phone_number());
+    sqlite3_bind_text(stmt, 4, gender, 1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 5, fm.Get_Address().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 6, fm.date_to_string().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 7, fm.get_password().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 8, json_str.c_str(), -1, SQLITE_STATIC);
 
     rc = sqlite3_step(stmt);
     if (rc != SQLITE_DONE) {
@@ -109,8 +111,10 @@ int Functions::P_insert_to_DB(Player &p) {
         sqlite3_close(db);
         return rc;
     }
-    return SQLITE_OK;
 
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+    return SQLITE_OK;
 }
 int Functions:: FM_insert_to_DB(Field_manager &fm){
     sqlite3* db;

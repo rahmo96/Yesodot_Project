@@ -9,6 +9,7 @@
 #include <string>
 #include "Date.h"
 #include "sqlite3.h"
+#include "Booked.h"
 
 
 using namespace std;

@@ -16,7 +16,8 @@ using namespace std;
 
 
 Player::Player(const Player &player) : User(player){
-    this->field = player.field;
+    this->booked = player.booked;
+    this->f = player.f;
 }
 
 void Player::print() {
@@ -32,44 +33,41 @@ void Player::print() {
 void Player::to_json(nlohmann::json &j) {
     json player_data_json;
     User::to_json(player_data_json);
-    nlohmann::json field_json = nlohmann::json::array();
-    for (const auto &field_item : field) {
-        nlohmann::json field_obj;
-        field_item.to_json(field_obj); // Assuming Field has a to_json method
-        field_json.push_back(field_obj);
-    }
+
+    nlohmann::json booked_json;
+    booked.to_json(booked_json);
+
     json favorites_json;
     f.to_json(favorites_json);
 
-    // Merge all JSON objects into one
-
-    j.merge_patch({
-                          {"Name", name},
-                          {"id", id},
-                          {"address", Address},
-                          {"phone_num", phone_number},
-                          {"gender", std::string(1, gender)},
-                          {"b_day", date_to_string()},
-                          {"password", passowrd},
-                          {"Field", field_json},
-                          {"Favorites", favorites_json}
-                  });
+    j={
+            {"Name",             name},
+            {"id",               id},
+            {"address",          Address},
+            {"phone_num",        phone_number},
+            {"b_day",            date_to_string()},
+            {"gender",           string (1, gender)},
+            {"password",         passowrd},
+            {"Booked",            booked_json},
+            {"Favorites",        favorites_json}
+    };
 }
 
 
 void Player::from_json(const nlohmann::json& j) {
-    this->field.clear();
-    const nlohmann::json& field_json = j.at("field");
-    for (const auto& field_obj : field_json) {
-        Field field_item;
-        field_item.from_json(field_obj);
-        field.push_back(field_item);
-    }
+    this->booked.booked_fields.clear();
+    User::from_json(j);
+    const nlohmann::json& booked_json = j.at("Booked");
+    booked.from_json(booked_json);
+    const nlohmann::json& favorites_json = j.at("Favorites");
+    f.from_json(favorites_json);
+
+
 }
 
 void
 Player::Set_player(string name, long id, string address, long phone_num, char gender, Date birthdy, string passowrd,
-                   vector<Field> field, Favorites f) {
+                   Booked &booked, Favorites &f) {
     this->name = name;
     this->id = id;
     this->Address = address;
@@ -77,8 +75,10 @@ Player::Set_player(string name, long id, string address, long phone_num, char ge
     this->gender = gender;
     this->b_day = birthdy;
     this->passowrd = passowrd;
-    this->field = field;
+    this->booked = booked;
     this->f = f;
+
+    std::cout << "Favorites size in Set_player: " << f.get_size() << std::endl;
 }
 
 Player Player::build_from_DB(long id) {
@@ -94,20 +94,20 @@ Player Player::build_from_DB(long id) {
         b_day.setDateFromString(j.at("b_day"));
         string password = j.at("password");
 
-        vector<Field> fields;
-        const nlohmann::json& field_json = j.at("Field");
-        for (const auto& field_obj : field_json) {
-            Field field_item;
-            field_item.from_json(field_obj);
-            fields.push_back(field_item);
-        }
+        Booked fields;
+        fields.from_json(j.at("Booked"));
+
+
+
 
         Favorites f;
-        const nlohmann::json& favorites_json = j.at("Favorites");
-        f.from_json(favorites_json);
-        Player p;
-        p.Set_player(name, id, Address, phone_number, gender, b_day, password, fields, f);
+        f.from_json(j.at("Favorites"));
+        std::cout << "Favorites size after construction: " << f.get_size() << std::endl;
+
+        Player p(name, id, Address, phone_number, gender, b_day, password, fields, f);
+
         return p;
+
 
     } catch (const std::exception& e) {
         std::cerr << "Error building Player from JSON: " << e.what() << std::endl;
@@ -116,53 +116,53 @@ Player Player::build_from_DB(long id) {
     }
 }
 
-Player Player::set_Player_from_json(json j) {
-    Player p;
-    p.name = j.at("Name");
-    p.id = j.at("id");
-    p.Address = j.at("address");
-    p.phone_number = j.at("phone_num");
-    string g = j.at("gender");
-    p.gender =g[0];
-    p.b_day.setDateFromString(j.at("b_day"));
-    p.passowrd = j.at("password");
-    const nlohmann::json& field_json = j.at("Field");
-    for (const auto& field_obj : field_json) {
-        Field field_item;
-        field_item.from_json(field_obj);
-        p.field.push_back(field_item);
-    }
-    const nlohmann::json& favorites_json = j.at("Favorites");
-    p.f.from_json(favorites_json);
-    return p;
-
-}
 
 bool Player::update_to_DB() {
     // Serialize the updated Player object to a JSON string
     nlohmann::json player_data;
     this->to_json(player_data);
+    string json_string = player_data.dump();
 
-    sqlite3 *db;
+    sqlite3* db;
     if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
         std::cerr << "Error opening database" << std::endl;
         return false;
     }
 
-    // Update the Class_data column in the database with the updated JSON string
-    std::string update_query =
-            "UPDATE [Player_Accounts] SET [Class_data] = '" + player_data.dump() + "' WHERE id = " +
-            std::to_string(this->Get_id());
-    const char *sql = update_query.c_str();
-    if (sqlite3_exec(db, sql, nullptr, nullptr, nullptr) != SQLITE_OK) {
-        std::cerr << "Error updating database" << std::endl;
+    sqlite3_stmt* stmt;
+    const char* update_query = "UPDATE [Player_Accounts] SET [Class_data] = ? WHERE id = ?";
+    if (sqlite3_prepare_v2(db, update_query, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "Error preparing update statement" << std::endl;
         sqlite3_close(db);
         return false;
     }
 
+    sqlite3_bind_text(stmt, 1, json_string.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, this->Get_id());
+
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        std::cerr << "Error updating database" << std::endl;
+        sqlite3_finalize(stmt);
+        sqlite3_close(db);
+        return false;
+    }
+
+    sqlite3_finalize(stmt);
     sqlite3_close(db);
     return true;
-
-
 }
+
+Player Player::operator=(const Player &other) {
+    this->name = other.name;
+    this->id = other.id;
+    this->Address = other.Address;
+    this->phone_number = other.phone_number;
+    this->gender = other.gender;
+    this->b_day = other.b_day;
+    this->passowrd = other.passowrd;
+    this->booked = other.booked;
+    this->f = other.f;
+    return *this;
+}
+
 

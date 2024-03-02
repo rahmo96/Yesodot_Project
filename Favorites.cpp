@@ -8,33 +8,29 @@
 using namespace std;
 using namespace nlohmann;
 
-Favorites::Favorites() : favorite_field(nullptr), size(0) {}
+Favorites::Favorites() : favorite_field() {}
 
-Favorites::Favorites(Field *favorite_field, int size) {
-    this->favorite_field = favorite_field; // make a copy of this
-    this->size = size;
-}
 
 Favorites::Favorites(const Favorites &other) {
-    this->size = other.size;
-    this->favorite_field=new Field[size];
-    for (int i = 0; i < size; ++i) {
-        this->favorite_field[i]=other.favorite_field[i];
+    for (const auto &field_item : other.favorite_field) {
+        favorite_field.push_back(field_item);
     }
+
 
 }
 
 
-Field *Favorites::get_favorite_field() {
+vector<Field> Favorites::get_favorite_field() {
     return favorite_field;
 }
 
+
 void Favorites::print() {
-    if (size == 0) {
+    if (favorite_field.size() == 0) {
         cout << "No favorite fields yet " << endl;
         return;
     }
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i < favorite_field.size(); ++i) {
         favorite_field[i].print();
         cout << endl;
     }
@@ -42,66 +38,64 @@ void Favorites::print() {
 }
 
 Favorites Favorites::operator+=(Field &f_field) {
-    Field *new_field = new Field[size + 1];
-    for (int i = 0; i < size; ++i) {
-        new_field[i] = favorite_field[i];
-    }
-    new_field[size] = f_field;
-    delete[] favorite_field;
-    favorite_field = new_field;
-    size++;
+    this->favorite_field.push_back(f_field);
     return *this;
+
 }
 
 Favorites Favorites::operator-=(Field &f_field) {
-    Field *new_field = new Field[size - 1];
+    vector<Field> new_field;
     int j = 0;
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i <favorite_field.size(); ++i) {
         if (favorite_field[i] != f_field) {
             new_field[j] = favorite_field[i];
             j++;
         }
     }
-    delete[] favorite_field;
+
     favorite_field = new_field;
-    size--;
     return *this;
 }
 
 void Favorites::to_json(json &j) const {
     nlohmann::json array_json;
-    for (int i = 0; i < size; ++i) {
+    for (int i = 0; i <favorite_field.size(); ++i) {
         nlohmann::json field_json;
         favorite_field[i].to_json(field_json); // Assuming Field has a to_json method
         array_json.push_back(field_json);
     }
     j = {
             {"favorite_field", array_json},
-            {"size", size}
     };
 }
 
 
 
 Favorites& Favorites::operator=(const Favorites& f_field) {
-    if (this != &f_field) {
-        this->size = f_field.size;
-        delete[] this->favorite_field;
-        this->favorite_field = new Field[size];
-        for (int i = 0; i < size; ++i) {
-            this->favorite_field[i] = f_field.favorite_field[i];
+
+        for (const auto &field_item : f_field.favorite_field) {
+            favorite_field.push_back(field_item);
         }
-    }
+
     return *this;
 }
 
 void Favorites::from_json(const json &j) {
-    size = j.at("size");
-    delete[] favorite_field;
-    favorite_field = new Field[size];
-    for (int i = 0; i < size; ++i) {
-        favorite_field[i].from_json(j["favorite_field"][i]);
+
+    const json& array_json = j.at("favorite_field");
+    for (const auto& field_obj : array_json) {
+        Field field_item;
+        field_item.from_json(field_obj);
+        favorite_field.push_back(field_item);
     }
 
 }
+
+int Favorites::get_size() {
+    return favorite_field.size();
+}
+
+
+
+
 

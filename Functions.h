@@ -15,6 +15,7 @@ using namespace std;
 #include "Date.h"
 #include "sqlite3.h"
 
+
 class Functions{
 public:
     static bool IsValidIsraeliID(const string& israeliID);
@@ -69,7 +70,7 @@ public:
         return player1;
     }
 
-    static int P_insert_to_DB(Player &p);
+    static int P_insert_to_DB(Player &fm);
 
     static int FM_insert_to_DB(Field_manager &fm);
 

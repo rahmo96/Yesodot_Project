@@ -55,16 +55,27 @@ bool Field_manager::is_day_occupied(const std::string &city, int day) const {
     return false; // Day is not occupied
 }
 
-void Field_manager::book_field_in_city_at_day_hour(Player &p, const std::string &city, int day, int hour) {
+void Field_manager::book_field_in_city_at_day_hour(long id, const std::string &city, int day, int hour) {
+    // Find the field in the specified city
+    string days[5]={"Sunday","Monday","Tuesday","Wednesday","Thursday"};
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
-            occupied[day][hour] = p.Get_id(); // Mark the hour as occupied
+            // Check if the slot is already booked
+            if (occupied[day][hour] != 0) {
+                std::cout << "This slot is already booked." << std::endl;
+                return;
+            }
+
+            // Mark the hour as occupied with the player's ID
+            occupied[day][hour] = id;
+
             // Additional logic to handle the booking (e.g., updating records)
-            std::cout << "Field booked in " << city << " on day " << day << " at " << hour << ":00." << std::endl;
+            std::cout << "Field booked in " << city << " on day " << days[day] << " at " << hour << ":00." << std::endl;
             break;
         }
     }
 }
+
 
 bool Field_manager::is_field_booked_by(long id) {
     for (int i = 0; i < 5; ++i) {

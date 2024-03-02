@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2023.3.4\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\raha1\Documents\CLionProjects\Yesodot_Project
+CMAKE_SOURCE_DIR = C:\Users\raha1\Desktop\yesodot
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\raha1\Desktop\yesodot\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\cmake-build-debug\CMakeFiles C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\raha1\Desktop\yesodot\cmake-build-debug\CMakeFiles C:\Users\raha1\Desktop\yesodot\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\raha1\Documents\CLionProjects\Yesodot_Project\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\raha1\Desktop\yesodot\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -127,6 +127,30 @@ Yesodot_Project: cmake_check_build_system
 Yesodot_Project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/build
 .PHONY : Yesodot_Project/fast
+
+Booked.obj: Booked.cpp.obj
+.PHONY : Booked.obj
+
+# target to build an object file
+Booked.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Booked.cpp.obj
+.PHONY : Booked.cpp.obj
+
+Booked.i: Booked.cpp.i
+.PHONY : Booked.i
+
+# target to preprocess a source file
+Booked.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Booked.cpp.i
+.PHONY : Booked.cpp.i
+
+Booked.s: Booked.cpp.s
+.PHONY : Booked.s
+
+# target to generate assembly for a file
+Booked.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Booked.cpp.s
+.PHONY : Booked.cpp.s
 
 Date.obj: Date.cpp.obj
 .PHONY : Date.obj
@@ -377,6 +401,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Yesodot_Project
+	@echo ... Booked.obj
+	@echo ... Booked.i
+	@echo ... Booked.s
 	@echo ... Date.obj
 	@echo ... Date.i
 	@echo ... Date.s

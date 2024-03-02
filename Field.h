@@ -28,9 +28,10 @@ public:
     string get_field_city() const {return field_city;}
     float get_ratung() const {return rating;}
 
-    void print();
+    void print() const;
     Field operator=(const Field &other);
     bool operator != (const Field &other);
+    bool operator == (const Field &other);
 
     //Send it to json
     void to_json(json& j) const;

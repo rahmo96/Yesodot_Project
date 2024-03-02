@@ -19,7 +19,7 @@ Field::Field(const Field &other) {
 }
 
 
-void Field::print() {
+void Field::print() const {
     cout << field_name << endl;
     cout << "_______" << endl;
     cout << "The field sport type is: " << field_type << " " << endl;
@@ -90,6 +90,18 @@ Field Field::add_field() {
 
 
     return Field(name, type, city);
+}
+
+bool Field::operator==(const Field &other) {
+
+    if (field_name != other.field_name)
+        return false;
+    if (field_city != other.field_city)
+        return false;
+    if (field_type != other.field_type)
+        return false;
+
+    return true;
 }
 
 
