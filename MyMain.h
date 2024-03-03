@@ -52,6 +52,13 @@ static void clear_the_buffer() {
     //Field manager menus
     void field_manager_menu();
     void remove_field(Field_manager &fm,vector<Field_manager*>& field_managers);
+
+    void
+    bookField(Player &p, Field_manager *fm, const Field &chosenField, const string &chosenCity, int dayIndex,
+              int startHour,
+              int endHour);
+
+    void addToFavorites(Player &p, const Field &chosenField);
 };
 
 
