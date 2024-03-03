@@ -180,15 +180,47 @@ nlohmann::json User::FM_from_DB(long id) {
     return j;
 }
 
+bool User::update_to_DB() {
+    // Serialize the updated Player object to a JSON string
+    nlohmann::json player_data;
+    this->to_json(player_data);
+
+    sqlite3 *db;
+    if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
+        std::cerr << "Error opening database" << std::endl;
+        return false;
+    }
+
+    // Update the Class_data column in the database with the updated JSON string
+    std::string update_query =
+            "UPDATE [Field_Manager_Accounts] SET [Class_data] = '" + player_data.dump() + "' WHERE id = " +
+            std::to_string(this->Get_id());
+    const char *sql = update_query.c_str();
+    if (sqlite3_exec(db, sql, nullptr, nullptr, nullptr) != SQLITE_OK) {
+        std::cerr << "Error updating database" << std::endl;
+        sqlite3_close(db);
+        return false;
+    }
+
+    sqlite3_close(db);
+    return true;
+}
+
 
 
 void User::send_name_to_DB(string name) {
     sqlite3 *db;
     sqlite3_stmt *stmt;
+    json j;
+    this->to_json(j);
+    update_to_DB();
     sqlite3_open("Test player data DB.db", &db);
     sqlite3_prepare_v2(db, "UPDATE [Player_Accounts] SET Name = ? WHERE id = ?", -1, &stmt, nullptr);
     sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_int(stmt, 2, this->id); // Assuming id is a member variable of User
+    sqlite3_step(stmt);
+    sqlite3_prepare_v2(db, "UPDATE [Player_Accounts] SET Class_data = ? WHERE id = ?", -1, &stmt, nullptr);
+    sqlite3_bind_text(stmt, 1, j.dump().c_str(), -1, SQLITE_STATIC);
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
     sqlite3_close(db);

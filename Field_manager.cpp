@@ -7,14 +7,14 @@
 
 Field_manager::Field_manager(string name, long id, string address, long phone_num, char gender, Date b_day,
                              string passowrd, vector<Field> field1, bool promoting_funded)
-        : User(name, id, address, phone_num, gender, b_day, passowrd), field(field1) { counter++; }
+        : User(name, id, address, phone_num, gender, b_day, passowrd), field(field1) {counter++;}
 
 
 void Field_manager::print() {
     User::print(); // Print user details
 
     // Print fields
-    for (auto &f: field) {
+    for (auto &f : field) {
         f.print(); // Print field details
     }
 
@@ -35,8 +35,7 @@ Field_manager &Field_manager::operator+=(const Field_manager &fieldManager) {
 
 bool Field_manager::is_hour_occupied(const std::string &city, int day, int hour) const {
     for (int i = 0; i < counter; ++i) {
-        if (field[i].get_field_city() == city && field[i].get_occupied(day, hour) != 0 &&
-            field[i].get_occupied(day, hour) != 1) {
+        if (field[i].get_field_city() == city && field[i].get_occupied(day, hour) != 0 && field[i].get_occupied(day, hour) != 1) {
             return true; // Hour is occupied
         }
     }
@@ -58,7 +57,7 @@ bool Field_manager::is_day_occupied(const std::string &city, int day) const {
 
 void Field_manager::book_field_in_city_at_day_hour(long id, const std::string &city, int day, int hour) {
     // Find the field in the specified city
-    string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};
+    string days[5]={"Sunday","Monday","Tuesday","Wednesday","Thursday"};
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
             // Check if the slot is already booked
@@ -81,7 +80,7 @@ void Field_manager::book_field_in_city_at_day_hour(long id, const std::string &c
 bool Field_manager::is_field_booked_by(long id) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 12; ++j) {
-            if (field[i].get_occupied(i, j) == id) {
+            if (field[i].get_occupied(i,j) == id) {
                 return true; // Field is booked
             }
         }
@@ -89,7 +88,7 @@ bool Field_manager::is_field_booked_by(long id) {
     return false; // Field is not booked
 }
 
-bool Field_manager::cancel_field_booking(long id, const Field &field) {
+bool Field_manager::cancel_field_booking(long id, const Field& field) {
     for (int i = 0; i < this->field.size(); ++i) {
         if (this->field[i] == field) {
             for (int j = 0; j < 5; ++j) {
@@ -131,12 +130,13 @@ void Field_manager::to_json(nlohmann::json &j) {
             {"address",          Address},
             {"phone_num",        phone_number},
             {"b_day",            date_to_string()},
-            {"gender",           string(1, gender)},
+            {"gender",           string (1, gender)},
             {"password",         passowrd},
             {"promoting_funded", promoting_funded},
             {"Field",            field_json},
     };
 }
+
 
 
 Field_manager Field_manager::from_json(const nlohmann::json &j) {
@@ -145,7 +145,7 @@ Field_manager Field_manager::from_json(const nlohmann::json &j) {
     this->Address = j.at("address");
     this->phone_number = j.at("phone_num");
     string gender_str = j.at("gender");
-    this->gender = gender_str[0];
+    this->gender =gender_str[0];
     this->passowrd = j.at("password");
     this->promoting_funded = j.at("promoting_funded");
     // Deserialize the 'field' array
@@ -158,9 +158,11 @@ Field_manager Field_manager::from_json(const nlohmann::json &j) {
     }
 
 
+
     return *this;
 
 }
+
 
 
 Field_manager Field_manager::build_from_json(string json_str) {
@@ -184,8 +186,8 @@ Field_manager Field_manager::build_from_DB(long id) {
         string password = j.at("password");
 
         vector<Field> fields;
-        const nlohmann::json &field_json = j.at("Field");
-        for (const auto &field_obj: field_json) {
+        const nlohmann::json& field_json = j.at("Field");
+        for (const auto& field_obj : field_json) {
             Field field_item;
             field_item.from_json(field_obj);
             fields.push_back(field_item);
@@ -196,7 +198,7 @@ Field_manager Field_manager::build_from_DB(long id) {
         fm.Set_field_manager(name, id, Address, phone_number, gender, b_day, password, fields, promoting_funded);
         return fm;
 
-    } catch (const std::exception &e) {
+    } catch (const std::exception& e) {
         std::cerr << "Error building Player from JSON: " << e.what() << std::endl;
         // Handle the error appropriately, such as returning a default-constructed Player or re-throwing the exception
         throw;
@@ -219,84 +221,32 @@ void Field_manager::Set_field_manager(string name, long id, string address, long
 }
 
 bool Field_manager::update_to_DB() {
-    // Serialize the updated Player object to a JSON string
-    nlohmann::json player_data;
-    this->to_json(player_data);
+        // Serialize the updated Player object to a JSON string
+        nlohmann::json player_data;
+        this->to_json(player_data);
 
-    sqlite3 *db;
-    if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
-        std::cerr << "Error opening database" << std::endl;
-        return false;
-    }
-
-    // Update the Class_data column in the database with the updated JSON string
-    std::string update_query =
-            "UPDATE [Field_Manager_Accounts] SET [Class_data] = '" + player_data.dump() + "' WHERE id = " +
-            std::to_string(this->Get_id());
-    const char *sql = update_query.c_str();
-    if (sqlite3_exec(db, sql, nullptr, nullptr, nullptr) != SQLITE_OK) {
-        std::cerr << "Error updating database" << std::endl;
-        sqlite3_close(db);
-        return false;
-    }
-
-    sqlite3_close(db);
-    return true;
-}
-
-
-bool Field_manager::Pay_to_be_first() {
-    int choice;
-
-    do {
-        cout << "The price for a lifetime access is 120 ILS" << endl;
-        cout << "Do you want to pay?" << endl;
-        cout << "1. Yes" << endl;
-        cout << "2. No" << endl;
-        cin >> choice;
-
-        if (choice != 2) {
-            // Validate credit card number
-            string card_num;
-            do {
-                cout << "Enter your credit card number: ";
-                cin >> card_num;
-                if (card_num.length() != 16) {
-                    cout << "Please enter a 16-digit credit card number." << endl;
-                }
-            } while (card_num.length() != 16);
-
-            // Validate validity date
-            int month, year;
-            do {
-                cout << "Enter the validity date MM: ";
-                cin >> month;
-                cout << "Enter the validity date YYYY: ";
-                cin >> year;
-
-                if (year <= 2024 && month <= 3) {
-                    cout << "Credit card has expired." << endl;
-                }
-            } while (year <= 2024 && month <= 3);
-
-            // Validate CVV
-            int cvv;
-            do {
-                cout << "Enter your CVV: ";
-                cin >> cvv;
-                if (cvv < 100 || cvv > 999) {
-                    cout << "Please enter a 3-digit CVV." << endl;
-                }
-            } while (cvv < 100 || cvv > 999);
-
-            // Rest of your payment logic goes here
-            cout << "Processing payment..." << endl;
-            cout << "Successfully paid, thank you very much" << endl;
-
-            return true;  // Return true if payment is successful
+        sqlite3 *db;
+        if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
+            std::cerr << "Error opening database" << std::endl;
+            return false;
         }
 
-        cout << "Thank you" << endl;
-        return false;
-    } while (choice != 2);
-}
+        // Update the Class_data column in the database with the updated JSON string
+        std::string update_query =
+                "UPDATE [Field_Manager_Accounts] SET [Class_data] = '" + player_data.dump() + "' WHERE id = " +
+                std::to_string(this->Get_id());
+        const char *sql = update_query.c_str();
+        if (sqlite3_exec(db, sql, nullptr, nullptr, nullptr) != SQLITE_OK) {
+            std::cerr << "Error updating database" << std::endl;
+            sqlite3_close(db);
+            return false;
+        }
+
+        sqlite3_close(db);
+        return true;
+    }
+
+
+
+
+
