@@ -125,19 +125,19 @@ CMakeFiles/Yesodot_Project.dir/Field.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Yesodot_Project.dir/Field.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/haikarmi/CLionProjects/Yesodot_Project/Field.cpp -o CMakeFiles/Yesodot_Project.dir/Field.cpp.s
 
-CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o: CMakeFiles/Yesodot_Project.dir/flags.make
-CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o: /Users/haikarmi/CLionProjects/Yesodot_Project/FieldManager.cpp
-CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o: CMakeFiles/Yesodot_Project.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/haikarmi/CLionProjects/Yesodot_Project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o -MF CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o.d -o CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o -c /Users/haikarmi/CLionProjects/Yesodot_Project/FieldManager.cpp
+CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o: CMakeFiles/Yesodot_Project.dir/flags.make
+CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o: /Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.cpp
+CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o: CMakeFiles/Yesodot_Project.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/haikarmi/CLionProjects/Yesodot_Project/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o -MF CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o.d -o CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o -c /Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.cpp
 
-CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/haikarmi/CLionProjects/Yesodot_Project/FieldManager.cpp > CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.i
+CMakeFiles/Yesodot_Project.dir/MyMain.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Yesodot_Project.dir/MyMain.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.cpp > CMakeFiles/Yesodot_Project.dir/MyMain.cpp.i
 
-CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/haikarmi/CLionProjects/Yesodot_Project/FieldManager.cpp -o CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.s
+CMakeFiles/Yesodot_Project.dir/MyMain.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Yesodot_Project.dir/MyMain.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.cpp -o CMakeFiles/Yesodot_Project.dir/MyMain.cpp.s
 
 CMakeFiles/Yesodot_Project.dir/Player.cpp.o: CMakeFiles/Yesodot_Project.dir/flags.make
 CMakeFiles/Yesodot_Project.dir/Player.cpp.o: /Users/haikarmi/CLionProjects/Yesodot_Project/Player.cpp
@@ -229,7 +229,7 @@ Yesodot_Project_OBJECTS = \
 "CMakeFiles/Yesodot_Project.dir/Functions.cpp.o" \
 "CMakeFiles/Yesodot_Project.dir/Date.cpp.o" \
 "CMakeFiles/Yesodot_Project.dir/Field.cpp.o" \
-"CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o" \
+"CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o" \
 "CMakeFiles/Yesodot_Project.dir/Player.cpp.o" \
 "CMakeFiles/Yesodot_Project.dir/Favorites.cpp.o" \
 "CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.o" \
@@ -244,7 +244,7 @@ Yesodot_Project: CMakeFiles/Yesodot_Project.dir/User.cpp.o
 Yesodot_Project: CMakeFiles/Yesodot_Project.dir/Functions.cpp.o
 Yesodot_Project: CMakeFiles/Yesodot_Project.dir/Date.cpp.o
 Yesodot_Project: CMakeFiles/Yesodot_Project.dir/Field.cpp.o
-Yesodot_Project: CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o
+Yesodot_Project: CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o
 Yesodot_Project: CMakeFiles/Yesodot_Project.dir/Player.cpp.o
 Yesodot_Project: CMakeFiles/Yesodot_Project.dir/Favorites.cpp.o
 Yesodot_Project: CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.o

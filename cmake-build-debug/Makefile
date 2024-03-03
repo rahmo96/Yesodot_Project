@@ -225,30 +225,6 @@ Field.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/Field.cpp.s
 .PHONY : Field.cpp.s
 
-FieldManager.o: FieldManager.cpp.o
-.PHONY : FieldManager.o
-
-# target to build an object file
-FieldManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.o
-.PHONY : FieldManager.cpp.o
-
-FieldManager.i: FieldManager.cpp.i
-.PHONY : FieldManager.i
-
-# target to preprocess a source file
-FieldManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.i
-.PHONY : FieldManager.cpp.i
-
-FieldManager.s: FieldManager.cpp.s
-.PHONY : FieldManager.s
-
-# target to generate assembly for a file
-FieldManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/FieldManager.cpp.s
-.PHONY : FieldManager.cpp.s
-
 Field_manager.o: Field_manager.cpp.o
 .PHONY : Field_manager.o
 
@@ -296,6 +272,30 @@ Functions.s: Functions.cpp.s
 Functions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/Functions.cpp.s
 .PHONY : Functions.cpp.s
+
+MyMain.o: MyMain.cpp.o
+.PHONY : MyMain.o
+
+# target to build an object file
+MyMain.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/MyMain.cpp.o
+.PHONY : MyMain.cpp.o
+
+MyMain.i: MyMain.cpp.i
+.PHONY : MyMain.i
+
+# target to preprocess a source file
+MyMain.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/MyMain.cpp.i
+.PHONY : MyMain.cpp.i
+
+MyMain.s: MyMain.cpp.s
+.PHONY : MyMain.s
+
+# target to generate assembly for a file
+MyMain.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Yesodot_Project.dir/build.make CMakeFiles/Yesodot_Project.dir/MyMain.cpp.s
+.PHONY : MyMain.cpp.s
 
 Player.o: Player.cpp.o
 .PHONY : Player.o
@@ -414,15 +414,15 @@ help:
 	@echo "... Field.o"
 	@echo "... Field.i"
 	@echo "... Field.s"
-	@echo "... FieldManager.o"
-	@echo "... FieldManager.i"
-	@echo "... FieldManager.s"
 	@echo "... Field_manager.o"
 	@echo "... Field_manager.i"
 	@echo "... Field_manager.s"
 	@echo "... Functions.o"
 	@echo "... Functions.i"
 	@echo "... Functions.s"
+	@echo "... MyMain.o"
+	@echo "... MyMain.i"
+	@echo "... MyMain.s"
 	@echo "... Player.o"
 	@echo "... Player.i"
 	@echo "... Player.s"

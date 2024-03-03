@@ -14,7 +14,7 @@ class Booked {
 private:
     friend class Field;
     friend class Functions;
-    friend class FieldManager;
+    friend class MyMain;
     friend class Player;
     vector<Field > booked_fields;
     long occupied_slots[5][12];

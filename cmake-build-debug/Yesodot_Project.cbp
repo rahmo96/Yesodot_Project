@@ -102,12 +102,6 @@
 		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/Field.h">
 			<Option target="Yesodot_Project"/>
 		</Unit>
-		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/FieldManager.cpp">
-			<Option target="Yesodot_Project"/>
-		</Unit>
-		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/FieldManager.h">
-			<Option target="Yesodot_Project"/>
-		</Unit>
 		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/Field_manager.cpp">
 			<Option target="Yesodot_Project"/>
 		</Unit>
@@ -118,6 +112,12 @@
 			<Option target="Yesodot_Project"/>
 		</Unit>
 		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/Functions.h">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.cpp">
+			<Option target="Yesodot_Project"/>
+		</Unit>
+		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/MyMain.h">
 			<Option target="Yesodot_Project"/>
 		</Unit>
 		<Unit filename="/Users/haikarmi/CLionProjects/Yesodot_Project/Player.cpp">

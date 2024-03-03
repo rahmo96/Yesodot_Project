@@ -14,7 +14,7 @@ add_executable(Yesodot_Project
 
         Date.h
         Field.h
-        FieldManager.h
+        MyMain.h
         Player.h
         Favorites.h
         Field_manager.h
@@ -22,7 +22,7 @@ add_executable(Yesodot_Project
         Functions.cpp
         Date.cpp
         Field.cpp
-        FieldManager.cpp
+        MyMain.cpp
         Player.cpp
         Favorites.cpp
         Field_manager.cpp

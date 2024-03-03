@@ -25,6 +25,7 @@ public:
     Field();
     Field(const Field &other);
     Field(string field_name,string field_type,string field_city,string description);
+//    ~Field();
     string get_field_name() const {return field_name;};
     string get_field_type() const {return field_type;};
     string get_field_city() const {return field_city;}
