@@ -37,7 +37,7 @@ Field::Field(const Field &other) {
 
 
 void Field::print() const {
-    cout << field_name << endl;
+    cout << "The field sport name is: " << field_name << " " << endl;
     cout << "_______" << endl;
     cout << "The field sport type is: " << field_type << " " << endl;
     cout << "Located in: " << field_city << endl;
