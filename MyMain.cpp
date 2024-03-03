@@ -249,7 +249,8 @@ int MyMain::runMenu() {
                             std::cout << "2. Remove Field" << std::endl;
                             std::cout << "3. Profile" << std::endl;
                             std::cout << "4. Closed Hours in Field" << std::endl;
-                            std::cout << "5. Back" << std::endl;
+                            std::cout << "5.Pay to be first" << std::endl;
+                            std::cout << "6. Back" << std::endl;
                             std::cout << "Enter your choice: ";
 
                             // Get user choice
@@ -279,7 +280,11 @@ int MyMain::runMenu() {
                                     closed_by_manager(fm, Field_manager::field_managers);
                                     break;
                                 case 5:
-                                    std::cout<< CYAN << "Going back..."<< RESET << std::endl;
+                                    std::cout << CYAN << "Pay to be first..." << RESET << std::endl;
+                                    fm.promoting_funded = fm.Pay_to_be_first();
+                                    break;
+                                case 6:
+                                    std::cout << CYAN << "Going back..." << RESET << std::endl;
                                     exitMenu = true;
                                     break;
                                 default:
@@ -304,7 +309,8 @@ int MyMain::runMenu() {
                             std::cout << "2. Remove Field" << std::endl;
                             std::cout << "3. Profile" << std::endl;
                             std::cout << "4. Closed Hours in Field" << std::endl;
-                            std::cout << "5. Back" << std::endl;
+                            std::cout << "5.Pay to be first" << std::endl;
+                            std::cout << "6. Back" << std::endl;
                             std::cout << "Enter your choice: ";
 
                             // Get user choice
@@ -333,7 +339,12 @@ int MyMain::runMenu() {
                                     closed_by_manager(*fm, Field_manager::field_managers);
                                     break;
                                 case 5:
-                                    std::cout<<CYAN << "Going back..."<< RESET << std::endl;
+                                    std::cout << CYAN << "Pay to be first..." << RESET << std::endl;
+                                    fm->promoting_funded = fm->Pay_to_be_first();
+
+                                    break;
+                                case 6:
+                                    std::cout << CYAN << "Going back..." << RESET << std::endl;
                                     exitMenu = true;
                                     break;
                                 default:
