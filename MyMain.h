@@ -40,9 +40,9 @@ static void clear_the_buffer() {
 
     static void player_menu_cancel(Player &p,vector<Field_manager*> field_managers);
     static void player_menu_profile(User &p);
-    template<typename UserType>
-    void menu_profile(UserType &u);
-    static void profile_menu_2(User &u);
+//    template<typename UserType>
+//    void menu_profile(UserType &u);
+//    static void profile_menu_2(User &u);
     void profile_menu_3();
     void profile_menu_4();
     void profile_menu_5();
@@ -59,7 +59,16 @@ static void clear_the_buffer() {
               int endHour);
 
     void addToFavorites(Player &p, const Field &chosenField);
-};
+    void P_menu_profile(Player &p);
+    void P_profile_menu_2(Player &p);
+    void FM_menu_profile(Field_manager &fm);
+    void FM_profile_menu_2(Field_manager &fm);
+    void closed_by_manager(Field_manager &fm, vector<Field_manager *> &field_managers);
+
+
+
+
+    };
 
 
 #endif //YESODOT_PROJECT_MYMAIN_H

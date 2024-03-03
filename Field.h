@@ -55,7 +55,9 @@ public:
     bool is_field_booked_by(long id) const;
 
     bool cancel_booking(long id);
-};
+    void close_field(int choice2, int startHour,int endHour);
+
+    };
 
 
 #endif //YESODOT_PROJECT_FIELD_H
