@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-#include "MyMain.h"
+#include "FieldManager.h"
 #include "Functions.h"
 
 #define RESET   "\033[0m"
@@ -12,14 +12,14 @@
 #define CYAN    "\033[36m"
 #define WHITE   "\033[37m"
 
-void MyMain::print_Menu(const std::map<int, std::string> &menuOptions) {
+void FieldManager::print_Menu(const std::map<int, std::string> &menuOptions) {
     std::cout << BLUE << "Menu Options:" << RESET << std::endl;
     for (const auto &[key, value]: menuOptions) {
         std::cout << key << ". " << value << std::endl;
     }
 }
 
-Player MyMain::P_login() {
+Player FieldManager::P_login() {
     sqlite3 *db;
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc) {
@@ -48,7 +48,7 @@ Player MyMain::P_login() {
 
 }
 
-Field_manager MyMain::FM_login() {
+Field_manager FieldManager::FM_login() {
     sqlite3 *db;
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc) {
@@ -80,7 +80,7 @@ Field_manager MyMain::FM_login() {
 
 vector<Field_manager *> Field_manager::field_managers;
 
-int MyMain::runMenu() {
+int FieldManager::runMenu() {
 
     sqlite3 *db;
 
@@ -369,13 +369,13 @@ int MyMain::runMenu() {
         }
     }
 }
-MyMain::MyMain() {
+FieldManager::FieldManager() {
     retrieve_field_managers_from_db();
     runMenu();
 }
 
 
-void MyMain::retrieve_field_managers_from_db() {
+void FieldManager::retrieve_field_managers_from_db() {
     sqlite3 *db;
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc != SQLITE_OK) {
@@ -425,7 +425,7 @@ void MyMain::retrieve_field_managers_from_db() {
 
 
 //PLAYER!!
-void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_managers) {
+void FieldManager::player_menu_booking(Player &p, vector<Field_manager *> field_managers) {
     string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};
     vector<string> cities;
 
@@ -555,7 +555,7 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_manage
 }
 
 
-void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_managers) {
+void FieldManager::player_menu_cancel(Player &p, vector<Field_manager *> field_managers) {
     // Find all fields booked by the player
     std::vector<Field> temp_field;
     for (auto fm: field_managers) {
@@ -606,7 +606,7 @@ void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_manager
 
 
 //template<typename UserType>
-//void MyMain::menu_profile(UserType &u) {
+//void FieldManager::menu_profile(UserType &u) {
 //    cout << GREEN << "You are logged in as " << u.Get_Name() << RESET << endl;
 //
 //    // Define the menu options and corresponding actions
@@ -635,7 +635,7 @@ void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_manager
 //    runMenu();
 //}
 
-//void MyMain::profile_menu_2(User &u) {
+//void FieldManager::profile_menu_2(User &u) {
 //    cout << CYAN << "Choose what to edit:" << RESET << endl;
 //
 //    // Define the menu options and corresponding actions
@@ -667,7 +667,7 @@ void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_manager
 //}
 
 //Field_manager
-void MyMain::player_rating_booking(Player &p) {
+void FieldManager::player_rating_booking(Player &p) {
     vector<string> field_book;
     int fieldChoice;
     string book;
@@ -701,7 +701,7 @@ void MyMain::player_rating_booking(Player &p) {
 }
 
 
-void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_managers) {
+void FieldManager::remove_field(Field_manager &fm, vector<Field_manager *> &field_managers) {
     if (fm.field.empty()) {
         std::cout << "No fields to remove." << std::endl;
         return;
@@ -735,7 +735,7 @@ void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_mana
 }
 
 
-void MyMain::P_menu_profile(Player &p) {
+void FieldManager::P_menu_profile(Player &p) {
     cout<<GREEN << "You are logged in as " << p.Get_Name()<<RESET << endl;
 
     // Define the menu options and corresponding actions
@@ -762,7 +762,7 @@ void MyMain::P_menu_profile(Player &p) {
         }
     } while (choice != 3); // Corrected loop condition
 }
-void MyMain::P_profile_menu_2(Player &p) {
+void FieldManager::P_profile_menu_2(Player &p) {
     cout << CYAN << "Choose what to edit:" << RESET << endl;
 
     // Define the menu options and corresponding actions
@@ -811,7 +811,7 @@ void MyMain::P_profile_menu_2(Player &p) {
 }
 
 //Field Manager Profile
-void MyMain:: FM_menu_profile(Field_manager &fm){
+void FieldManager:: FM_menu_profile(Field_manager &fm){
     cout<<GREEN << "You are logged in as " << fm.Get_Name()<<RESET << endl;
 
     // Define the menu options and corresponding actions
@@ -839,7 +839,7 @@ void MyMain:: FM_menu_profile(Field_manager &fm){
     } while (choice != 3); // Corrected loop condition
 
 }
-void MyMain::FM_profile_menu_2(Field_manager &fm) {
+void FieldManager::FM_profile_menu_2(Field_manager &fm) {
     int choice;
     do {
         cout << "1. Name" << endl;
@@ -875,7 +875,7 @@ void MyMain::FM_profile_menu_2(Field_manager &fm) {
         }
     } while (true);
 }
-void MyMain::closed_by_manager(Field_manager &fm, vector<Field_manager *> &field_managers) {
+void FieldManager::closed_by_manager(Field_manager &fm, vector<Field_manager *> &field_managers) {
     string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};
     cout<<"which field do you want to close?"<<endl;
 

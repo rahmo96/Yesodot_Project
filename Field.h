@@ -17,7 +17,7 @@ private:
     string field_name;
     string field_type;
     string field_city;
-    float rating;
+    float rating=0;
     int counter_rating=0;
     long occupied[5][12];
     string description;

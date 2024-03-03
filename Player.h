@@ -19,7 +19,7 @@ using namespace std;
 class Player : virtual public User {
 private:
     friend class Functions;
-    friend class MyMain;
+    friend class FieldManager;
     friend class Booked;
     Booked booked;
     Favorites f;

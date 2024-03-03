@@ -3,11 +3,11 @@
 #include <string>
 #include <iostream>
 #include "Field_manager.h"
-#include "MyMain.h"
+#include "FieldManager.h"
 using namespace std;
 
  int Field_manager::counter = 0;
 int main() {
-    MyMain M1;
+    FieldManager M1;
     return 0;
 }

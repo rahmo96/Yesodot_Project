@@ -12,7 +12,7 @@
 class Field_manager: virtual public User{
 private:
     friend class Functions;
-    friend class MyMain;
+    friend class FieldManager;
     static int counter;
     static vector<Field_manager*> field_managers;
     vector<Field> field;
