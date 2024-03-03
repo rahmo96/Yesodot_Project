@@ -51,6 +51,7 @@ static void clear_the_buffer() {
 
     //Field manager menus
     void field_manager_menu();
+    void remove_field(Field_manager &fm,vector<Field_manager*>& field_managers);
 };
 
 

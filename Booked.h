@@ -99,10 +99,17 @@ public:
                         cout << "Day: " << days[i] << " Time: " << j+8<<":00" << endl;
                     }
                 }
-                cout << endl;
             }
-
         }
+    }
+    bool remove_booking(long id) {
+        for (auto it = booked_fields.begin(); it != booked_fields.end(); ++it) {
+            if (it->is_field_booked_by(id)) {
+                booked_fields.erase(it);
+                return true;
+            }
+        }
+        return false;
     }
 
 

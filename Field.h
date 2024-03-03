@@ -19,6 +19,7 @@ private:
     string field_city;
     float rating;
     int counter_rating=0;
+    long occupied[5][12];
 public:
     Field();
     Field(const Field &other);
@@ -37,12 +38,22 @@ public:
     void to_json(json& j) const;
     //Get it from json
     void from_json(const json& j);
-    void Rating_change(int rat);
+    void Rating_change(float rat);
 
     static Field add_field();
     Field remove_field();
-
     void print_rating() const;
+
+
+    //Getters
+    long get_occupied(int row, int col) const {return occupied[row][col];}
+    //Setters
+    void set_occupied(int row, int col, long id) {occupied[row][col] = id;}
+
+    //checks
+    bool is_field_booked_by(long id) const;
+
+    bool cancel_booking(long id);
 };
 
 

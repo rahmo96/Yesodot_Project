@@ -35,7 +35,7 @@ Field_manager &Field_manager::operator+=(const Field_manager &fieldManager) {
 
 bool Field_manager::is_hour_occupied(const std::string &city, int day, int hour) const {
     for (int i = 0; i < counter; ++i) {
-        if (field[i].get_field_city() == city && occupied[day][hour] != 0 && occupied[day][hour] != 1) {
+        if (field[i].get_field_city() == city && field[i].get_occupied(day, hour) != 0 && field[i].get_occupied(day, hour) != 1) {
             return true; // Hour is occupied
         }
     }
@@ -46,7 +46,7 @@ bool Field_manager::is_day_occupied(const std::string &city, int day) const {
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
             for (int hour = 8; hour < 20; ++hour) {
-                if (occupied[day][hour] != 0 && occupied[day][hour] != 1) {
+                if (field[i].get_occupied(day, hour) != 0 && field[i].get_occupied(day, hour) != 1) {
                     return true; // Day is occupied
                 }
             }
@@ -61,13 +61,13 @@ void Field_manager::book_field_in_city_at_day_hour(long id, const std::string &c
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
             // Check if the slot is already booked
-            if (occupied[day][hour] != 0) {
+            if (field[i].get_occupied(day, hour) != 0) {
                 std::cout << "This slot is already booked." << std::endl;
                 return;
             }
 
             // Mark the hour as occupied with the player's ID
-            occupied[day][hour] = id;
+            field[i].set_occupied(day, hour, id);
 
             // Additional logic to handle the booking (e.g., updating records)
             std::cout << "Field booked in " << city << " on day " << days[day] << " at " << hour << ":00." << std::endl;
@@ -80,7 +80,7 @@ void Field_manager::book_field_in_city_at_day_hour(long id, const std::string &c
 bool Field_manager::is_field_booked_by(long id) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 12; ++j) {
-            if (occupied[i][j] == id) {
+            if (field[i].get_occupied(i,j) == id) {
                 return true; // Field is booked
             }
         }
@@ -88,18 +88,22 @@ bool Field_manager::is_field_booked_by(long id) {
     return false; // Field is not booked
 }
 
-bool Field_manager::cancel_field_booking(long id) {
-    bool bookingCanceled = false;
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 12; ++j) {
-            if (this->occupied[i][j] == id) {
-                this->occupied[i][j] = 0; // Cancel the booking by setting it to 0
-                bookingCanceled = true;
+bool Field_manager::cancel_field_booking(long id, const Field& field) {
+    for (int i = 0; i < this->field.size(); ++i) {
+        if (this->field[i] == field) {
+            for (int j = 0; j < 5; ++j) {
+                for (int k = 0; k < 12; ++k) {
+                    if (this->field[i].get_occupied(j, k) == id) {
+                        this->field[i].set_occupied(j, k, 0); // Cancel the booking by setting it to 0
+                        return true;
+                    }
+                }
             }
         }
     }
-    return bookingCanceled;
+    return false;
 }
+
 
 void Field_manager::find_fields_with_id(long id) {
     for (Field &field: field) {
@@ -119,14 +123,6 @@ void Field_manager::to_json(nlohmann::json &j) {
         field_json.push_back(field_obj);
     }
 
-    nlohmann::json occupied_json;
-    for (size_t i = 0; i < 5; ++i) {
-        nlohmann::json row_json;
-        for (size_t k = 0; k < 12; ++k) {
-            row_json.push_back(occupied[i][k]);
-        }
-        occupied_json.push_back(row_json);
-    }
 
     j = {
             {"Name",             name},
@@ -138,7 +134,6 @@ void Field_manager::to_json(nlohmann::json &j) {
             {"password",         passowrd},
             {"promoting_funded", promoting_funded},
             {"Field",            field_json},
-            {"Occupied",         occupied_json}
     };
 }
 
@@ -162,13 +157,6 @@ Field_manager Field_manager::from_json(const nlohmann::json &j) {
         field.push_back(field_item);
     }
 
-    // Deserialize the 'occupied' 2D array
-    const nlohmann::json &occupied_json = j.at("Occupied");
-    for (size_t i = 0; i < 5; ++i) {
-        for (size_t j = 0; j < 12; ++j) {
-            occupied[i][j] = occupied_json.at(i).at(j);
-        }
-    }
 
     return *this;
 
@@ -202,12 +190,6 @@ Field_manager Field_manager::build_from_DB(long id) {
             Field field_item;
             field_item.from_json(field_obj);
             fields.push_back(field_item);
-        }
-        const nlohmann::json &occupied_json = j.at("Occupied");
-        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 12; ++j) {
-                //occupied[i][j] = occupied_json.at(i).at(j);
-            }
         }
         const nlohmann::json &promoting_funded_json = j.at("promoting_funded");
         bool promoting_funded = promoting_funded_json;
@@ -262,6 +244,8 @@ bool Field_manager::update_to_DB() {
         sqlite3_close(db);
         return true;
     }
+
+
 
 
 

@@ -17,7 +17,7 @@ using namespace std;
 
 Player::Player(const Player &player) : User(player){
     this->booked = player.booked;
-    this->favorites = player.favorites;
+    this->f = player.f;
 }
 
 void Player::print() {
@@ -25,7 +25,7 @@ void Player::print() {
     cout<<"-----"<<endl;
     cout<<"Favorite fields: "<<endl;
     cout<<"-----"<<endl;
-    favorites.print();
+    f.print();
     cout<<"-----"<<endl;
 
 }
@@ -38,7 +38,7 @@ void Player::to_json(nlohmann::json &j) {
     booked.to_json(booked_json);
 
     json favorites_json;
-    favorites.to_json(favorites_json);
+    f.to_json(favorites_json);
 
     j={
             {"Name",             name},
@@ -60,7 +60,7 @@ void Player::from_json(const nlohmann::json& j) {
     const nlohmann::json& booked_json = j.at("Booked");
     booked.from_json(booked_json);
     const nlohmann::json& favorites_json = j.at("Favorites");
-    favorites.from_json(favorites_json);
+    f.from_json(favorites_json);
 
 
 }
@@ -76,7 +76,7 @@ Player::Set_player(string name, long id, string address, long phone_num, char ge
     this->b_day = birthdy;
     this->passowrd = passowrd;
     this->booked = booked;
-    this->favorites = f;
+    this->f = f;
 
     std::cout << "Favorites size in Set_player: " << f.get_size() << std::endl;
 }
@@ -161,7 +161,7 @@ Player Player::operator=(const Player &other) {
     this->b_day = other.b_day;
     this->passowrd = other.passowrd;
     this->booked = other.booked;
-    this->favorites = other.favorites;
+    this->f = other.f;
     return *this;
 }
 

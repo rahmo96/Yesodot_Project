@@ -45,7 +45,7 @@ public:
         cin >> Address;
         cout << "enter your phone_number " <<  endl;
         cin >> phone_number;
-        cout << "enter your gender (m/favorites)" <<  endl;
+        cout << "enter your gender (m/f)" <<  endl;
         cin >> gender;
         if (gender != 'm' && gender != 'M' && gender != 'f' && gender != 'F') {
             do {

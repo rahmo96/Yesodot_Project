@@ -67,7 +67,7 @@ bool Functions:: checkLogin_FM(sqlite3* db, const string& id, const string& pass
 
 
 //Insert User data to DB
-int Functions::P_insert_to_DB(Player &fm) {
+int Functions::P_insert_to_DB(Player &p) {
     // Insert player account data
     const char* insert_sql = "INSERT INTO [Player_Accounts] (Name, ID, Phone_number, Gender, Address, Birthday, Password,Class_data) VALUES (?,?,?,?,?,?,?,?)";
     sqlite3* db;
@@ -88,20 +88,20 @@ int Functions::P_insert_to_DB(Player &fm) {
         sqlite3_close(db);
         return rc;
     }
-    const char* gender = fm.Get_gender() == 'M' ? "Male" : "Female";
+    const char* gender = p.Get_gender() == 'M' ? "Male" : "Female";
 
 
     json data_json;
-    fm.to_json(data_json);
+    p.to_json(data_json);
     std::string json_str =data_json.dump();
 
-    sqlite3_bind_text(stmt, 1, fm.Get_Name().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_int(stmt, 2, fm.Get_id());
-    sqlite3_bind_int(stmt, 3, fm.Get_phone_number());
+    sqlite3_bind_text(stmt, 1, p.Get_Name().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, p.Get_id());
+    sqlite3_bind_int(stmt, 3, p.Get_phone_number());
     sqlite3_bind_text(stmt, 4, gender, 1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 5, fm.Get_Address().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 6, fm.date_to_string().c_str(), -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 7, fm.get_password().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 5, p.Get_Address().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 6, p.date_to_string().c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 7, p.get_password().c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 8, json_str.c_str(), -1, SQLITE_STATIC);
 
     rc = sqlite3_step(stmt);

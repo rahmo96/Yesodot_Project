@@ -1,21 +1,17 @@
 #include <iostream>
 #include <map>
 #include "MyMain.h"
-#include <sqlite3.h>
-#include "Field_manager.h"
-#include <sqlite3.h>
-#include "Field_manager.h"
-#include "MyMain.h"
+
 #include "Functions.h"
 
-void MyMain::print_Menu(const std::map<int, std::string> &menuOptions) {
-    for (const auto &[key, value]: menuOptions) {
+ void MyMain::print_Menu(const std::map<int, std::string>& menuOptions) {
+    for (const auto& [key, value] : menuOptions) {
         std::cout << key << ". " << value << std::endl;
     }
 }
 
 Player MyMain::P_login() {
-    sqlite3 *db;
+    sqlite3* db;
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc) {
         std::cerr << "Cannot open database: " << sqlite3_errmsg(db) << std::endl;
@@ -23,27 +19,26 @@ Player MyMain::P_login() {
     }
     long id;
     string password;
-    cout << "Enter your id:" << endl;
-    cin >> id;
-    cout << "Enter your password:" << endl;
-    cin >> password;
-    if (Functions::checkLogin_P(db, to_string(id), password)) {
-        cout << "Login successful" << endl;
+    cout<<"Enter your id:"<<endl;
+    cin>>id;
+    cout<<"Enter your password:"<<endl;
+    cin>>password;
+    if(Functions::checkLogin_P(db, to_string(id), password)){
+        cout<<"Login successful"<<endl;
         Player p = Player::build_from_DB(id);
 
-        cout << "Favorites size after construction: " << p.favorites.get_size() << endl;
+        cout<<"Favorites size after construction: "<<p.f.get_size()<<endl;
 
         return p;
 
-    } else {
-        cout << "Login failed" << endl;
+    }else{
+        cout<<"Login failed"<<endl;
     };
     sqlite3_close(db);
     exit(0);
 }
-
 Field_manager MyMain::FM_login() {
-    sqlite3 *db;
+    sqlite3* db;
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc) {
         std::cerr << "Cannot open database: " << sqlite3_errmsg(db) << std::endl;
@@ -69,9 +64,13 @@ Field_manager MyMain::FM_login() {
     }
 }
 
+#include <sqlite3.h>
+#include "Field_manager.h"
+#include <sqlite3.h>
+#include "Field_manager.h"
+#include "MyMain.h"
 
-vector<Field_manager *> Field_manager::field_managers;
-
+vector<Field_manager*> Field_manager::field_managers;
 int MyMain::runMenu() {
 
     sqlite3 *db;
@@ -83,7 +82,7 @@ int MyMain::runMenu() {
     };
 
     std::map<int, std::string> playerMenu = {
-            {1, "Login"},
+            {1, "Login" },
             {2, "Sign up"},
             {3, "Back"}
     };
@@ -100,21 +99,22 @@ int MyMain::runMenu() {
     };
 
 
+
     std::map<int, std::string> currentMenu = playerFieldManagerMenu;
 
     while (true) {
         print_Menu(currentMenu);
-        int choice, choice1, choice2, choice3;
+        int choice,choice1, choice2,choice3 ;
         std::cin >> choice;
 
         switch (choice) {
             case 1:
                 currentMenu = playerMenu;
                 print_Menu(currentMenu);
-                cin >> choice1;
+                cin>>choice1;
                 switch (choice1) {
-                    case 1: {
-                        Player p = P_login();
+                    case 1:{
+                        Player p= P_login();
                         int choice;
                         do {
                             cout << "Choose one of the following options:" << endl;
@@ -130,7 +130,7 @@ int MyMain::runMenu() {
                             switch (choice) {
                                 case 1:
                                     cout << "Favorites" << endl;
-                                    p.favorites.print();
+                                    p.f.print();
                                     break;
                                 case 2:
                                     cout << "Book field" << endl;
@@ -143,9 +143,7 @@ int MyMain::runMenu() {
                                     break;
                                 case 4:
                                     cout << "Rate field" << endl;
-                                    player_rating_booking(p);
-
-
+                                    // Add code to handle Rate field
                                     break;
                                 case 5:
                                     cout << "Profile" << endl;
@@ -163,28 +161,25 @@ int MyMain::runMenu() {
                             }
 
                         } while (true);
-                        break;
-                    }
-                    case 2: {
-                        Player p = Functions::build_user<Player>();
+                        break;}
+                    case 2:{
+                        Player p=Functions::build_user<Player>();
                         Functions::P_insert_to_DB(p);
-                        break;
-                    }
+                        break;}
                     case 3:
-                        currentMenu = playerFieldManagerMenu;
+                        currentMenu=playerFieldManagerMenu;
                         break;
                     default:
                         std::cout << "Invalid choice. Please try again." << std::endl;
                 }
                 break;
-            case 2: {
+            case 2:{
                 currentMenu = fieldManagerMenu;
                 print_Menu(currentMenu);
-                cin >> choice2;
+                cin>>choice2;
                 switch (choice2) {
-                    case 1: {
-                        Field_manager fm;
-                        fm = FM_login();
+                    case 1:{
+                        Field_manager fm=FM_login();
                         int choice;
                         bool exitMenu = false;
 
@@ -203,17 +198,16 @@ int MyMain::runMenu() {
 
                             // Process user choice
                             switch (choice) {
-                                case 1: {
+                                case 1:{
                                     std::cout << "Adding a new field..." << std::endl;
                                     Field field = Field::add_field();
                                     fm.field.push_back(field);
                                     fm.update_to_DB();
-                                    Field_manager::field_managers.push_back(&fm);
-                                }
+                                    Field_manager::field_managers.push_back(&fm);}
                                     break;
                                 case 2:
                                     std::cout << "Removing a field..." << std::endl;
-
+                                    remove_field(fm,Field_manager::field_managers);
                                     // Remove field logic
                                     break;
                                 case 3:
@@ -233,11 +227,10 @@ int MyMain::runMenu() {
                                     break;
                             }
                         }
-                        break;
-                    }
-                    case 2: {
-                        Field_manager *fm = new Field_manager();
-                        *fm = Functions::build_user<Field_manager>();
+                        break;}
+                    case 2:{
+                        Field_manager *fm= new Field_manager();
+                        *fm =Functions::build_user<Field_manager>();
                         Functions::FM_insert_to_DB(*fm);
                         Field_manager::field_managers.push_back(fm);
                         int choice;
@@ -258,26 +251,16 @@ int MyMain::runMenu() {
 
                             // Process user choice
                             switch (choice) {
-                                case 1: {
+                                case 1:{
                                     std::cout << "Adding a new field..." << std::endl;
                                     Field field = Field::add_field();
                                     fm->field.push_back(field);
                                     fm->update_to_DB();
-                                    break;
-                                }
-                                case 2: {
+                                    break;}
+                                case 2:{
                                     std::cout << "Removing a field..." << std::endl;
-                                    cout << "Enter the name of the field you want to remove: ";
-                                    string name;
-                                    cin >> name;
-                                    for (int i = 0; i < fm->field.size(); i++) {
-                                        if (fm->field[i].get_field_name() == name) {
-                                            fm->field.erase(fm->field.begin() + i);
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                }
+                                    remove_field(*fm, Field_manager::field_managers);
+                                    break;}
                                 case 3:
                                     std::cout << "Viewing profile..." << std::endl;
                                     menu_profile<Field_manager>(*fm);
@@ -295,15 +278,14 @@ int MyMain::runMenu() {
                                     break;
                             }
                         }
-                        break;
-                    }
+                        break;}
                     case 3:
                         break;
                     default:
                         std::cout << "Invalid choice. Please try again." << std::endl;
                 }
+                break;}
                 break;
-            }
             case 3:
                 return 0;
             default:
@@ -313,13 +295,13 @@ int MyMain::runMenu() {
 }
 
 MyMain::MyMain() {
-    retrieve_field_managers_from_db();
+   retrieve_field_managers_from_db();
     runMenu();
 }
 
 
 void MyMain::retrieve_field_managers_from_db() {
-    sqlite3 *db;
+    sqlite3* db;
     int rc = sqlite3_open("Test player data DB.db", &db);
     if (rc != SQLITE_OK) {
         std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
@@ -327,8 +309,8 @@ void MyMain::retrieve_field_managers_from_db() {
         return;
     }
 
-    const char *sql = "SELECT Class_data FROM [Field_Manager_Accounts]";
-    sqlite3_stmt *stmt;
+    const char* sql = "SELECT Class_data FROM [Field_Manager_Accounts]";
+    sqlite3_stmt* stmt;
     rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
         std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
@@ -338,13 +320,13 @@ void MyMain::retrieve_field_managers_from_db() {
 
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
         // Retrieve JSON data from the current row
-        const char *json_data = reinterpret_cast<const char *>(sqlite3_column_text(stmt, 0));
+        const char* json_data = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
 
         // Parse JSON data and create Field_manager object
         nlohmann::json j;
         try {
             j = nlohmann::json::parse(json_data);
-        } catch (const nlohmann::json::parse_error &e) {
+        } catch (const nlohmann::json::parse_error& e) {
             std::cerr << "JSON parse error: " << e.what() << std::endl;
             // Handle the error appropriately, such as skipping this data or logging the error
             continue;
@@ -353,7 +335,7 @@ void MyMain::retrieve_field_managers_from_db() {
 
 
         // Create a new Field_manager object and add it to your collection
-        Field_manager *fm = new Field_manager();
+        Field_manager* fm = new Field_manager();
         fm->from_json(j);
         Field_manager::field_managers.push_back(fm);
     }
@@ -367,14 +349,15 @@ void MyMain::retrieve_field_managers_from_db() {
 }
 
 
-//Menus
-void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_managers) {
+
+//PLAYER!!
+void MyMain::player_menu_booking(Player &p, vector<Field_manager*> field_managers) {
     string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};
     vector<string> cities;
 
     // Collect unique cities from the fields
-    for (const auto &fm: field_managers) {
-        for (const auto &field: fm->field) {
+    for (const auto& fm : field_managers) {
+        for (const auto& field : fm->field) {
             string city = field.get_field_city();
             if (find(cities.begin(), cities.end(), city) == cities.end()) {
                 cities.push_back(city);
@@ -399,8 +382,8 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_manage
         vector<Field> availableFields;
 
         // Find available fields in the chosen city
-        for (const auto &fm: field_managers) {
-            for (const auto &field: fm->field) {
+        for (const auto& fm : field_managers) {
+            for (const auto& field : fm->field) {
                 if (field.get_field_city() == chosenCity) {
                     availableFields.push_back(field);
                 }
@@ -447,7 +430,7 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_manage
                     if (hourChoice >= 8 && hourChoice <= 19) {
                         int checked = 0;
                         // Process the booking for the chosen field, day, and hour
-                        for (auto &fm: field_managers) {
+                        for (auto& fm : field_managers) {
                             if (fm->field[checked] == chosenField) {
                                 long playerId = p.Get_id();
                                 fm->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, hourChoice);
@@ -474,7 +457,7 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_manage
                         // Validate user choice for adding to favorites
                         if (addToFavorites == 'y' || addToFavorites == 'Y') {
                             p.booked.booked_fields.push_back(chosenField);
-                            p.favorites += chosenField;
+                            p.f += chosenField;
                             p.update_to_DB();
                             cout << "Field added to favorites." << endl;
                         } else {
@@ -497,17 +480,15 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_manage
     }
 }
 
-void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_managers) {
+void MyMain::player_menu_cancel(Player &p, vector<Field_manager*> field_managers) {
     // Find all fields booked by the player
     std::vector<Field> temp_field;
-    for (int i = 0; i < Field_manager::counter; ++i) {
-        for (int j = 0; j < p.favorites.get_size(); ++j) {
-            if (field_managers[i]->is_field_booked_by(p.Get_id())) {
-                temp_field.push_back(field_managers[j]->field[i]);
+    for (auto fm : field_managers) {
+        for (auto field : fm->field) {
+            if (field.is_field_booked_by(p.Get_id())) {
+                temp_field.push_back(field);
             }
-
         }
-
     }
 
     // Display the booked fields
@@ -519,6 +500,7 @@ void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_manager
             std::cout << i + 1 << ". ";
             temp_field[i].print();
         }
+
         // Get user choice
         int choice;
         std::cout << "Enter your choice: ";
@@ -526,8 +508,18 @@ void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_manager
 
         // Validate and process user choice
         if (choice >= 1 && choice <= static_cast<int>(temp_field.size())) {
-            if (field_managers[choice - 1]->cancel_field_booking(p.Get_id())) {
-                cout << "Field booking canceled." << endl;
+            Field field = temp_field[choice-1];
+            Field_manager* manager = nullptr;
+            for (auto fm : field_managers) {
+                if (fm->field_contains(field)) {
+                    manager = fm;
+                    break;
+                }
+            }
+            if (manager && manager->cancel_field_booking(p.Get_id(), field)){
+                cout << "Field booking canceled." <<endl;
+                // Remove the canceled field from the player's booked fields
+                p.booked.remove_booking(p.Get_id());
             } else {
                 std::cout << "Failed to cancel field booking." << std::endl;
             }
@@ -537,6 +529,7 @@ void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_manager
     }
 }
 
+
 template<typename UserType>
 void MyMain::menu_profile(UserType &u) {
     cout << "You are logged in as " << u.Get_Name() << endl;
@@ -545,7 +538,7 @@ void MyMain::menu_profile(UserType &u) {
     std::map<int, std::function<void(UserType &)>> menu = {
             {1, [](UserType &u) { u.print(); }},
             {2, [](UserType &u) { profile_menu_2(u); }},
-            {3, [](UserType &u) { cout << "Going back..." << endl; /* Logout */ }},
+            {3, [](UserType &u) { cout << "Logging out..." << endl; /* Logout */ }},
     };
 
     int choice;
@@ -553,7 +546,7 @@ void MyMain::menu_profile(UserType &u) {
         cout << "Choose an option:" << endl;
         cout << "1. View your profile" << endl;
         cout << "2. Edit your profile" << endl;
-        cout << "3. back" << endl;
+        cout << "3. Logout" << endl;
         cin >> choice;
 
         // Execute the corresponding action based on the user's choice
@@ -565,8 +558,6 @@ void MyMain::menu_profile(UserType &u) {
         }
     } while (choice != 3); // Corrected loop condition
 }
-
-
 void MyMain::profile_menu_2(User &u) {
     cout << "Choose what to edit:" << endl;
 
@@ -598,15 +589,15 @@ void MyMain::profile_menu_2(User &u) {
     } while (choice != 7);
 }
 
+//Field_manager
 void MyMain::player_rating_booking(Player &p) {
     vector<string> field_book;
     int fieldChoice;
     string book;
     int index;
     do {
-
         for (int i = 0; i < p.booked.booked_fields.size(); ++i) {
-             book = p.booked.booked_fields[i].get_field_name();
+            book = p.booked.booked_fields[i].get_field_name();
             if (find(field_book.begin(), field_book.end(), book) == field_book.end()) {
                 field_book.push_back(book);
             }
@@ -618,22 +609,61 @@ void MyMain::player_rating_booking(Player &p) {
         cout << "Enter the number of the fild: ";
         cin >> fieldChoice;
     } while (!(fieldChoice >= 1 && fieldChoice <= static_cast<int>(field_book.size())));
-    cout<<"enter the rat fild of (1-5) "<<field_book[fieldChoice-1]<<endl;
+    cout << "enter the rat fild of (1-5) " << field_book[fieldChoice - 1] << endl;
     int star_rat;
-    cin>>star_rat;
+    cin >> star_rat;
     for (int i = 0; i < p.booked.booked_fields.size(); ++i) {
         string name_fild = p.booked.booked_fields[i].get_field_name();
-        if (book==p.booked.booked_fields[i].get_field_name()){
-            index=i;
+        if (book == p.booked.booked_fields[i].get_field_name()) {
+            index = i;
         }
 
     }
     p.booked.booked_fields[index].Rating_change(star_rat);
     p.booked.booked_fields[index].print_rating();
-
-
 }
 
+
+
+
+
+
+
+
+
+
+
+void MyMain::remove_field(Field_manager &fm, vector<Field_manager*> &field_managers) {
+    if (fm.field.empty()) {
+        std::cout << "No fields to remove." << std::endl;
+        return;
+    }
+
+    // Display all fields in the field manager
+    std::cout << "Choose a field to remove:" << std::endl;
+    for (size_t i = 0; i < fm.field.size(); ++i) {
+        std::cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")" << std::endl;
+    }
+
+    int choice;
+    std::cout << "Enter the number of the field you want to remove: ";
+    std::cin >> choice;
+
+    // Validate user choice
+    if (choice >= 1 && choice <= static_cast<int>(fm.field.size())) {
+        // Remove the field from the field manager's vector
+        fm.field.erase(fm.field.begin() + (choice - 1));
+        std::cout << "Field removed successfully." << std::endl;
+
+        // Update the field manager in the database
+        fm.update_to_DB();
+
+        // Remove the field manager from the vector of field managers
+        field_managers.erase(remove(field_managers.begin(), field_managers.end(), &fm), field_managers.end());
+    } else {
+        std::cout << "Invalid choice. Please try again." << std::endl;
+    }
+}
 
 
 

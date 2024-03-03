@@ -16,16 +16,9 @@ private:
     static int counter;
     static vector<Field_manager*> field_managers;
     vector<Field> field;
-    long occupied[5][12];
     bool promoting_funded;
 public:
     Field_manager():User() {
-
-        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 12; ++j) {
-                occupied[i][j] = 0; // Initialize the occupied array
-            }
-        }
 
         promoting_funded = 0;
         counter++;
@@ -35,12 +28,7 @@ public:
     Field_manager(string name, long id, string address, long phone_num,char gender,Date b_day,string passowrd,vector<Field> field1, bool promoting_funded=0);
     Field_manager(const Field_manager& fieldManager)
             : User(fieldManager), field(fieldManager.field) {
-        // Copy the 'occupied' array
-        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 12; ++j) {
-                occupied[i][j] = fieldManager.occupied[i][j];
-            }
-        }
+        promoting_funded = fieldManager.promoting_funded;
         counter++;
     };
     void print() override;
@@ -73,6 +61,20 @@ public:
     static Field_manager build_from_DB(long id);
 
     bool update_to_DB();
+
+    bool cancel_field_booking(long id, const Field& field);
+
+    bool field_contains(const Field& field) {
+        for (auto& f : this->field) {
+            if (f == field) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Remove field from field_managers
+    void remove_field_manager(vector<Field_manager*> &field_managers);
 
 
 };

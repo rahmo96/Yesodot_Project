@@ -2958,11 +2958,11 @@ namespace detail
 @brief replace all occurrences of a substring by another string
 
 @param[in,out] s  the string to manipulate; changed so that all
-               occurrences of @a favorites are replaced with @a t
+               occurrences of @a f are replaced with @a t
 @param[in]     f  the substring to replace with @a t
-@param[in]     t  the string to replace @a favorites
+@param[in]     t  the string to replace @a f
 
-@pre The search string @a favorites must not be empty. **This precondition is
+@pre The search string @a f must not be empty. **This precondition is
 enforced with an assertion.**
 
 @since version 2.0.0
@@ -2972,10 +2972,10 @@ inline void replace_substring(StringType& s, const StringType& f,
                               const StringType& t)
 {
     JSON_ASSERT(!f.empty());
-    for (auto pos = s.find(f);                // find first occurrence of favorites
-            pos != StringType::npos;          // make sure favorites was found
+    for (auto pos = s.find(f);                // find first occurrence of f
+            pos != StringType::npos;          // make sure f was found
             s.replace(pos, f.size(), t),      // replace with t, and
-            pos = s.find(f, pos + t.size()))  // find next occurrence of favorites
+            pos = s.find(f, pos + t.size()))  // find next occurrence of f
     {}
 }
 
@@ -3847,7 +3847,7 @@ struct is_compatible_array_type_impl <
     is_detected<iterator_t, CompatibleArrayType>::value&&
     is_iterator_traits<iterator_traits<detected_t<iterator_t, CompatibleArrayType>>>::value&&
 // special case for types like std::filesystem::path whose iterator's value_type are themselves
-// c.favorites. https://github.com/nlohmann/json/pull/3073
+// c.f. https://github.com/nlohmann/json/pull/3073
     !std::is_same<CompatibleArrayType, detected_t<range_value_t, CompatibleArrayType>>::value >>
 {
     static constexpr bool value =
@@ -3882,7 +3882,7 @@ is_detected<iterator_t, ConstructibleArrayType>::value&&
 is_iterator_traits<iterator_traits<detected_t<iterator_t, ConstructibleArrayType>>>::value&&
 is_detected<range_value_t, ConstructibleArrayType>::value&&
 // special case for types like std::filesystem::path whose iterator's value_type are themselves
-// c.favorites. https://github.com/nlohmann/json/pull/3073
+// c.f. https://github.com/nlohmann/json/pull/3073
 !std::is_same<ConstructibleArrayType, detected_t<range_value_t, ConstructibleArrayType>>::value&&
         is_complete_type <
         detected_t<range_value_t, ConstructibleArrayType >>::value >>
@@ -7530,7 +7530,7 @@ class lexer : public lexer_base<BasicJsonType>
       (c1 * 0x1000) + (c2 * 0x0100) + (c3 * 0x0010) + c4
     = (c1 << 12) + (c2 << 8) + (c3 << 4) + (c4 << 0)
 
-    Furthermore, the possible characters '0'..'9', 'A'..'F', and 'a'..'favorites'
+    Furthermore, the possible characters '0'..'9', 'A'..'F', and 'a'..'f'
     must be converted to the integers 0x0..0x9, 0xA..0xF, 0xA..0xF, resp. The
     conversion is done by subtracting the offset (0x30, 0x37, and 0x57)
     between the ASCII value of the character and the desired integer value.
@@ -7866,7 +7866,7 @@ class lexer : public lexer_base<BasicJsonType>
 
                 case 0x0C:
                 {
-                    error_message = "invalid string: control character U+000C (FF) must be escaped to \\u000C or \\favorites";
+                    error_message = "invalid string: control character U+000C (FF) must be escaped to \\u000C or \\f";
                     return token_type::parse_error;
                 }
 
@@ -9405,7 +9405,7 @@ class binary_reader
 
     /*!
     @brief Read a BSON document element of the given @a element_type.
-    @param[in] element_type The BSON element type, c.favorites. http://bsonspec.org/spec.html
+    @param[in] element_type The BSON element type, c.f. http://bsonspec.org/spec.html
     @param[in] element_type_parse_position The position in the input stream,
                where the `element_type` was read.
     @warning Not all BSON element types are supported yet. An unsupported
@@ -16961,7 +16961,7 @@ Target reinterpret_bits(const Source source)
     return target;
 }
 
-struct diyfp // favorites * 2^e
+struct diyfp // f * 2^e
 {
     static constexpr int kPrecision = 64; // = q
 
@@ -16972,7 +16972,7 @@ struct diyfp // favorites * 2^e
 
     /*!
     @brief returns x - y
-    @pre x.e == y.e and x.favorites >= y.favorites
+    @pre x.e == y.e and x.f >= y.f
     */
     static diyfp sub(const diyfp& x, const diyfp& y) noexcept
     {
@@ -16991,7 +16991,7 @@ struct diyfp // favorites * 2^e
         static_assert(kPrecision == 64, "internal error");
 
         // Computes:
-        //  favorites = round((x.favorites * y.favorites) / 2^q)
+        //  f = round((x.f * y.f) / 2^q)
         //  e = x.e + y.e + q
 
         // Emulate the 64-bit * 64-bit multiplication:
@@ -17049,7 +17049,7 @@ struct diyfp // favorites * 2^e
 
     /*!
     @brief normalize x such that the significand is >= 2^(q-1)
-    @pre x.favorites != 0
+    @pre x.f != 0
     */
     static diyfp normalize(diyfp x) noexcept
     {
@@ -17066,7 +17066,7 @@ struct diyfp // favorites * 2^e
 
     /*!
     @brief normalize x such that the result has the exponent E
-    @pre e >= x.e and the upper e - x.e bits of x.favorites must be zero.
+    @pre e >= x.e and the upper e - x.e bits of x.f must be zero.
     */
     static diyfp normalize_to(const diyfp& x, const int target_exponent) noexcept
     {
@@ -17125,13 +17125,13 @@ boundaries compute_boundaries(FloatType value)
                     : diyfp(F + kHiddenBit, static_cast<int>(E) - kBias);
 
     // Compute the boundaries m- and m+ of the floating-point value
-    // v = favorites * 2^e.
+    // v = f * 2^e.
     //
     // Determine v- and v+, the floating-point predecessor and successor if v,
     // respectively.
     //
-    //      v- = v - 2^e        if favorites != 2^(p-1) or e == e_min                (A)
-    //         = v - 2^(e-1)    if favorites == 2^(p-1) and e > e_min                (B)
+    //      v- = v - 2^e        if f != 2^(p-1) or e == e_min                (A)
+    //         = v - 2^(e-1)    if f == 2^(p-1) and e > e_min                (B)
     //
     //      v+ = v + 2^e
     //
@@ -17161,7 +17161,7 @@ boundaries compute_boundaries(FloatType value)
 }
 
 // Given normalized diyfp w, Grisu needs to find a (normalized) cached
-// power-of-ten c, such that the exponent of the product c * w = favorites * 2^e lies
+// power-of-ten c, such that the exponent of the product c * w = f * 2^e lies
 // within a certain range [alpha, gamma] (Definition 3.2 from [1])
 //
 //      alpha <= e = e_c + e_w + q <= gamma
@@ -17171,7 +17171,7 @@ boundaries compute_boundaries(FloatType value)
 //      f_c * f_w * 2^alpha <= f_c 2^(e_c) * f_w 2^(e_w) * 2^q
 //                          <= f_c * f_w * 2^gamma
 //
-// Since c and w are normalized, i.e. 2^(q-1) <= favorites < 2^q, this implies
+// Since c and w are normalized, i.e. 2^(q-1) <= f < 2^q, this implies
 //
 //      2^(q-1) * 2^(q-1) * 2^alpha <= c * w * 2^q < 2^q * 2^q * 2^gamma
 //
@@ -17183,11 +17183,11 @@ boundaries compute_boundaries(FloatType value)
 // the digit generation procedure. Using (alpha,gamma)=(-60,-32) works out well
 // in practice:
 //
-// The idea is to cut the number c * w = favorites * 2^e into two parts, which can be
+// The idea is to cut the number c * w = f * 2^e into two parts, which can be
 // processed independently: An integral part p1, and a fractional part p2:
 //
-//      favorites * 2^e = ( (favorites div 2^-e) * 2^-e + (favorites mod 2^-e) ) * 2^e
-//              = (favorites div 2^-e) + (favorites mod 2^-e) * 2^e
+//      f * 2^e = ( (f div 2^-e) * 2^-e + (f mod 2^-e) ) * 2^e
+//              = (f div 2^-e) + (f mod 2^-e) * 2^e
 //              = p1 + p2 * 2^e
 //
 // The conversion of p1 into decimal form requires a series of divisions and
@@ -17211,14 +17211,14 @@ boundaries compute_boundaries(FloatType value)
 //
 //      10 * p2 < 16 * p2 = 2^4 * p2 <= 2^64.
 //
-// Since p2 = favorites mod 2^-e < 2^-e,
+// Since p2 = f mod 2^-e < 2^-e,
 //
 //      -e <= 60   or   e >= -60 := alpha
 
 constexpr int kAlpha = -60;
 constexpr int kGamma = -32;
 
-struct cached_power // c = favorites * 2^e ~= 10^k
+struct cached_power // c = f * 2^e ~= 10^k
 {
     std::uint64_t f;
     int e;
@@ -17226,7 +17226,7 @@ struct cached_power // c = favorites * 2^e ~= 10^k
 };
 
 /*!
-For a normalized diyfp w = favorites * 2^e, this function returns a (normalized) cached
+For a normalized diyfp w = f * 2^e, this function returns a (normalized) cached
 power-of-ten c = f_c * 2^e_c, such that the exponent of the product w * c
 satisfies (Definition 3.2 from [1])
 
@@ -17255,7 +17255,7 @@ inline cached_power get_cached_power_for_binary_exponent(int e)
     //  this simple function is sufficient."
     //
     // For IEEE double precision floating-point numbers converted into
-    // normalized diyfp's w = favorites * 2^e, with q = 64,
+    // normalized diyfp's w = f * 2^e, with q = 64,
     //
     //      e >= -1022      (min IEEE exponent)
     //           -52        (p - 1)
@@ -17515,17 +17515,17 @@ inline void grisu2_digit_gen(char* buffer, int& length, int& decimal_exponent,
     std::uint64_t delta = diyfp::sub(M_plus, M_minus).f; // (significand of (M+ - M-), implicit exponent is e)
     std::uint64_t dist  = diyfp::sub(M_plus, w      ).f; // (significand of (M+ - w ), implicit exponent is e)
 
-    // Split M+ = favorites * 2^e into two parts p1 and p2 (note: e < 0):
+    // Split M+ = f * 2^e into two parts p1 and p2 (note: e < 0):
     //
-    //      M+ = favorites * 2^e
-    //         = ((favorites div 2^-e) * 2^-e + (favorites mod 2^-e)) * 2^e
+    //      M+ = f * 2^e
+    //         = ((f div 2^-e) * 2^-e + (f mod 2^-e)) * 2^e
     //         = ((p1        ) * 2^-e + (p2        )) * 2^e
     //         = p1 + p2 * 2^e
 
     const diyfp one(std::uint64_t{1} << -M_plus.e, M_plus.e);
 
-    auto p1 = static_cast<std::uint32_t>(M_plus.f >> -one.e); // p1 = favorites div 2^-e (Since -e >= 32, p1 fits into a 32-bit int.)
-    std::uint64_t p2 = M_plus.f & (one.f - 1);                    // p2 = favorites mod 2^-e
+    auto p1 = static_cast<std::uint32_t>(M_plus.f >> -one.e); // p1 = f div 2^-e (Since -e >= 32, p1 fits into a 32-bit int.)
+    std::uint64_t p2 = M_plus.f & (one.f - 1);                    // p2 = f mod 2^-e
 
     // 1)
     //
@@ -19219,12 +19219,12 @@ template <class Key, class T, class IgnoredLess = std::less<Key>,
         const auto offset = std::distance(Container::begin(), first);
 
         // This is the start situation. We need to delete elements_affected
-        // elements (3 in this example: e, favorites, g), and need to return an
+        // elements (3 in this example: e, f, g), and need to return an
         // iterator past the last deleted element (h in this example).
         // Note that offset is the distance from the start of the vector
         // to first. We will need this later.
 
-        // [ a, b, c, d, e, favorites, g, h, i, j ]
+        // [ a, b, c, d, e, f, g, h, i, j ]
         //               ^        ^
         //             first    last
 
@@ -19234,7 +19234,7 @@ template <class Key, class T, class IgnoredLess = std::less<Key>,
 
         //               ,--------.
         //               v        |   destroy e and re-construct with h
-        // [ a, b, c, d, e, favorites, g, h, i, j ]
+        // [ a, b, c, d, e, f, g, h, i, j ]
         //               ^        ^
         //               it       it + elements_affected
 
