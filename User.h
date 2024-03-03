@@ -53,6 +53,8 @@ public:
     //Get it from json
      void from_json(const nlohmann::json& j);
 
+     bool update_to_DB();
+
 
     virtual void print() ;
     string date_to_string();

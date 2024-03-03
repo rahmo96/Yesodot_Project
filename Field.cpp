@@ -193,8 +193,6 @@ void Field::close_field(int choice2, int startHour,int endHour){
         occupied[choice2-1][i-8] = 1;
 
     }
-
-
 }
 
 
