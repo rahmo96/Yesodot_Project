@@ -165,4 +165,36 @@ Player Player::operator=(const Player &other) {
     return *this;
 }
 
+bool Player::isIdInDatabase(long id) {
+    sqlite3* db;
+    if (sqlite3_open("Test player data DB.db", &db) != SQLITE_OK) {
+        std::cerr << "Error opening database" << std::endl;
+        return false;
+    }
+
+    std::string query = "SELECT COUNT(*) FROM [Player_Accounts] WHERE id = ?";
+    sqlite3_stmt* stmt;
+    if (sqlite3_prepare_v2(db, query.c_str(), -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "Error preparing statement" << std::endl;
+        sqlite3_close(db);
+        return false;
+    }
+
+    sqlite3_bind_int64(stmt, 1, id);
+
+    int result = sqlite3_step(stmt);
+    bool idExists = false;
+    if (result == SQLITE_ROW) {
+        int count = sqlite3_column_int(stmt, 0);
+        idExists = count > 0;
+    }
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+
+    return idExists;
+}
+
+
+
 

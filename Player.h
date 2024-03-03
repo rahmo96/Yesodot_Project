@@ -52,6 +52,8 @@ public:
 
     bool update_to_DB();
 
+    bool isIdInDatabase(long id);
+
 
 
 };
