@@ -2,6 +2,7 @@
 #include <map>
 #include "MyMain.h"
 #include "Functions.h"
+
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
 #define GREEN   "\033[32m"
@@ -45,7 +46,6 @@ Player MyMain::P_login() {
     return p;
 
 
-
 }
 
 Field_manager MyMain::FM_login() {
@@ -73,8 +73,8 @@ Field_manager MyMain::FM_login() {
     } while ((!(Functions::checkLogin_FM(db, to_string(id), password))));
     cout << GREEN << "Login successful" << RESET << endl;
     Field_manager fm = Field_manager::build_from_DB(id);
-        sqlite3_close(db);
-        return fm;
+    sqlite3_close(db);
+    return fm;
 
 }
 
@@ -125,7 +125,7 @@ int MyMain::runMenu() {
                         Player p = P_login();
                         int choice;
                         do {
-                            cout <<CYAN "Choose one of the following options:" <<RESET<< endl;
+                            cout << CYAN "Choose one of the following options:" << RESET << endl;
                             cout << "1. Favorites" << endl;
                             cout << "2. Book field" << endl;
                             cout << "3. Cancel field" << endl;
@@ -137,37 +137,37 @@ int MyMain::runMenu() {
 
                             switch (choice) {
                                 case 1:
-                                    cout <<CYAN<< "Favorites" <<RESET<< endl;
+                                    cout << CYAN << "Favorites" << RESET << endl;
                                     p.f.print();
                                     break;
                                 case 2:
-                                    cout << CYAN<<"Book field" << RESET<<endl;
+                                    cout << CYAN << "Book field" << RESET << endl;
                                     player_menu_booking(p, Field_manager::field_managers);
                                     p.update_to_DB();
                                     break;
                                 case 3:
-                                    cout <<CYAN<< "Cancel field"<<RESET << endl;
+                                    cout << CYAN << "Cancel field" << RESET << endl;
                                     player_menu_cancel(p, Field_manager::field_managers);
                                     break;
                                 case 4:
-                                    cout <<CYAN<< "Rate field" <<RESET << endl;
+                                    cout << CYAN << "Rate field" << RESET << endl;
                                     // Add code to handle Rate field
                                     player_rating_booking(p);
 
                                     break;
                                 case 5:
-                                    cout <<CYAN<< "Profile" <<RESET << endl;
+                                    cout << CYAN << "Profile" << RESET << endl;
                                     menu_profile<Player>(p);
                                     break;
                                 case 6:
-                                    cout <<CYAN << "Booked fields" <<RESET<< endl;
+                                    cout << CYAN << "Booked fields" << RESET << endl;
                                     p.booked.print_booked_fields(p.Get_id());
                                     break;
                                 case 7:
-                                    cout<<CYAN << "Exiting..." <<RESET << endl;
+                                    cout << CYAN << "Exiting..." << RESET << endl;
                                     return 0;
                                 default:
-                                    cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
+                                    cout << RED << "Invalid choice. Please try again." << RESET << endl;
                             }
 
                         } while (true);
@@ -197,7 +197,7 @@ int MyMain::runMenu() {
 
                         while (!exitMenu) {
                             // Display menu options
-                            std::cout<<CYAN << "Field Manager Menu"<< RESET << std::endl;
+                            std::cout << CYAN << "Field Manager Menu" << RESET << std::endl;
                             std::cout << "1. Add Field" << std::endl;
                             std::cout << "2. Remove Field" << std::endl;
                             std::cout << "3. Profile" << std::endl;
@@ -211,7 +211,7 @@ int MyMain::runMenu() {
                             // Process user choice
                             switch (choice) {
                                 case 1: {
-                                    std::cout<< CYAN << "Add a new field."<< RESET << std::endl;
+                                    std::cout << CYAN << "Add a new field." << RESET << std::endl;
                                     Field field = Field::add_field();
                                     fm.field.push_back(field);
                                     fm.update_to_DB();
@@ -219,28 +219,28 @@ int MyMain::runMenu() {
                                 }
                                     break;
                                 case 2:
-                                    std::cout<< CYAN << "Removing a field."<< RESET << std::endl;
+                                    std::cout << CYAN << "Removing a field." << RESET << std::endl;
                                     remove_field(fm, Field_manager::field_managers);
                                     // Remove field logic
                                     break;
                                 case 3:
-                                    std::cout<< CYAN << "Viewing profile..."<<  RESET << std::endl;
+                                    std::cout << CYAN << "Viewing profile..." << RESET << std::endl;
                                     menu_profile<Field_manager>(fm);
                                     break;
                                 case 4:
-                                    std::cout<< CYAN << "Viewing closed hours in field..."<< RESET << std::endl;
+                                    std::cout << CYAN << "Viewing closed hours in field..." << RESET << std::endl;
                                     // Closed hours logic
                                     break;
                                 case 5:
-                                    std::cout<<CYAN << "Pay to be first..."<< RESET << std::endl;
-                                    fm.promoting_funded=fm.Pay_to_be_first();
+                                    std::cout << CYAN << "Pay to be first..." << RESET << std::endl;
+                                    fm.promoting_funded = fm.Pay_to_be_first();
                                     break;
-                                    case 6:
-                                    std::cout<< CYAN << "Going back..."<< RESET << std::endl;
+                                case 6:
+                                    std::cout << CYAN << "Going back..." << RESET << std::endl;
                                     exitMenu = true;
                                     break;
                                 default:
-                                    std::cout<< RED << "Invalid choice. Please try again."<< RESET << std::endl;
+                                    std::cout << RED << "Invalid choice. Please try again." << RESET << std::endl;
                                     break;
                             }
                         }
@@ -256,7 +256,7 @@ int MyMain::runMenu() {
 
                         while (!exitMenu) {
                             // Display menu options
-                            std::cout<<CYAN << "Field Manager Menu"<< RESET << std::endl;
+                            std::cout << CYAN << "Field Manager Menu" << RESET << std::endl;
                             std::cout << "1. Add Field" << std::endl;
                             std::cout << "2. Remove Field" << std::endl;
                             std::cout << "3. Profile" << std::endl;
@@ -271,36 +271,36 @@ int MyMain::runMenu() {
                             // Process user choice
                             switch (choice) {
                                 case 1: {
-                                    std::cout<<CYAN << "Adding a new field..."<< RESET << std::endl;
+                                    std::cout << CYAN << "Adding a new field..." << RESET << std::endl;
                                     Field field = Field::add_field();
                                     fm->field.push_back(field);
                                     fm->update_to_DB();
                                     break;
                                 }
                                 case 2: {
-                                    std::cout<<CYAN << "Remove a field."<< RESET << std::endl;
+                                    std::cout << CYAN << "Remove a field." << RESET << std::endl;
                                     remove_field(*fm, Field_manager::field_managers);
                                     break;
                                 }
                                 case 3:
-                                    std::cout<<CYAN << "Viewing profile."<< RESET << std::endl;
+                                    std::cout << CYAN << "Viewing profile." << RESET << std::endl;
                                     menu_profile<Field_manager>(*fm);
                                     break;
                                 case 4:
-                                    std::cout<<CYAN << "Viewing closed hours in field..." << RESET << std::endl;
+                                    std::cout << CYAN << "Viewing closed hours in field..." << RESET << std::endl;
                                     // Closed hours logic
                                     break;
                                 case 5:
-                                    std::cout<<CYAN << "Pay to be first..."<< RESET << std::endl;
-                                    fm->promoting_funded=fm->Pay_to_be_first();
+                                    std::cout << CYAN << "Pay to be first..." << RESET << std::endl;
+                                    fm->promoting_funded = fm->Pay_to_be_first();
 
                                     break;
-                                    case 6:
-                                    std::cout<<CYAN << "Going back..."<< RESET << std::endl;
+                                case 6:
+                                    std::cout << CYAN << "Going back..." << RESET << std::endl;
                                     exitMenu = true;
                                     break;
                                 default:
-                                    std::cout<<RED << "Invalid choice. Please try again."<< RESET << std::endl;
+                                    std::cout << RED << "Invalid choice. Please try again." << RESET << std::endl;
                                     break;
                             }
                         }
@@ -309,7 +309,7 @@ int MyMain::runMenu() {
                     case 3:
                         break;
                     default:
-                        std::cout<<RED << "Invalid choice. Please try again."<< RESET << std::endl;
+                        std::cout << RED << "Invalid choice. Please try again." << RESET << std::endl;
                 }
                 break;
             }
@@ -317,7 +317,7 @@ int MyMain::runMenu() {
             case 3:
                 return 0;
             default:
-                std::cout<<RED << "Invalid choice. Please try again."<< RESET << std::endl;
+                std::cout << RED << "Invalid choice. Please try again." << RESET << std::endl;
         }
     }
 }
@@ -378,13 +378,13 @@ void MyMain::retrieve_field_managers_from_db() {
 
 
 //PLAYER!!
-void MyMain::player_menu_booking(Player &p, vector<Field_manager*> field_managers) {
+void MyMain::player_menu_booking(Player &p, vector<Field_manager *> field_managers) {
     string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};
     vector<string> cities;
 
     // Collect unique cities from the fields
-    for (const auto& fm : field_managers) {
-        for (const auto& field : fm->field) {
+    for (const auto &fm: field_managers) {
+        for (const auto &field: fm->field) {
             string city = field.get_field_city();
             if (find(cities.begin(), cities.end(), city) == cities.end()) {
                 cities.push_back(city);
@@ -400,7 +400,7 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager*> field_manager
 
     // Get user choice for city
     int cityChoice;
-    cout << "Enter the number of the city: "<<endl;
+    cout << "Enter the number of the city: " << endl;
     cin >> cityChoice;
 
     // Validate and process user choice for city
@@ -409,8 +409,8 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager*> field_manager
         vector<Field> availableFields;
 
         // Find available fields in the chosen city
-        for (const auto& fm : field_managers) {
-            for (const auto& field : fm->field) {
+        for (const auto &fm: field_managers) {
+            for (const auto &field: fm->field) {
                 if (field.get_field_city() == chosenCity) {
                     availableFields.push_back(field);
                 }
@@ -426,7 +426,7 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager*> field_manager
 
             // Get user choice for field
             int fieldChoice;
-            cout << "Enter the number of the field: "<<endl;
+            cout << "Enter the number of the field: " << endl;
             cin >> fieldChoice;
 
             // Validate user choice for field
@@ -441,7 +441,7 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager*> field_manager
 
                 // Get user choice for day
                 int dayChoice;
-                cout << "Enter the number of the day: "<<endl;
+                cout << "Enter the number of the day: " << endl;
                 cin >> dayChoice;
 
                 // Validate and process user choice for day
@@ -457,7 +457,7 @@ void MyMain::player_menu_booking(Player &p, vector<Field_manager*> field_manager
                     if (hourChoice >= 8 && hourChoice <= 19) {
                         int checked = 0;
                         // Process the booking for the chosen field, day, and hour
-                        for (auto& fm : field_managers) {
+                        for (auto &fm: field_managers) {
                             if (fm->field[checked] == chosenField) {
                                 long playerId = p.Get_id();
                                 fm->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, hourChoice);
@@ -560,21 +560,21 @@ void MyMain::player_menu_cancel(Player &p, vector<Field_manager *> field_manager
 
 template<typename UserType>
 void MyMain::menu_profile(UserType &u) {
-    cout<<GREEN << "You are logged in as " << u.Get_Name()<<RESET << endl;
+    cout << GREEN << "You are logged in as " << u.Get_Name() << RESET << endl;
 
     // Define the menu options and corresponding actions
     std::map<int, std::function<void(UserType &)>> menu = {
             {1, [](UserType &u) { u.print(); }},
             {2, [](UserType &u) { profile_menu_2(u); }},
-            {3, [](UserType &u) { cout<<CYAN << "Going back..."<<RESET << endl; /* back */ }},
+            {3, [](UserType &u) { cout << CYAN << "Going back..." << RESET << endl; /* back */ }},
     };
 
     int choice;
     do {
-        cout<<CYAN << "Choose an option:"<<RESET << endl;
+        cout << CYAN << "Choose an option:" << RESET << endl;
         cout << "1. View your profile" << endl;
         cout << "2. Edit your profile" << endl;
-        cout << "3. back" << endl;
+        cout << "3. logout" << endl;
         cin >> choice;
 
         // Execute the corresponding action based on the user's choice
@@ -582,13 +582,14 @@ void MyMain::menu_profile(UserType &u) {
         if (it != menu.end()) {
             it->second(u);
         } else {
-            cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
+            cout << RED << "Invalid choice. Please try again." << RESET << endl;
         }
     } while (choice != 3); // Corrected loop condition
+    runMenu();
 }
 
 void MyMain::profile_menu_2(User &u) {
-    cout<<CYAN << "Choose what to edit:" <<RESET << endl;
+    cout << CYAN << "Choose what to edit:" << RESET << endl;
 
     // Define the menu options and corresponding actions
     std::map<int, std::function<void(User &)>> menu = {
@@ -596,7 +597,7 @@ void MyMain::profile_menu_2(User &u) {
             {2, [](User &u) { u.Set_Address(); }},
             {3, [](User &u) { u.Set_phone_number(); }},
             {4, [](User &u) { u.Set_password(); }},
-            {5, [](User &u) { cout<<CYAN << "Going back..." <<RESET << endl; /* Go back */ }},
+            {5, [](User &u) { cout << CYAN << "Going back..." << RESET << endl; /* Go back */ }},
     };
 
     int choice;
@@ -613,7 +614,7 @@ void MyMain::profile_menu_2(User &u) {
         if (it != menu.end()) {
             it->second(u);
         } else {
-            cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
+            cout << RED << "Invalid choice. Please try again." << RESET << endl;
         }
     } while (choice != 7);
 }
@@ -631,14 +632,14 @@ void MyMain::player_rating_booking(Player &p) {
                 field_book.push_back(book);
             }
         }
-        cout<<CYAN << "Choose a field:"<<RESET << endl;
+        cout << CYAN << "Choose a field:" << RESET << endl;
         for (size_t i = 0; i < field_book.size(); ++i) {
             cout << i + 1 << ". " << field_book[i] << endl;
         }
-        cout<<CYAN << "Enter the number of the fild: "<<RESET << endl;
+        cout << CYAN << "Enter the number of the fild: " << RESET << endl;
         cin >> fieldChoice;
     } while (!(fieldChoice >= 1 && fieldChoice <= static_cast<int>(field_book.size())));
-    cout<<CYAN << "Enter the rat field of (1-5) "<<RESET << field_book[fieldChoice - 1] << endl;
+    cout << CYAN << "Enter the rat field of (1-5) " << RESET << field_book[fieldChoice - 1] << endl;
     int star_rat;
     cin >> star_rat;
     for (int i = 0; i < p.booked.booked_fields.size(); ++i) {
