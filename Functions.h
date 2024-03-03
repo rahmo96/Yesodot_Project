@@ -22,6 +22,7 @@ public:
     static int GetDouble(long i);
     static bool checkLogin_P(sqlite3* db, const string& id, const string& password);
     static bool checkLogin_FM(sqlite3* db, const string& id, const string& password);
+    static bool isIdInDatabase(long id);
     template<typename T>
     static T build_user() {
         string name;
@@ -33,14 +34,23 @@ public:
         string password;
         cout << "enter your name " <<  endl;
         cin >> name;
-        cout << "enter your id number " <<  endl;
-        cin >> id;
-        if (!IsValidIsraeliID( to_string(id))) {
-            do {
-                cout << "please enter a valid id number" <<endl;
-                cin >> id;
-            } while (!IsValidIsraeliID( to_string(id)));
-        }
+        do {
+            cout << "Enter your id number: "<< endl;
+            cin >> id;
+
+            // Validate the ID
+            if (!IsValidIsraeliID(to_string(id))) {
+                cout << "Invalid ID. Please enter a valid ID number." << endl;
+                continue; // Restart the loop to get a new ID
+            }
+
+            // Check if the ID is already in use
+            if (isIdInDatabase(id)) {
+                cout << "This ID is already in use. Please enter another one." << endl;
+            }
+
+        } while (!IsValidIsraeliID(to_string(id)) || isIdInDatabase(id));
+
         cout << "enter your Address " <<  endl;
         cin >> Address;
         cout << "enter your phone_number " <<  endl;
