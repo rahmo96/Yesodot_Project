@@ -27,22 +27,25 @@ Player MyMain::P_login() {
     }
     long id;
     string password;
-    cout<<CYAN<<"Login as Player"<<RESET<<endl;
-    cout << "Enter your ID:" << endl;
-    cin >> id;
-    cout << "Enter your password:" << endl;
-    cin >> password;
-    if (Functions::checkLogin_P(db, to_string(id), password)) {
-        cout<<GREEN << "Login successful" <<RESET << endl;
-        Player p = Player::build_from_DB(id);
+    do {
+        cout << CYAN << "Login as Player" << RESET << endl;
+        cout << "Enter your ID:" << endl;
+        cin >> id;
+        cout << "Enter your password:" << endl;
+        cin >> password;
 
-        return p;
+        if (!(Functions::checkLogin_P(db, to_string(id), password))) {
+            cout << RED << "Login failed. Please try again." << RESET << endl;
+        }
+    } while (!(Functions::checkLogin_P(db, to_string(id), password)));
 
-    } else {
-        cout<<RED << "Login failed"<<RESET << endl;
-    };
+    cout << GREEN << "Login successful" << RESET << endl;
+    Player p = Player::build_from_DB(id);
     sqlite3_close(db);
-    exit(0);
+    return p;
+
+
+
 }
 
 Field_manager MyMain::FM_login() {
@@ -55,22 +58,24 @@ Field_manager MyMain::FM_login() {
 
     long id;
     string password;
-    cout<<CYAN<<"Login as Field Manager"<<RESET<<endl;
-    cout << "Enter your ID:" << endl;
-    cin >> id;
-    cout << "Enter your password:" << endl;
-    cin >> password;
+    do {
 
-    if (Functions::checkLogin_FM(db, to_string(id), password)) {
-        cout<<GREEN << "Login successful"<<RESET << endl;
-        Field_manager fm = Field_manager::build_from_DB(id);
+
+        cout << CYAN << "Login as Field Manager" << RESET << endl;
+        cout << "Enter your ID:" << endl;
+        cin >> id;
+        cout << "Enter your password:" << endl;
+        cin >> password;
+
+        if (!(Functions::checkLogin_FM(db, to_string(id), password))) {
+            cout << RED << "Login failed. Please try again." << RESET << endl;
+        }
+    } while ((!(Functions::checkLogin_FM(db, to_string(id), password))));
+    cout << GREEN << "Login successful" << RESET << endl;
+    Field_manager fm = Field_manager::build_from_DB(id);
         sqlite3_close(db);
         return fm;
-    } else {
-        cout<<RED << "Login failed"<<RESET << endl;
-        sqlite3_close(db);
-        exit(1);
-    }
+
 }
 
 vector<Field_manager *> Field_manager::field_managers;
