@@ -187,7 +187,15 @@ bool Field::cancel_booking(long id) {
     }
     return cancelled;
 }
+void Field::close_field(int choice2, int startHour,int endHour){
 
+    for (int i = startHour; i < endHour; ++i) {
+        occupied[choice2-1][i-8] = 1;
+
+    }
+
+
+}
 
 
 
