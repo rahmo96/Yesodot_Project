@@ -249,56 +249,61 @@ bool Field_manager::update_to_DB() {
 
 bool Field_manager::Pay_to_be_first() {
     int choice;
+    if (promoting_funded== true) {
 
-    do {
-        cout << "The price for a lifetime access is 120 ILS" << endl;
-        cout << "Do you want to pay?" << endl;
-        cout << "1. Yes" << endl;
-        cout << "2. No" << endl;
-        cin >> choice;
 
-        if (choice != 2) {
-            // Validate credit card number
-            string card_num;
-            do {
-                cout << "Enter your credit card number: ";
-                cin >> card_num;
-                if (card_num.length() != 16) {
-                    cout << "Please enter a 16-digit credit card number." << endl;
-                }
-            } while (card_num.length() != 16);
+        do {
+            cout << "The price for a lifetime access is 120 ILS" << endl;
+            cout << "Do you want to pay?" << endl;
+            cout << "1. Yes" << endl;
+            cout << "2. No" << endl;
+            cin >> choice;
 
-            // Validate validity date
-            int month, year;
-            do {
-                cout << "Enter the validity date MM: ";
-                cin >> month;
-                cout << "Enter the validity date YYYY: ";
-                cin >> year;
+            if (choice != 2) {
+                // Validate credit card number
+                string card_num;
+                do {
+                    cout << "Enter your credit card number: ";
+                    cin >> card_num;
+                    if (card_num.length() != 16) {
+                        cout << "Please enter a 16-digit credit card number." << endl;
+                    }
+                } while (card_num.length() != 16);
 
-                if (year <= 2024 && month <= 3) {
-                    cout << "Credit card has expired." << endl;
-                }
-            } while (year <= 2024 && month <= 3);
+                // Validate validity date
+                int month, year;
+                do {
+                    cout << "Enter the validity date MM: ";
+                    cin >> month;
+                    cout << "Enter the validity date YYYY: ";
+                    cin >> year;
 
-            // Validate CVV
-            int cvv;
-            do {
-                cout << "Enter your CVV: ";
-                cin >> cvv;
-                if (cvv < 100 || cvv > 999) {
-                    cout << "Please enter a 3-digit CVV." << endl;
-                }
-            } while (cvv < 100 || cvv > 999);
+                    if (year <= 2024 && month <= 3) {
+                        cout << "Credit card has expired." << endl;
+                    }
+                } while (year <= 2024 && month <= 3);
 
-            // Rest of your payment logic goes here
-            cout << "Processing payment..." << endl;
-            cout << "Successfully paid, thank you very much" << endl;
+                // Validate CVV
+                int cvv;
+                do {
+                    cout << "Enter your CVV: ";
+                    cin >> cvv;
+                    if (cvv < 100 || cvv > 999) {
+                        cout << "Please enter a 3-digit CVV." << endl;
+                    }
+                } while (cvv < 100 || cvv > 999);
 
-            return true;  // Return true if payment is successful
-        }
+                // Rest of your payment logic goes here
+                cout << "Processing payment..." << endl;
+                cout << "Successfully paid, thank you very much" << endl;
 
-        cout << "Thank you" << endl;
-        return false;
-    } while (choice != 2);
+                return true;  // Return true if payment is successful
+            }
+
+            cout << "Thank you" << endl;
+            return false;
+        } while (choice != 2);
+    }
+    cout << "You already paid thanks" << endl;
+
 }
