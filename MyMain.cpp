@@ -197,14 +197,14 @@ int MyMain::runMenu() {
 
                         while (!exitMenu) {
                             // Display menu options
-                            std::cout<< CYAN << "Field Manager Menu" << RESET << std::endl;
+                            std::cout<<CYAN << "Field Manager Menu"<< RESET << std::endl;
                             std::cout << "1. Add Field" << std::endl;
                             std::cout << "2. Remove Field" << std::endl;
                             std::cout << "3. Profile" << std::endl;
                             std::cout << "4. Closed Hours in Field" << std::endl;
-                            std::cout << "5. Back" << std::endl;
+                            std::cout << "5.Pay to be first" << std::endl;
+                            std::cout << "6. Back" << std::endl;
                             std::cout << "Enter your choice: ";
-
                             // Get user choice
                             std::cin >> choice;
 
@@ -232,6 +232,10 @@ int MyMain::runMenu() {
                                     // Closed hours logic
                                     break;
                                 case 5:
+                                    std::cout<<CYAN << "Pay to be first..."<< RESET << std::endl;
+                                    fm.promoting_funded=fm.Pay_to_be_first();
+                                    break;
+                                    case 6:
                                     std::cout<< CYAN << "Going back..."<< RESET << std::endl;
                                     exitMenu = true;
                                     break;
@@ -257,7 +261,8 @@ int MyMain::runMenu() {
                             std::cout << "2. Remove Field" << std::endl;
                             std::cout << "3. Profile" << std::endl;
                             std::cout << "4. Closed Hours in Field" << std::endl;
-                            std::cout << "5. Back" << std::endl;
+                            std::cout << "5.Pay to be first" << std::endl;
+                            std::cout << "6. Back" << std::endl;
                             std::cout << "Enter your choice: ";
 
                             // Get user choice
@@ -286,6 +291,11 @@ int MyMain::runMenu() {
                                     // Closed hours logic
                                     break;
                                 case 5:
+                                    std::cout<<CYAN << "Pay to be first..."<< RESET << std::endl;
+                                    fm->promoting_funded=fm->Pay_to_be_first();
+
+                                    break;
+                                    case 6:
                                     std::cout<<CYAN << "Going back..."<< RESET << std::endl;
                                     exitMenu = true;
                                     break;
