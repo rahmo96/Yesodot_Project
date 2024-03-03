@@ -76,6 +76,7 @@ public:
     //Remove field from field_managers
     void remove_field_manager(vector<Field_manager*> &field_managers);
 
+    bool isIdInDatabase(long id);
 
 };
 
