@@ -20,10 +20,11 @@ private:
     float rating;
     int counter_rating=0;
     long occupied[5][12];
+    string description;
 public:
     Field();
     Field(const Field &other);
-    Field(string field_name,string field_type,string field_city);
+    Field(string field_name,string field_type,string field_city,string description);
     string get_field_name() const {return field_name;};
     string get_field_type() const {return field_type;};
     string get_field_city() const {return field_city;}

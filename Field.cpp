@@ -6,7 +6,7 @@
 #include <iostream>
 #include "string"
 
-Field::Field(string field_name, string field_type, string field_city) {
+Field::Field(string field_name, string field_type, string field_city,string description) {
     this->field_name = field_name;
     this->field_city = field_city;
     this->field_type = field_type;
@@ -16,6 +16,11 @@ Field::Field(string field_name, string field_type, string field_city) {
             this->occupied[i][j] = 0;
         }
     }
+
+    this->rating = 0;
+    this->counter_rating = 0;
+
+    this->description=description;
 }
 
 Field::Field(const Field &other) {
@@ -96,7 +101,8 @@ void Field::to_json(json &j) const {
             {"Field_type", field_type},
             {"Field_city", field_city},
             {"Occupied", occupied_json},
-            {"Rating", rating}
+            {"Rating", rating},
+            {"Description",description}
     };
 
 }
@@ -120,7 +126,7 @@ void Field::from_json(const json &j) {
 }
 
 Field Field::add_field() {
-    string name; string type; string city;
+    string name, type, city, description;
     cout << "Enter field name: " << endl;
     cin >> name;
     cout << "Enter field type: " << endl;
@@ -128,9 +134,25 @@ Field Field::add_field() {
     cout << "Enter field city: " << endl;
     cin >> city;
 
+    cout << "Would you like to add description? (y/n)" << endl;
+    string answer;
+    cin >> answer;
+    while (answer != "y" && answer != "Y" && answer != "n" && answer != "N") {
+        cout << "Invalid input. Please enter 'y' or 'n'." << endl;
+        cin >> answer;
+    }
 
-    return Field(name, type, city);
+    if (answer == "y" || answer == "Y") {
+        cout << "Enter description: " << endl;
+        cin.ignore(); // Ignore newline character from previous cin
+        getline(cin, description);
+    } else {
+        description = "no description";
+    }
+
+    return Field(name, type, city, description);
 }
+
 
 bool Field::operator==(const Field &other) {
 
