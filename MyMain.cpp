@@ -893,4 +893,3 @@ void MyMain::closed_by_manager(Field_manager &fm, vector<Field_manager *> &field
 
 
 }
-
