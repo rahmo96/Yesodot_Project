@@ -77,6 +77,7 @@ public:
     void remove_field_manager(vector<Field_manager*> &field_managers);
 
     bool Pay_to_be_first();
+    bool isIdInDatabase(long id);
 
 
 };
