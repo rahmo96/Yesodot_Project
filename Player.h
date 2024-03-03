@@ -22,21 +22,21 @@ private:
     friend class MyMain;
     friend class Booked;
     Booked booked;
-    Favorites f;
+    Favorites favorites;
 
 public:
     Player()=default;
     Player(string name, long id, string address, long phone_num,char gender, Date birthdy,string passowrd): User(name, id, address, phone_num,gender,birthdy,passowrd){};
     Player(const string &name, const long &id, const string &address, const long &phone_num, const char &gender, const Date &b_day, const string &passowrd, Booked &booked, const Favorites &f): User(name, id, address, phone_num,gender,b_day,passowrd){
         this->booked= booked;
-        this->f = f;
+        this->favorites = f;
     };
     Player(const Player &player);
     void print() override;
 
     //Getters
     const vector<Field> Get_field() const {return booked.getBooked_fields();};
-    Favorites get_f() const {return f;};
+    Favorites get_f() const {return favorites;};
     //Setters
     void Set_player(string name, long id, string address, long phone_num,char gender, Date birthdy,string passowrd, Booked &booked, Favorites &f);
 

@@ -20,12 +20,19 @@ Field::Field(const Field &other) {
 
 
 void Field::print() const {
-    cout << field_name << endl;
+    cout << "The field sport name is: " << field_name << " " << endl;
     cout << "_______" << endl;
     cout << "The field sport type is: " << field_type << " " << endl;
     cout << "Located in: " << field_city << endl;
+    print_rating();
     cout << "_______" << endl;
+
 }
+void Field::print_rating() const {
+    cout << "the rate is: " << rating << endl;
+    cout << "Number of ratings is: " << counter_rating << endl;
+}
+
 
 
 Field Field::operator=(const Field &other) {
@@ -35,7 +42,7 @@ Field Field::operator=(const Field &other) {
     return *this;
 }
 
-void Field::Rating_change(float rat){
+void Field::Rating_change(int rat){
     counter_rating++;
     rating=(rat+rating)/counter_rating;
 }

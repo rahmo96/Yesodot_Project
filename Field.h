@@ -26,7 +26,7 @@ public:
     string get_field_name() const {return field_name;};
     string get_field_type() const {return field_type;};
     string get_field_city() const {return field_city;}
-    float get_ratung() const {return rating;}
+    float get_rating() const {return rating;}
 
     void print() const;
     Field operator=(const Field &other);
@@ -37,11 +37,12 @@ public:
     void to_json(json& j) const;
     //Get it from json
     void from_json(const json& j);
-    void Rating_change(float rat);
+    void Rating_change(int rat);
 
     static Field add_field();
     Field remove_field();
 
+    void print_rating() const;
 };
 
 
