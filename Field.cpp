@@ -102,7 +102,6 @@ void Field::to_json(json &j) const {
             {"Field_city", field_city},
             {"Occupied", occupied_json},
             {"Rating", rating},
-            {"Description",description}
     };
 
 }
@@ -120,7 +119,6 @@ void Field::from_json(const json &j) {
             occupied[i][k] = row_json[k];
         }
     }
-
     rating = j.at("Rating");
 
 }

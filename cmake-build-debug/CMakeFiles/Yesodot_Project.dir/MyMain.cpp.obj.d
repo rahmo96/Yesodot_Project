@@ -264,5 +264,4 @@ CMakeFiles/Yesodot_Project.dir/MyMain.cpp.obj: \
  C:\Users\raha1\Desktop\yesodot\Field.h \
  C:\Users\raha1\Desktop\yesodot\Favorites.h \
  C:\Users\raha1\Desktop\yesodot\Field_manager.h \
- C:\Users\raha1\Desktop\yesodot\Functions.h \
- C:/Users/raha1/Desktop/yesodot/sqlite3.h
+ C:\Users\raha1\Desktop\yesodot\Functions.h

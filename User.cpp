@@ -100,7 +100,6 @@ void User::to_json(nlohmann::json &j) {
             {"b_day", date_to_string()},
             {"password", passowrd}
     };
-    cout<<j.dump()<<endl;
 
 }
 
