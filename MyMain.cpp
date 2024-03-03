@@ -551,7 +551,7 @@ void MyMain::menu_profile(UserType &u) {
     std::map<int, std::function<void(UserType &)>> menu = {
             {1, [](UserType &u) { u.print(); }},
             {2, [](UserType &u) { profile_menu_2(u); }},
-            {3, [](UserType &u) { cout<<CYAN << "Logging out..."<<RESET << endl; /* Logout */ }},
+            {3, [](UserType &u) { cout<<CYAN << "Going back..."<<RESET << endl; /* back */ }},
     };
 
     int choice;
@@ -559,7 +559,7 @@ void MyMain::menu_profile(UserType &u) {
         cout<<CYAN << "Choose an option:"<<RESET << endl;
         cout << "1. View your profile" << endl;
         cout << "2. Edit your profile" << endl;
-        cout << "3. Logout" << endl;
+        cout << "3. back" << endl;
         cin >> choice;
 
         // Execute the corresponding action based on the user's choice
