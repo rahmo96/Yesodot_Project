@@ -2,6 +2,8 @@
 #include <map>
 #include "MyMain.h"
 #include "Functions.h"
+#include <cctype>
+#include <string>
 
 using namespace std;
 
@@ -449,26 +451,20 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
     }
 
     // Display the unique cities
-    int cityChoiceInt;
-    string cityChoice;
+    int cityChoice;
     do {
         cout << "Choose a city:" << endl;
         for (size_t i = 0; i < cities.size(); ++i) {
             cout << i + 1 << ". " << cities[i] << endl;
         }
         cout << "Enter the number of the city: ";
-        getline(cin, cityChoice);
-        if (!Functions::isNumber(cityChoice)) {
-            cout << "Invalid input. Please enter a number." << endl; // Add this line to handle invalid input
-            continue;
-        }
-        cityChoiceInt = stoi(cityChoice);
-        if (cityChoiceInt < 1 || cityChoiceInt > static_cast<int>(cities.size())) {
+        cin >> cityChoice;
+        if (cityChoice < 1 || cityChoice > static_cast<int>(cities.size())) {
             cout << "Invalid city choice. Please try again." << endl;
         }
-    } while (cityChoiceInt < 1 || cityChoiceInt > static_cast<int>(cities.size()));
+    } while (cityChoice < 1 || cityChoice > static_cast<int>(cities.size()));
 
-    string chosenCity = cities[cityChoiceInt - 1];
+    string chosenCity = cities[cityChoice - 1];
     vector<Field> availableFields;
 
     // Find available fields in the chosen city
@@ -486,21 +482,12 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
         for (size_t i = 0; i < availableFields.size(); ++i) {
             cout << i + 1 << ". " << availableFields[i].get_field_name() << endl;
         }
-        int fieldChoiceInt;
-        string fieldChoice;
+        int fieldChoice;
         do {
             cout << "Enter the number of the field: ";
-            getline(cin, fieldChoice);
-            if (!Functions::isNumber(fieldChoice)) {
-                cout << "Invalid input. Please enter a number." << endl; // Add this line to handle invalid input
-                continue;
-            }
-            fieldChoiceInt = stoi(fieldChoice);
-            if (fieldChoiceInt < 1 || fieldChoiceInt > static_cast<int>(availableFields.size())) {
-                cout << "Invalid field choice. Please try again." << endl;
-            }
-        } while (fieldChoiceInt < 1 || fieldChoiceInt > static_cast<int>(availableFields.size()));
-        Field chosenField = availableFields[fieldChoiceInt - 1];
+            cin >> fieldChoice;
+        } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
+        Field chosenField = availableFields[fieldChoice - 1];
 
         // Display available days for booking
         cout << "Choose a day:" << endl;
@@ -509,55 +496,27 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
         }
 
         // Get user choice for day
-
-        int dayChoiceInt;
-        string dayChoice;
+        int dayChoice;
         do {
             cout << "Enter the number of the day: ";
-            getline(cin , dayChoice);
-            if (!Functions::isNumber(dayChoice)) {
-                cout << "Invalid input. Please enter a number." << endl; // Add this line to handle invalid input
-                continue;
-            }
-            dayChoiceInt = stoi(dayChoice);
-            if (dayChoiceInt < 1 || dayChoiceInt > 5) {
-                cout << "Invalid day choice. Please try again." << endl;
-            }
-        } while (dayChoiceInt < 1 || dayChoiceInt > 5);
-        int dayIndex = dayChoiceInt- 1;
+            cin >> dayChoice;
+        } while (dayChoice < 1 || dayChoice > 5);
+        int dayIndex = dayChoice - 1;
 
         // Get user choice for hours range
-        int startHourInt, endHourInt;
-        string startHour, endHour;
+        int startHour, endHour;
         do {
             cout << "Enter the starting hour (8-19): ";
-            getline(cin , startHour);
-            if (!Functions::isNumber(startHour)) {
-                cout << "Invalid input. Please enter a number." << endl; // Add this line to handle invalid input
-                continue;
-            }
-            startHourInt = stoi(startHour);
-            if (startHourInt < 8 || startHourInt > 19) {
-                cout << "Invalid hour choice. Please try again." << endl;
-            }
+            cin >> startHour;
             cout << "Enter the ending hour (8-19): ";
-            getline(cin , endHour);
-            if (!Functions::isNumber(endHour)) {
-                cout << "Invalid input. Please enter a number." << endl; // Add this line to handle invalid input
-                continue;
-            }
-            endHourInt = stoi(endHour);
-            if (endHourInt < 8 || endHourInt > 19) {
-                cout << "Invalid hour choice. Please try again." << endl;
-            }
-        } while (!(startHourInt >= 8 && startHourInt <= 19 && endHourInt >= 8 && endHourInt <= 19 && startHourInt <= endHourInt));
-
+            cin >> endHour;
+        } while (!(startHour >= 8 && startHour <= 19 && endHour >= 8 && endHour <= 19 && startHour <= endHour));
 
         // Process the booking for the chosen field, day, and hours range
         for (auto &fm : field_managers) {
             if (find(fm->field.begin(), fm->field.end(), chosenField) != fm->field.end()) {
                 long playerId = p.Get_id();
-                for (int hour = startHourInt; hour <= endHourInt; ++hour) {
+                for (int hour = startHour; hour <= endHour; ++hour) {
                     fm->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, hour);
                     p.booked.setOccupied_slots(dayIndex, hour - 8, playerId);
                 }
@@ -606,16 +565,9 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
             }
 
             // Get user choice
-            int choiceInt;
-            string s_choice;
+            int choice;
             cout << "Enter the number of the field to cancel (or '0' to exit): ";
-            getline(cin , s_choice);
-            if (!Functions::isNumber(s_choice)) {
-                cout << "Invalid input. Please enter a number." << endl; // Add this line to handle invalid input
-                continue;
-            }
-            choiceInt = stoi(s_choice);
-            int choice = choiceInt - 1;
+            cin >> choice;
 
             // Check if the user wants to exit
             if (choice == 0) {
@@ -654,11 +606,9 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
 
         } while (!exit);
     }
-    p.update_to_DB();
-    for(auto fm : field_managers){
-        fm->update_to_DB();
-    }
 }
+
+
 
 
 
@@ -777,28 +727,22 @@ void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_mana
         std::cout << "No fields to remove." << std::endl;
         return;
     }
-    string choice;
-    do {
 
-        // Display all fields in the field manager
-        std::cout << "Choose a field to remove:" << std::endl;
-        for (size_t i = 0; i < fm.field.size(); ++i) {
-            std::cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city()
-                      << ")"
-                      << std::endl;
-        }
+    // Display all fields in the field manager
+    std::cout << "Choose a field to remove:" << std::endl;
+    for (size_t i = 0; i < fm.field.size(); ++i) {
+        std::cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"
+                  << std::endl;
+    }
 
-        std::cout << "Enter the number of the field you want to remove (or 'q' to quit): ";
-        getline(cin, choice);
-
-    } while (choice != "q" && (stoi(choice) < 1 || stoi(choice) > static_cast<int>(fm.field.size())));
-
-
+    int choice;
+    std::cout << "Enter the number of the field you want to remove: ";
+    std::cin >> choice;
 
     // Validate user choice
-    if (stoi(choice) >= 1 &&stoi( choice) <= static_cast<int>(fm.field.size())) {
+    if (choice >= 1 && choice <= static_cast<int>(fm.field.size())) {
         // Remove the field from the field manager's vector
-        fm.field.erase(fm.field.begin() + (stoi(choice )- 1));
+        fm.field.erase(fm.field.begin() + (choice - 1));
         std::cout << "Field removed successfully." << std::endl;
 
         // Update the field manager in the database

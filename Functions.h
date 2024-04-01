@@ -99,7 +99,7 @@ public:
         return player1;
     }
 
-
+    static string trim(const string& str);
     static int P_insert_to_DB(Player &fm);
 
     static int FM_insert_to_DB(Field_manager &fm);

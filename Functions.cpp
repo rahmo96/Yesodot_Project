@@ -33,6 +33,24 @@ bool Functions:: IsValidIsraeliID(const std::string& israeliID) {
     return sum % 10 == 0;
 }
 
+string Functions:: trim(const std::string& str) {
+    size_t start = 0;
+    size_t end = str.length();
+
+    // Find the first non-whitespace character
+    while (start < end && std::isspace(str[start])) {
+        ++start;
+    }
+
+    // Find the last non-whitespace character
+    while (end > start && std::isspace(str[end - 1])) {
+        --end;
+    }
+
+    // Return the trimmed string
+    return str.substr(start, end - start);
+}
+
 bool Functions:: isNumber(const string& str) {
     for (char c : str) {
         if (!std::isdigit(c)) {
