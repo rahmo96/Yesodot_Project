@@ -458,9 +458,15 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
             cout << i + 1 << ". " << cities[i] << endl;
         }
         cout << "Enter the number of the city: ";
-        cin >> cityChoice;
-        if (cityChoice < 1 || cityChoice > static_cast<int>(cities.size())) {
-            cout << "Invalid city choice. Please try again." << endl;
+        string input;
+        cin >> input;
+        try {
+            cityChoice = stoi(input);
+            if (cityChoice < 1 || cityChoice > static_cast<int>(cities.size())) {
+                throw out_of_range("City choice is out of range.");
+            }
+        } catch (const exception &e) {
+            continue;
         }
     } while (cityChoice < 1 || cityChoice > static_cast<int>(cities.size()));
 
@@ -478,28 +484,46 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
 
     if (!availableFields.empty()) {
         // Display the available fields for booking in the chosen city
-        cout << "Choose a field:" << endl;
-        for (size_t i = 0; i < availableFields.size(); ++i) {
-            cout << i + 1 << ". " << availableFields[i].get_field_name() << endl;
-        }
         int fieldChoice;
         do {
+            cout << "Choose a field:" << endl;
+            for (size_t i = 0; i < availableFields.size(); ++i) {
+                cout << i + 1 << ". " << availableFields[i].get_field_name() << endl;
+            }
             cout << "Enter the number of the field: ";
-            cin >> fieldChoice;
+            string input;
+            cin >> input;
+            try {
+                fieldChoice = stoi(input);
+                if (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size())) {
+                    throw out_of_range("Field choice is out of range.");
+                }
+            } catch (const exception &e) {
+                cerr << "Error: " << e.what() << endl;
+                continue;
+            }
         } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
         Field chosenField = availableFields[fieldChoice - 1];
 
         // Display available days for booking
-        cout << "Choose a day:" << endl;
-        for (size_t i = 0; i < 5; ++i) {
-            cout << i + 1 << ". " << days[i] << endl;
-        }
-
-        // Get user choice for day
         int dayChoice;
         do {
+            cout << "Choose a day:" << endl;
+            for (size_t i = 0; i < 5; ++i) {
+                cout << i + 1 << ". " << days[i] << endl;
+            }
             cout << "Enter the number of the day: ";
-            cin >> dayChoice;
+            string input;
+            cin >> input;
+            try {
+                dayChoice = stoi(input);
+                if (dayChoice < 1 || dayChoice > 5) {
+                    throw out_of_range("Day choice is out of range.");
+                }
+            } catch (const exception &e) {
+                cerr << "Error: " << e.what() << endl;
+                continue;
+            }
         } while (dayChoice < 1 || dayChoice > 5);
         int dayIndex = dayChoice - 1;
 
@@ -507,9 +531,29 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
         int startHour, endHour;
         do {
             cout << "Enter the starting hour (8-19): ";
-            cin >> startHour;
+            string input;
+            cin >> input;
+            try {
+                startHour = stoi(input);
+                if (startHour < 8 || startHour > 19) {
+                    throw out_of_range("Starting hour is out of range.");
+                }
+            } catch (const exception &e) {
+                cerr << "Error: " << e.what() << endl;
+                continue;
+            }
+
             cout << "Enter the ending hour (8-19): ";
-            cin >> endHour;
+            cin >> input;
+            try {
+                endHour = stoi(input);
+                if (endHour < 8 || endHour > 19 || endHour < startHour) {
+                    throw out_of_range("Ending hour is out of range or less than start hour.");
+                }
+            } catch (const exception &e) {
+                cerr << "Error: " << e.what() << endl;
+                continue;
+            }
         } while (!(startHour >= 8 && startHour <= 19 && endHour >= 8 && endHour <= 19 && startHour <= endHour));
 
         // Process the booking for the chosen field, day, and hours range
@@ -566,47 +610,52 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
 
             // Get user choice
             int choice;
-            cout << "Enter the number of the field to cancel (or '0' to exit): ";
-            cin >> choice;
+            try {
+                cout << "Enter the number of the field to cancel (or '0' to exit): ";
+                cin >> choice;
 
-            // Check if the user wants to exit
-            if (choice == 0) {
-                exit = true;
-                break;
-            }
+                // Check if the user wants to exit
+                if (choice == 0) {
+                    exit = true;
+                    break;
+                }
 
-            // Validate user choice
-            if (choice < 1 || choice > static_cast<int>(booked_fields.size())) {
-                std::cout << "Invalid choice. Please try again." << std::endl;
-                continue;
-            }
+                // Validate user choice
+                if (choice < 1 || choice > static_cast<int>(booked_fields.size())) {
+                    throw std::invalid_argument("Invalid choice. Please try again.");
+                }
 
-            // Process user choice
-            Field* field = booked_fields[choice - 1].first;
-            Field_manager* manager = booked_fields[choice - 1].second;
+                // Process user choice
+                Field* field = booked_fields[choice - 1].first;
+                Field_manager* manager = booked_fields[choice - 1].second;
 
-            if (manager && manager->cancel_field_booking(p.Get_id(), *field)) {
-                cout << "Field booking canceled." << endl;
-                // Remove the canceled field from the player's booked fields
-                p.booked.remove_booking(p.Get_id());
+                if (manager && manager->cancel_field_booking(p.Get_id(), *field)) {
+                    cout << "Field booking canceled." << endl;
+                    // Remove the canceled field from the player's booked fields
+                    p.booked.remove_booking(p.Get_id());
 
-                // Remove the canceled field from the booked_fields vector
-                booked_fields.erase(booked_fields.begin() + choice - 1);
-            } else {
-                std::cout << "Failed to cancel field booking." << std::endl;
-            }
+                    // Remove the canceled field from the booked_fields vector
+                    booked_fields.erase(booked_fields.begin() + choice - 1);
+                } else {
+                    std::cout << "Failed to cancel field booking." << std::endl;
+                }
 
-            // Ask user if they want to continue
-            char continueChoice;
-            cout << "Do you want to cancel another field? (y/n): ";
-            cin >> continueChoice;
-            if (continueChoice == 'n') {
-                exit = true;
+                // Ask user if they want to continue
+                char continueChoice;
+                cout << "Do you want to cancel another field? (y/n): ";
+                cin >> continueChoice;
+                if (continueChoice == 'n') {
+                    exit = true;
+                }
+            } catch (const std::exception& e) {
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             }
 
         } while (!exit);
     }
 }
+
 
 
 
