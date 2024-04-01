@@ -21,10 +21,10 @@ Date::Date() { // בחירת מחדל
 
 
 void Date::today() { //פונקציה שמקבלת תאריך של היום
-    std::time_t rawtime;
-    std::tm* timeinfo;
-    std::time(&rawtime);
-    timeinfo = std::localtime(&rawtime);
+    time_t rawtime;
+    tm* timeinfo;
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
     day = timeinfo->tm_mday;
     month = timeinfo->tm_mon + 1;
     year = timeinfo->tm_year + 1900;
@@ -42,14 +42,14 @@ Date::Date(int day,int month,int year)
     }
 }
 
-bool Date::setDateFromString(const std::string& date) {
-    std::stringstream ss(date);
+bool Date::setDateFromString(const string& date) {
+    stringstream ss(date);
     char delim;
 
     ss >> day >> delim >> month >> delim >> year;
 
     if (!check_valid_date()){
-        std::cout << "invalid date" << std::endl;
+        cout << "invalid date" << endl;
         return false;
     }
     return true;
@@ -78,7 +78,7 @@ bool Date::setYear(int year) { //בדיקת שנה
 }
 
 string Date:: toSqlDate() {
-    std::ostringstream ss;
+    ostringstream ss;
     ss << year << "-"
        << (month < 10 ? "0" : "") << month << "-"
        << (day < 10 ? "0" : "") << day;

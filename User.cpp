@@ -42,51 +42,7 @@ string User::date_to_string() {
             return "";
 }
 
-void User::Set_Name() {
-    string name;
-    cout<<"Enter name: "<<endl;
-    cin>>name;
-    this->name=name;
-    send_name_to_DB(name);
 
-}
-
-void User::Set_phone_number() {
-    long phone_num;
-    cout<<"Enter phone number: "<<endl;
-    cin>>phone_num;
-    this->phone_number=phone_num;
-    send_phone_number_to_DB(phone_num);
-
-}
-
-
-
-void User::Set_Address() {
-    string address;
-    cout<<"Enter address: "<<endl;
-    cin>>address;
-    this->Address=address;
-    send_address_to_DB(address);
-}
-
-void User::Set_password() {
-    string old_password;
-    cout<<"Enter old password: "<<endl;
-    cin>>old_password;
-    if (old_password==this->passowrd){
-        string new_password;
-        cout<<"Enter new password: "<<endl;
-        cin>>new_password;
-        this->passowrd=new_password;
-        send_password_to_DB(new_password);
-    } else{
-        cout<<"Wrong password"<<endl;
-        return;
-    }
-
-
-}
 
 void User::to_json(nlohmann::json &j) {
 
@@ -208,7 +164,7 @@ bool User::update_to_DB() {
 
 
 
-void User::send_name_to_DB(string name) {
+void User::P_send_name_to_DB(string name) {
     sqlite3 *db;
     sqlite3_stmt *stmt;
     json j;
@@ -226,7 +182,7 @@ void User::send_name_to_DB(string name) {
     sqlite3_close(db);
 }
 
-void User::send_address_to_DB(string address) {
+void User::P_send_address_to_DB(string address) {
     sqlite3 *db;
     sqlite3_stmt *stmt;
     sqlite3_open("Test player data DB.db", &db);
@@ -238,7 +194,7 @@ void User::send_address_to_DB(string address) {
     sqlite3_close(db);
 }
 
-void User::send_phone_number_to_DB(long phone_num) {
+void User::P_send_phone_number_to_DB(long phone_num) {
     sqlite3 *db;
     sqlite3_stmt *stmt;
     sqlite3_open("Test player data DB.db", &db);
@@ -250,11 +206,65 @@ void User::send_phone_number_to_DB(long phone_num) {
     sqlite3_close(db);
 }
 
-void User::send_password_to_DB(string password) {
+void User::P_send_password_to_DB(string password) {
     sqlite3 *db;
     sqlite3_stmt *stmt;
     sqlite3_open("Test player data DB.db", &db);
     sqlite3_prepare_v2(db, "UPDATE [Player_Accounts] SET Password = ? WHERE id = ?", -1, &stmt, nullptr);
+    sqlite3_bind_text(stmt, 1, password.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, this->id); // Assuming id is a member variable of User
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+}
+
+void User::FM_send_name_to_DB(string name) {
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+    json j;
+    this->to_json(j);
+    update_to_DB();
+    sqlite3_open("Test player data DB.db", &db);
+    sqlite3_prepare_v2(db, "UPDATE [Field_Manager_Accounts] SET Name = ? WHERE id = ?", -1, &stmt, nullptr);
+    sqlite3_bind_text(stmt, 1, name.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, this->id); // Assuming id is a member variable of User
+    sqlite3_step(stmt);
+    sqlite3_prepare_v2(db, "UPDATE [Field_Manager_Accounts] SET Class_data = ? WHERE id = ?", -1, &stmt, nullptr);
+    sqlite3_bind_text(stmt, 1, j.dump().c_str(), -1, SQLITE_STATIC);
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+}
+
+void User::FM_send_address_to_DB(string address) {
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+    sqlite3_open("Test player data DB.db", &db);
+    sqlite3_prepare_v2(db, "UPDATE [Field_Manager_Accounts] SET Address = ? WHERE id = ?", -1, &stmt, nullptr);
+    sqlite3_bind_text(stmt, 1, address.c_str(), -1, SQLITE_STATIC);
+    sqlite3_bind_int(stmt, 2, this->id); // Assuming id is a member variable of User
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+}
+
+void User::FM_send_phone_number_to_DB(long phone_num) {
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+    sqlite3_open("Test player data DB.db", &db);
+    sqlite3_prepare_v2(db, "UPDATE [Field_Manager_Accounts] SET Phone_number = ? WHERE id = ?", -1, &stmt, nullptr);
+    sqlite3_bind_int64(stmt, 1, phone_num);
+    sqlite3_bind_int(stmt, 2, this->id); // Assuming id is a member variable of User
+    sqlite3_step(stmt);
+    sqlite3_finalize(stmt);
+    sqlite3_close(db);
+}
+
+void User::FM_send_password_to_DB(string password) {
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+    sqlite3_open("Test player data DB.db", &db);
+    sqlite3_prepare_v2(db, "UPDATE [Field_Manager_Accounts] SET Password = ? WHERE id = ?", -1, &stmt, nullptr);
     sqlite3_bind_text(stmt, 1, password.c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_int(stmt, 2, this->id); // Assuming id is a member variable of User
     sqlite3_step(stmt);

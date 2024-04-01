@@ -135,8 +135,9 @@ int Functions:: FM_insert_to_DB(Field_manager &fm){
         sqlite3_close(db);
         return rc;
     }
-    const char* gender = fm.Get_gender() == 'M' ? "Male" : "Female";
 
+
+    const char* gender_str = fm.Get_gender() == 'M'|| fm.Get_gender() == 'm' ? "m" : "f";
 
     json data_json;
     fm.to_json(data_json);
@@ -144,7 +145,7 @@ int Functions:: FM_insert_to_DB(Field_manager &fm){
     sqlite3_bind_text(stmt, 1, fm.Get_Name().c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_int(stmt, 2, fm.Get_id());
     sqlite3_bind_int(stmt, 3, fm.Get_phone_number());
-    sqlite3_bind_text(stmt, 4, gender, 1, SQLITE_STATIC);
+    sqlite3_bind_text(stmt, 4, gender_str, -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 5, fm.Get_Address().c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 6, fm.date_to_string().c_str(), -1, SQLITE_STATIC);
     sqlite3_bind_text(stmt, 7, fm.get_password().c_str(), -1, SQLITE_STATIC);
@@ -162,6 +163,7 @@ int Functions:: FM_insert_to_DB(Field_manager &fm){
     sqlite3_close(db);
     return SQLITE_OK;
 }
+
 
 bool Functions::isIdInDatabase(long id) {
     sqlite3* db;

@@ -38,6 +38,10 @@ public:
     const vector<Field> Get_field() const {return booked.getBooked_fields();};
     Favorites get_f() const {return f;};
     //Setters
+    void Set_Name();
+    void Set_phone_number();
+    void Set_password();
+    void Set_Address();
     void Set_player(string name, long id, string address, long phone_num,char gender, Date birthdy,string passowrd, Booked &booked, Favorites &f);
 
     //Send it to json

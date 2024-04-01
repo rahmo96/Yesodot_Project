@@ -28,17 +28,17 @@ static void clear_the_buffer() {
     static void print_Menu(const std::map<int, std::string>& menuOptions);
 
     static void loginMenu();
-    Player P_login();
+    static Player P_login();
     Field_manager FM_login();
     void retrieve_field_managers_from_db();
 
     //Menus
     static int player_menu_1();
     void player_menu_favorites(Player &p);
-    static void player_menu_booking(Player &p, vector<Field_manager*> field_managers);
+    static void player_menu_booking(Player &p, const vector<Field_manager*> &field_managers);
     static void player_rating_booking(Player &p);
 
-    static void player_menu_cancel(Player &p,vector<Field_manager*> field_managers);
+    static void player_menu_cancel(Player &p,const vector<Field_manager*> &field_managers);
     static void player_menu_profile(User &p);
 //    template<typename UserType>
 //    void menu_profile(UserType &u);

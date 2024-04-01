@@ -5,11 +5,70 @@
 #include "Field_manager.h"
 #include <vector>
 
+//Setters
+void Field_manager::Set_field_manager(string name, long id, string address, long phone_num, char gender, Date b_day,
+                                      string passowrd, vector<Field> field1, bool promoting_funded) {
+
+    this->name = name;
+    this->id = id;
+    this->Address = address;
+    this->phone_number = phone_num;
+    this->gender = gender;
+    this->b_day = b_day;
+    this->passowrd = passowrd;
+    this->field = field1;
+    this->promoting_funded = promoting_funded;
+
+}
+void Field_manager::Set_Name() {
+    string name;
+    cout<<"Enter name: "<<endl;
+    cin>>name;
+    this->name=name;
+    FM_send_name_to_DB(name);
+
+}
+void Field_manager::Set_phone_number() {
+    long phone_num;
+    cout<<"Enter phone number: "<<endl;
+    cin>>phone_num;
+    this->phone_number=phone_num;
+    FM_send_phone_number_to_DB(phone_num);
+
+}
+void Field_manager::Set_Address() {
+    string address;
+    cout<<"Enter address: "<<endl;
+    cin>>address;
+    this->Address=address;
+    FM_send_address_to_DB(address);
+}
+void Field_manager::Set_password() {
+    string old_password;
+    cout<<"Enter old password: "<<endl;
+    cin>>old_password;
+    if (old_password==this->passowrd){
+        string new_password;
+        cout<<"Enter new password: "<<endl;
+        cin>>new_password;
+        this->passowrd=new_password;
+        FM_send_password_to_DB(new_password);
+    } else{
+        cout<<"Wrong password"<<endl;
+        return;
+    }
+
+
+}
+
+
+//constructor
 Field_manager::Field_manager(string name, long id, string address, long phone_num, char gender, Date b_day,
                              string passowrd, vector<Field> field1, bool promoting_funded)
-        : User(name, id, address, phone_num, gender, b_day, passowrd), field(field1) {counter++;}
+        : User(name, id, address, phone_num, gender, b_day, passowrd), field(field1) {counter++;
+}
 
-
+//printer
 void Field_manager::print() {
     User::print(); // Print user details
 
@@ -26,14 +85,15 @@ void Field_manager::print() {
     }
 }
 
-
+//operator
 Field_manager &Field_manager::operator+=(const Field_manager &fieldManager) {
 
     field.insert(field.end(), fieldManager.field.begin(), fieldManager.field.end());
     return *this;
 }
 
-bool Field_manager::is_hour_occupied(const std::string &city, int day, int hour) const {
+//booking helpers
+bool Field_manager::is_hour_occupied(const string &city, int day, int hour) const {
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city && field[i].get_occupied(day, hour) != 0 && field[i].get_occupied(day, hour) != 1) {
             return true; // Hour is occupied
@@ -41,8 +101,7 @@ bool Field_manager::is_hour_occupied(const std::string &city, int day, int hour)
     }
     return false; // Hour is not occupied
 }
-
-bool Field_manager::is_day_occupied(const std::string &city, int day) const {
+bool Field_manager::is_day_occupied(const string &city, int day) const {
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
             for (int hour = 8; hour < 20; ++hour) {
@@ -54,15 +113,14 @@ bool Field_manager::is_day_occupied(const std::string &city, int day) const {
     }
     return false; // Day is not occupied
 }
-
-void Field_manager::book_field_in_city_at_day_hour(long id, const std::string &city, int day, int hour) {
+void Field_manager::book_field_in_city_at_day_hour(long id, const string &city, int day, int hour) {
     // Find the field in the specified city
     string days[5]={"Sunday","Monday","Tuesday","Wednesday","Thursday"};
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
             // Check if the slot is already booked
             if (field[i].get_occupied(day, hour) != 0) {
-                std::cout << "This slot is already booked." << std::endl;
+                cout << "This slot is already booked." << endl;
                 return;
             }
 
@@ -70,13 +128,11 @@ void Field_manager::book_field_in_city_at_day_hour(long id, const std::string &c
             field[i].set_occupied(day, hour, id);
 
             // Additional logic to handle the booking (e.g., updating records)
-            std::cout << "Field booked in " << city << " on day " << days[day] << " at " << hour << ":00." << std::endl;
+            cout << "Field booked in " << city << " on day " << days[day] << " at " << hour << ":00." << endl;
             break;
         }
     }
 }
-
-
 bool Field_manager::is_field_booked_by(long id) {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 12; ++j) {
@@ -87,14 +143,13 @@ bool Field_manager::is_field_booked_by(long id) {
     }
     return false; // Field is not booked
 }
-
 bool Field_manager::cancel_field_booking(long id, const Field& field) {
-    for (int i = 0; i < this->field.size(); ++i) {
-        if (this->field[i] == field) {
+    for (auto& f : this->field) {
+        if (f == field) {
             for (int j = 0; j < 5; ++j) {
                 for (int k = 0; k < 12; ++k) {
-                    if (this->field[i].get_occupied(j, k) == id) {
-                        this->field[i].set_occupied(j, k, 0); // Cancel the booking by setting it to 0
+                    if (f.get_occupied(j, k) == id) {
+                        f.set_occupied(j, k, 0); // Cancel the booking by setting it to 0
                         return true;
                     }
                 }
@@ -104,7 +159,6 @@ bool Field_manager::cancel_field_booking(long id, const Field& field) {
     return false;
 }
 
-
 void Field_manager::find_fields_with_id(long id) {
     for (Field &field: field) {
         if (this->is_field_booked_by(id)) { // Assuming is_booked_by() checks if the field is booked by the given ID
@@ -113,6 +167,7 @@ void Field_manager::find_fields_with_id(long id) {
     }
 }
 
+//JSON
 void Field_manager::to_json(nlohmann::json &j) {
     json player_json;
     User::to_json(player_json);
@@ -136,9 +191,6 @@ void Field_manager::to_json(nlohmann::json &j) {
             {"Field",            field_json},
     };
 }
-
-
-
 Field_manager Field_manager::from_json(const nlohmann::json &j) {
     this->name = j.at("Name");
     this->id = j.at("id");
@@ -162,9 +214,6 @@ Field_manager Field_manager::from_json(const nlohmann::json &j) {
     return *this;
 
 }
-
-
-
 Field_manager Field_manager::build_from_json(string json_str) {
     nlohmann::json j = nlohmann::json::parse(json_str);
     Field_manager fm;
@@ -172,6 +221,7 @@ Field_manager Field_manager::build_from_json(string json_str) {
     return fm;
 }
 
+//Build from DB
 Field_manager Field_manager::build_from_DB(long id) {
     try {
         json j = User::FM_from_DB(id);
@@ -198,28 +248,13 @@ Field_manager Field_manager::build_from_DB(long id) {
         fm.Set_field_manager(name, id, Address, phone_number, gender, b_day, password, fields, promoting_funded);
         return fm;
 
-    } catch (const std::exception& e) {
+    } catch (const exception& e) {
         std::cerr << "Error building Player from JSON: " << e.what() << std::endl;
         // Handle the error appropriately, such as returning a default-constructed Player or re-throwing the exception
         throw;
     }
 }
-
-void Field_manager::Set_field_manager(string name, long id, string address, long phone_num, char gender, Date b_day,
-                                      string passowrd, vector<Field> field1, bool promoting_funded) {
-
-    this->name = name;
-    this->id = id;
-    this->Address = address;
-    this->phone_number = phone_num;
-    this->gender = gender;
-    this->b_day = b_day;
-    this->passowrd = passowrd;
-    this->field = field1;
-    this->promoting_funded = promoting_funded;
-
-}
-
+//Update to DB
 bool Field_manager::update_to_DB() {
         // Serialize the updated Player object to a JSON string
         nlohmann::json player_data;
@@ -246,7 +281,7 @@ bool Field_manager::update_to_DB() {
         return true;
     }
 
-
+//Payment
 bool Field_manager::Pay_to_be_first() {
     int choice;
     if (promoting_funded== true) {

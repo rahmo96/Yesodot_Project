@@ -10,8 +10,6 @@
 #include "vector"
 
 using namespace nlohmann;
-
-
 using namespace std;
 
 
@@ -27,6 +25,52 @@ void Player::print() {
     cout<<"-----"<<endl;
     f.print();
     cout<<"-----"<<endl;
+
+}
+
+void Player::Set_Name() {
+    string name;
+    cout<<"Enter name: "<<endl;
+    cin>>name;
+    this->name=name;
+    P_send_name_to_DB(name);
+
+}
+
+void Player::Set_phone_number() {
+    long phone_num;
+    cout<<"Enter phone number: "<<endl;
+    cin>>phone_num;
+    this->phone_number=phone_num;
+    P_send_phone_number_to_DB(phone_num);
+
+}
+
+
+
+void Player::Set_Address() {
+    string address;
+    cout<<"Enter address: "<<endl;
+    cin>>address;
+    this->Address=address;
+    P_send_address_to_DB(address);
+}
+
+void Player::Set_password() {
+    string old_password;
+    cout<<"Enter old password: "<<endl;
+    cin>>old_password;
+    if (old_password==this->passowrd){
+        string new_password;
+        cout<<"Enter new password: "<<endl;
+        cin>>new_password;
+        this->passowrd=new_password;
+        P_send_password_to_DB(new_password);
+    } else{
+        cout<<"Wrong password"<<endl;
+        return;
+    }
+
 
 }
 

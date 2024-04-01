@@ -20,7 +20,7 @@ public:
     void today();
     Date();
     Date(int day,int month,int year);
-    bool setDateFromString(const std::string& date);
+    bool setDateFromString(const string& date);
 
     //setters
     bool setDay(int day);

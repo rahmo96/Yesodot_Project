@@ -34,7 +34,6 @@ public:
         string password;
         cout << "enter your name " <<  endl;
         cin >> name;
-        getline(std::cin, name);
         do {
             cout << "Enter your id number: "<< endl;
             cin >> id;

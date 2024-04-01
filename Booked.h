@@ -22,7 +22,7 @@ public:
     Booked() : booked_fields(), occupied_slots() {}
 
     Booked(vector<Field > booked_fields, long occupied_slots[5][12]) {
-        this->booked_fields = std::move(booked_fields);
+        this->booked_fields = move(booked_fields);
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 12; ++j) {
                 this->occupied_slots[i][j] = occupied_slots[i][j];
@@ -103,14 +103,18 @@ public:
         }
     }
     bool remove_booking(long id) {
-        for (auto it = booked_fields.begin(); it != booked_fields.end(); ++it) {
-            if (it->is_field_booked_by(id)) {
-                booked_fields.erase(it);
-                return true;
-            }
+        auto it = std::remove_if(booked_fields.begin(), booked_fields.end(), [&](const Field& field) {
+            return field.is_field_booked_by(id);
+        });
+
+        if (it != booked_fields.end()) {
+            booked_fields.erase(it, booked_fields.end());
+            return true;
         }
+
         return false;
     }
+
 
 
 };

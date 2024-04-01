@@ -40,7 +40,6 @@ public:
     void book_field_in_city_at_day_hour(long id, const std::string& city, int day, int hour);
     void find_fields_with_id(long id);
     bool is_field_booked_by(long id);
-    bool cancel_field_booking(long id);
     void set_promoting_funded(bool prom){promoting_funded=prom;}
 
 
@@ -49,6 +48,10 @@ public:
     static vector<Field_manager*> Get_field_managers() {return field_managers;}
 
     //Setters
+    void Set_Name();
+    void Set_phone_number();
+    void Set_password();
+    void Set_Address();
     void Set_field_manager(string name, long id, string address, long phone_num, char gender, Date b_day, string passowrd, vector<Field> field1, bool promoting_funded);
 
 //send it to json
