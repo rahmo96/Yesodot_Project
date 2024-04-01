@@ -33,6 +33,15 @@ bool Functions:: IsValidIsraeliID(const std::string& israeliID) {
     return sum % 10 == 0;
 }
 
+bool Functions:: isNumber(const string& str) {
+    for (char c : str) {
+        if (!std::isdigit(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool Functions::checkLogin_P(sqlite3* db, const string& id, const string& password) {
     sqlite3_stmt *stmt;
     string sql = "SELECT * FROM [Player_Accounts] WHERE ID='" + id + "' AND Password='" + password + "'";
