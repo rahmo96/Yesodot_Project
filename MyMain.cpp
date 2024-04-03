@@ -187,6 +187,10 @@ int MyMain::runMenu() {
                                     break;
                                 case 7:
                                     cout<<CYAN << "Exiting..." <<RESET << endl;
+                                    for (auto fm : Field_manager::field_managers) {
+                                        fm->FM_update_to_DB();
+                                    }
+                                    p.P_update_to_DB();
                                     return 0;
                                 default:
                                     cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
@@ -241,6 +245,10 @@ int MyMain::runMenu() {
                                     break;
                                 case 7:
                                     cout<<CYAN << "Exiting..." <<RESET << endl;
+                                    for (auto fm : Field_manager::field_managers) {
+                                        fm->FM_update_to_DB();
+                                    }
+                                    p.P_update_to_DB();
                                     return 0;
                                 default:
                                     cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
@@ -696,6 +704,7 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
 
         } while (!exit);
     }
+    p.update_to_DB();
 }
 
 

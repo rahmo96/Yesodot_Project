@@ -5,5 +5,10 @@
 
 void Clear ::clear_screen() {
     // ANSI escape code to clear screen
-    std::cout << "\033[2J\033[1;1H";
+#ifdef _WIN32
+    std::system("cls");
+#else
+    // Assume Unix-like system
+        std::system("clear");
+#endif
 }
