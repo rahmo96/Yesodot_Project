@@ -30,40 +30,73 @@ void Player::print() {
 
 void Player::Set_Name() {
     string name;
-    cout<<"Enter name: "<<endl;
-    cin>>name;
+    cout<<"Enter new name (or 0 to return to previous menu): "<<endl;
+    cin.ignore();
+    getline(cin , name);
+    if (name=="0"){
+        return;
+    }
     this->name=name;
     P_send_name_to_DB(name);
+    this->update_to_DB();
 
 }
 
 void Player::Set_phone_number() {
-    long phone_num;
-    cout<<"Enter phone number: "<<endl;
-    cin>>phone_num;
-    this->phone_number=phone_num;
-    P_send_phone_number_to_DB(phone_num);
-
+    while (true) {
+        string t_phone_num;
+        long phone_num;
+        cout << "Enter new phone number:(or 0 to return to previous menu) " << endl;
+        cin.ignore();
+        getline(cin , t_phone_num);
+        if (t_phone_num=="0"){
+            return;
+        }
+        try {
+            phone_num = stol(t_phone_num);
+        } catch (const exception &e) {
+            cout << "Invalid phone number. Please try again." << endl;
+            continue; // Ask for phone number again
+        }
+        if ( phone_num<100000000 || phone_num>999999999){
+            cout << "Invalid phone number. Please try again." << endl;
+            continue; // Ask for phone number again
+        }
+        this->phone_number = phone_num;
+        P_send_phone_number_to_DB(phone_num);
+        this->update_to_DB();
+        break; // Exit the loop if a valid phone number is provided
+    }
 }
+
 
 
 
 void Player::Set_Address() {
     string address;
-    cout<<"Enter address: "<<endl;
-    cin>>address;
+    cout<<"Enter new address (or 0 to return to previous menu): "<<endl;
+    cin.ignore();
+    getline(cin, address);
+    if (address=="0"){
+        return;
+    }
     this->Address=address;
     P_send_address_to_DB(address);
+    this->update_to_DB();
 }
 
 void Player::Set_password() {
     string old_password;
-    cout<<"Enter old password: "<<endl;
-    cin>>old_password;
+    cout<<"Enter old password: (or 0 to return to previous menu): "<<endl;
+    cin.ignore();
+    getline(cin, old_password);
+    if (old_password=="0"){
+        return;
+    }
     if (old_password==this->passowrd){
         string new_password;
         cout<<"Enter new password: "<<endl;
-        cin>>new_password;
+        getline(cin , new_password);
         this->passowrd=new_password;
         P_send_password_to_DB(new_password);
     } else{
@@ -71,8 +104,11 @@ void Player::Set_password() {
         return;
     }
 
+    this->update_to_DB();
+
 
 }
+
 
 void Player::to_json(nlohmann::json &j) {
     json player_data_json;

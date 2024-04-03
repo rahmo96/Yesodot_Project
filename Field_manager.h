@@ -20,7 +20,7 @@ private:
 public:
     Field_manager():User() {
 
-        promoting_funded = 0;
+        promoting_funded = false;
         counter++;
 
     }
@@ -35,9 +35,9 @@ public:
     Field_manager &operator+=(const Field_manager &fieldManager);
 
     //booking helpers
-    bool is_hour_occupied(const std::string& city, int day, int hour) const;
-    bool is_day_occupied(const std::string& city, int day) const;
-    void book_field_in_city_at_day_hour(long id, const std::string& city, int day, int hour);
+    bool is_hour_occupied(const string& city, int day, int hour) const;
+    bool is_day_occupied(const string& city, int day) const;
+    void book_field_in_city_at_day_hour(long id, const string& city, int day, int hour);
     void find_fields_with_id(long id);
     bool is_field_booked_by(long id);
     void set_promoting_funded(bool prom){promoting_funded=prom;}
@@ -60,7 +60,7 @@ public:
     Field_manager from_json(const nlohmann::json& j);
 
     //Build from json
-    Field_manager build_from_json(string json_str);
+
     static Field_manager build_from_DB(long id);
 
     bool update_to_DB();
@@ -80,7 +80,6 @@ public:
     void remove_field_manager(vector<Field_manager*> &field_managers);
 
     bool Pay_to_be_first();
-    bool isIdInDatabase(long id);
 
 
 };

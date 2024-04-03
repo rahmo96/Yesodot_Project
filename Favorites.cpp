@@ -34,7 +34,17 @@ void Favorites::print() {
         favorite_field[i].print();
         cout << endl;
     }
-
+    int choice;
+    do {
+        cout << "Enter 0 to exit" << endl;
+        cin >> choice;
+        if (cin.fail() || choice != 0) {
+            cout << "Invalid choice. Please try again." << endl;
+            cin.clear();
+            choice = 1;
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    } while (choice != 0);
 }
 
 Favorites Favorites::operator+=(Field &f_field) {

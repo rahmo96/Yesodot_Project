@@ -50,7 +50,8 @@ public:
     //Get it from json
      void from_json(const nlohmann::json& j);
 
-     bool update_to_DB();
+     bool FM_update_to_DB();
+     bool P_update_to_DB();
 
 
     virtual void print() ;

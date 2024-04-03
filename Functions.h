@@ -72,10 +72,10 @@ public:
         do {
             cout << "Enter your phone number: ";
             getline(cin, t_phone_number);
-            if (t_phone_number.length() != 10 || !isNumber(t_phone_number)) {
+            if (t_phone_number.length() != 9 || !isNumber(t_phone_number)) {
                 cout << "Invalid phone number. Please enter a 10-digit number." << endl;
             }
-        } while (t_phone_number.length() != 10 || !isNumber(t_phone_number));
+        } while (t_phone_number.length() != 9 || !isNumber(t_phone_number));
         phone_number = stol(t_phone_number);
 
         do {

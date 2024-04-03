@@ -292,7 +292,7 @@ int MyMain::runMenu() {
                                     break;
                                 case 5:
                                     std::cout << CYAN << "Pay to be first..." << RESET << std::endl;
-                                    fm.promoting_funded = fm.Pay_to_be_first();
+                                    fm.Pay_to_be_first();
                                     break;
                                 case 6:
                                     std::cout << CYAN << "Going back..." << RESET << std::endl;
@@ -351,8 +351,7 @@ int MyMain::runMenu() {
                                     break;
                                 case 5:
                                     std::cout << CYAN << "Pay to be first..." << RESET << std::endl;
-                                    fm->promoting_funded = fm->Pay_to_be_first();
-
+                                    fm->Pay_to_be_first();
                                     break;
                                 case 6:
                                     std::cout << CYAN << "Going back..." << RESET << std::endl;
@@ -441,8 +440,8 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
     vector<string> cities;
 
     // Collect unique cities from the fields
-    for (const auto &fm : field_managers) {
-        for (const auto &field : fm->field) {
+    for (const auto &fm: field_managers) {
+        for (const auto &field: fm->field) {
             string city = field.get_field_city();
             if (find(cities.begin(), cities.end(), city) == cities.end()) {
                 cities.push_back(city);
@@ -457,11 +456,14 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
         for (size_t i = 0; i < cities.size(); ++i) {
             cout << i + 1 << ". " << cities[i] << endl;
         }
-        cout << "Enter the number of the city: ";
+        cout << "Enter the number of the city (or '0' to main menu): " << endl;
         string input;
         cin >> input;
         try {
             cityChoice = stoi(input);
+            if (cityChoice == 0) {
+                return;
+            }
             if (cityChoice < 1 || cityChoice > static_cast<int>(cities.size())) {
                 throw out_of_range("City choice is out of range.");
             }
@@ -474,8 +476,8 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
     vector<Field> availableFields;
 
     // Find available fields in the chosen city
-    for (const auto &fm : field_managers) {
-        for (const auto &field : fm->field) {
+    for (const auto &fm: field_managers) {
+        for (const auto &field: fm->field) {
             if (field.get_field_city() == chosenCity) {
                 availableFields.push_back(field);
             }
@@ -484,105 +486,111 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
 
     if (!availableFields.empty()) {
         // Display the available fields for booking in the chosen city
-        int fieldChoice;
-        do {
-            cout << "Choose a field:" << endl;
-            for (size_t i = 0; i < availableFields.size(); ++i) {
-                cout << i + 1 << ". " << availableFields[i].get_field_name() << endl;
-            }
-            cout << "Enter the number of the field: ";
-            string input;
-            cin >> input;
-            try {
-                fieldChoice = stoi(input);
-                if (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size())) {
-                    throw out_of_range("Field choice is out of range.");
+        if (!availableFields.empty()) {
+            // Display the available fields for booking in the chosen city
+            int fieldChoice;
+            do {
+                cout << "Choose a field:" << endl;
+                for (size_t i = 0; i < availableFields.size(); ++i) {
+                    cout << i + 1 << ". " << availableFields[i].get_field_name() << endl;
                 }
-            } catch (const exception &e) {
-                cerr << "Error: " << e.what() << endl;
-                continue;
-            }
-        } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
-        Field chosenField = availableFields[fieldChoice - 1];
-
-        // Display available days for booking
-        int dayChoice;
-        do {
-            cout << "Choose a day:" << endl;
-            for (size_t i = 0; i < 5; ++i) {
-                cout << i + 1 << ". " << days[i] << endl;
-            }
-            cout << "Enter the number of the day: ";
-            string input;
-            cin >> input;
-            try {
-                dayChoice = stoi(input);
-                if (dayChoice < 1 || dayChoice > 5) {
-                    throw out_of_range("Day choice is out of range.");
+                cout << "Enter the number of the field (or '0' to return to main menu): ";
+                string input;
+                cin >> input;
+                try {
+                    fieldChoice = stoi(input);
+                    if (fieldChoice == 0) {
+                        return; // Return to main menu
+                    }
+                    if (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size())) {
+                        throw out_of_range("Field choice is out of range.");
+                    }
+                } catch (const exception &e) {
+                    cerr << "Error: " << e.what() << endl;
+                    continue;
                 }
-            } catch (const exception &e) {
-                cerr << "Error: " << e.what() << endl;
-                continue;
-            }
-        } while (dayChoice < 1 || dayChoice > 5);
-        int dayIndex = dayChoice - 1;
+            } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
+            Field chosenField = availableFields[fieldChoice - 1];
 
-        // Get user choice for hours range
-        int startHour, endHour;
-        do {
-            cout << "Enter the starting hour (8-19): ";
-            string input;
-            cin >> input;
-            try {
-                startHour = stoi(input);
-                if (startHour < 8 || startHour > 19) {
-                    throw out_of_range("Starting hour is out of range.");
+            // Display available days for booking
+            int dayChoice;
+            do {
+                cout << "Choose a day:" << endl;
+                for (size_t i = 0; i < 5; ++i) {
+                    cout << i + 1 << ". " << days[i] << endl;
                 }
-            } catch (const exception &e) {
-                cerr << "Error: " << e.what() << endl;
-                continue;
-            }
-
-            cout << "Enter the ending hour (8-19): ";
-            cin >> input;
-            try {
-                endHour = stoi(input);
-                if (endHour < 8 || endHour > 19 || endHour < startHour) {
-                    throw out_of_range("Ending hour is out of range or less than start hour.");
+                cout << "Enter the number of the day: ";
+                string input;
+                cin >> input;
+                try {
+                    dayChoice = stoi(input);
+                    if (dayChoice < 1 || dayChoice > 5) {
+                        throw out_of_range("Day choice is out of range.");
+                    }
+                } catch (const exception &e) {
+                    cerr << "Error: " << e.what() << endl;
+                    continue;
                 }
-            } catch (const exception &e) {
-                cerr << "Error: " << e.what() << endl;
-                continue;
-            }
-        } while (!(startHour >= 8 && startHour <= 19 && endHour >= 8 && endHour <= 19 && startHour <= endHour));
+            } while (dayChoice < 1 || dayChoice > 5);
+            int dayIndex = dayChoice - 1;
 
-        // Process the booking for the chosen field, day, and hours range
-        for (auto &fm : field_managers) {
-            if (find(fm->field.begin(), fm->field.end(), chosenField) != fm->field.end()) {
-                long playerId = p.Get_id();
-                for (int hour = startHour; hour <= endHour; ++hour) {
-                    fm->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, hour);
-                    p.booked.setOccupied_slots(dayIndex, hour - 8, playerId);
-                }
-                fm->update_to_DB();
-
-                // Ask user if they want to add the booked field to their favorites
-                char addToFavorites;
-                cout << "Add this field to your favorites? (y/n): ";
-                cin >> addToFavorites;
-                if (addToFavorites == 'y' || addToFavorites == 'Y') {
-                    p.f += chosenField;
-                    p.update_to_DB();
-                    cout << "Field added to favorites." << endl;
-                } else {
-                    cout << "Field not added to favorites." << endl;
+            // Get user choice for hours range
+            int startHour, endHour;
+            do {
+                cout << "Enter the starting hour (8-19): ";
+                string input;
+                cin >> input;
+                try {
+                    startHour = stoi(input);
+                    if (startHour < 8 || startHour > 19) {
+                        throw out_of_range("Starting hour is out of range.");
+                    }
+                } catch (const exception &e) {
+                    cerr << "Error: " << e.what() << endl;
+                    continue;
                 }
 
-                break;
+                cout << "Enter the ending hour (8-19): ";
+                cin >> input;
+                try {
+                    endHour = stoi(input);
+                    if (endHour < 8 || endHour > 19 || endHour < startHour) {
+                        throw out_of_range("Ending hour is out of range or less than start hour.");
+                    }
+                } catch (const exception &e) {
+                    cerr << "Error: " << e.what() << endl;
+                    continue;
+                }
+            } while (!(startHour >= 8 && startHour <= 19 && endHour >= 8 && endHour <= 19 && startHour <= endHour));
+
+            // Process the booking for the chosen field, day, and hours range
+            for (auto &fm: field_managers) {
+                if (find(fm->field.begin(), fm->field.end(), chosenField) != fm->field.end()) {
+                    long playerId = p.Get_id();
+                    for (int hour = startHour; hour <= endHour; ++hour) {
+                        fm->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, hour);
+                        p.booked.setOccupied_slots(dayIndex, hour - 8, playerId);
+                    }
+                    fm->update_to_DB();
+
+                    // Ask user if they want to add the booked field to their favorites
+                    char addToFavorites;
+                    cout << "Add this field to your favorites? (y/n): ";
+                    cin >> addToFavorites;
+                    if (addToFavorites == 'y' || addToFavorites == 'Y') {
+                        p.f += chosenField;
+                        p.update_to_DB();
+                        cout << "Field added to favorites." << endl;
+                    } else {
+                        cout << "Field not added to favorites." << endl;
+                    }
+
+                    break;
+                }
             }
+        } else {
+            cout << "No available fields in " << chosenCity << "." << endl;
         }
-    } else {
-        cout << "No available fields in " << chosenCity << "." << endl;
     }
 }
 void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_managers) {
@@ -599,10 +607,11 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
     // Display the booked fields
     if (booked_fields.empty()) {
         std::cout << "You have no booked fields to cancel." << std::endl;
+        return;
     } else {
         bool exit = false;
         do {
-            std::cout << "Choose a field to cancel:" << std::endl;
+            std::cout << "Choose a field to cancel (or '0' to return to main menu):" << std::endl;
             for (size_t i = 0; i < booked_fields.size(); ++i) {
                 std::cout << i + 1 << ". ";
                 booked_fields[i].first->print();
@@ -611,13 +620,17 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
             // Get user choice
             int choice;
             try {
-                cout << "Enter the number of the field to cancel (or '0' to exit): ";
+                cout << "Enter the number of the field to cancel (or '0' to return to main menu): ";
                 cin >> choice;
 
-                // Check if the user wants to exit
+                // Check if the user wants to return to main menu
                 if (choice == 0) {
-                    exit = true;
-                    break;
+                    return; // Return to main menu
+                }
+
+                // Validate user choice
+                if (choice < 1 || choice > static_cast<int>(booked_fields.size())) {
+                    throw std::invalid_argument("Invalid choice. Please try again.");
                 }
 
                 // Validate user choice
@@ -657,85 +670,91 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
 }
 
 
-
-
-
-
 //player profile
 void MyMain::P_menu_profile(Player &p) {
-    cout<<GREEN << "You are logged in as " << p.Get_Name()<<RESET << endl;
 
     // Define the menu options and corresponding actions
     std::map<int, std::function<void(Player &)>> menu = {
             {1, [](Player &p) { p.print(); }},
             {2, [this](Player &p) { P_profile_menu_2(p); }},
-            {3, [](Player &p) { cout<<CYAN << "Logging out..."<<RESET << endl; /* Logout */ }},
+            {3, [](Player &p) { cout<<CYAN << "Back to main menu..."<<RESET << endl; /* Logout */ }},
     };
 
-    int choice;
+    string choice;
+    int choice_int;
     do {
-        cout<<CYAN << "Choose an option:"<<RESET << endl;
+        cout<<GREEN << "You are logged in as " << p.Get_Name()<<RESET << endl;
+        cout << CYAN << "Choose an option:" << RESET << endl;
         cout << "1. View your profile" << endl;
         cout << "2. Edit your profile" << endl;
-        cout << "3. Logout" << endl;
+        cout << "3. Back" << endl;
         cin >> choice;
 
-        // Execute the corresponding action based on the user's choice
-        auto it = menu.find(choice);
-        if (it != menu.end()) {
-            it->second(p);
-        } else {
-            cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
+        try {
+            choice_int = stoi(choice);
+            if (choice_int < 1 || choice_int > 3) {
+                throw std::invalid_argument("Invalid choice. Please try again.");
+            }
+            // Execute the corresponding action based on the user's choice
+            auto it = menu.find(choice_int);
+            if (it != menu.end()) {
+                it->second(p);
+            } else {
+                cout << RED << "Invalid choice. Please try again." << RESET << endl;
+            }
         }
-    } while (choice != 3); // Corrected loop condition
+        catch (const std::exception& e) {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+    } while (choice_int != 3); // Corrected loop condition
 }
 void MyMain::P_profile_menu_2(Player &p) {
     cout << CYAN << "Choose what to edit:" << RESET << endl;
-
-    // Define the menu options and corresponding actions
-    std::map<int, std::function<void(Player &)>> menu = {
-            {1, [](Player &u) { u.Set_Name(); }},
-            {2, [](Player &u) { u.Set_Address(); }},
-            {3, [](Player &u) { u.Set_phone_number(); }},
-            {4, [](Player &u) { u.Set_password(); }},
-            {5, [](Player &u) { cout<<CYAN << "Going back..." <<RESET << endl; /* Go back */ }},
-    };
-
-    int choice;
+    string choice;
     do {
         cout << "1. Name" << endl;
         cout << "2. Address" << endl;
         cout << "3. Phone number" << endl;
         cout << "4. Password" << endl;
-        cout << YELLOW << "5. Save changes" << RESET << endl;
-        cout << "6. Back" << endl;
+        cout << "5. Back" << endl;
         cin >> choice;
+        int choice_int;
+        try {
+            choice_int = stoi(choice);
+            if (choice_int < 1 || choice_int > 6) {
+                throw std::invalid_argument("Invalid choice. Please try again.");
+            }
 
-        switch (choice) {
-            case 1:
-                p.Set_Name();
-                break;
-            case 2:
-                p.Set_Address();
-                break;
-            case 3:
-                p.Set_phone_number();
-                break;
-            case 4:
-                p.Set_password();
-                break;
-            case 5:
-                p.update_to_DB();
-                break;
-            case 6:
-                // Back
-                return;
-            default:
-                cout << RED << "Invalid choice. Please try again." << RESET << endl;
-                break;
+            switch (choice_int) {
+                case 1:
+                    p.Set_Name();
+                    break;
+                case 2:
+                    p.Set_Address();
+                    break;
+                case 3:
+                    p.Set_phone_number();
+                    break;
+                case 4:
+                    p.Set_password();
+                    break;
+                case 5:
+                    // Back
+                    return;
+                default:
+                    cout << RED << "Invalid choice. Please try again." << RESET << endl;
+                    break;
+            }
+        } catch (const exception& e) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << RED << "Invalid input. Please try again." << RESET << endl;
         }
     } while (true);
 }
+
 
 
 //Field_manager
@@ -751,6 +770,10 @@ void MyMain::player_rating_booking(Player &p) {
                 field_book.push_back(book);
             }
         }
+        if (field_book.size() == 0) {
+            cout << CYAN << "You haven't booked any field yet" << RESET << endl;
+            return;
+        }
         cout << CYAN << "Choose a field:" << RESET << endl;
         for (size_t i = 0; i < field_book.size(); ++i) {
             cout << i + 1 << ". " << field_book[i] << endl;
@@ -758,145 +781,226 @@ void MyMain::player_rating_booking(Player &p) {
         cout << CYAN << "Enter the number of the field: " << RESET << endl;
         cin >> fieldChoice;
     } while (!(fieldChoice >= 1 && fieldChoice <= static_cast<int>(field_book.size())));
-    cout << CYAN << "Enter the rat field of (1-5) " << RESET << field_book[fieldChoice - 1] << endl;
-    int star_rat;
-    cin >> star_rat;
-    for (int i = 0; i < p.booked.booked_fields.size(); ++i) {
-        string name_fild = p.booked.booked_fields[i].get_field_name();
-        if (book == p.booked.booked_fields[i].get_field_name()) {
-            index = i;
+    try {
+        cout << CYAN << "Enter the rating field of (1-5) " << RESET << field_book[fieldChoice - 1] << endl;
+        int star_rat;
+        cin >> star_rat;
+        for (int i = 0; i < p.booked.booked_fields.size(); ++i) {
+            string name_fild = p.booked.booked_fields[i].get_field_name();
+            if (book == p.booked.booked_fields[i].get_field_name()) {
+                index = i;
+            }
+
+        }
+        p.booked.booked_fields[index].Rating_change(star_rat);
+        p.booked.booked_fields[index].print_rating();
+    }
+    catch (const std::exception& e) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }}
+void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_managers) {
+    while (!fm.field.empty()) {
+        // Display all fields in the field manager
+        cout << "Choose a field to remove:" << endl;
+        for (size_t i = 0; i < fm.field.size(); ++i) {
+            cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"
+                 << endl;
         }
 
-    }
-    p.booked.booked_fields[index].Rating_change(star_rat);
-    p.booked.booked_fields[index].print_rating();
-}
-void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_managers) {
-    if (fm.field.empty()) {
-        std::cout << "No fields to remove." << std::endl;
-        return;
-    }
+        string choice;
+        int choice_int;
+        bool validChoice = false;
+        do {
+            cout << "Enter the number of the field you want to remove (0 to exit): ";
+            cin >> choice;
+            try {
+                choice_int = stoi(choice);
 
-    // Display all fields in the field manager
-    std::cout << "Choose a field to remove:" << std::endl;
-    for (size_t i = 0; i < fm.field.size(); ++i) {
-        std::cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"
-                  << std::endl;
-    }
+                if (choice_int == 0) {
+                    return; // Exit the function if the user enters 0
+                }
 
-    int choice;
-    std::cout << "Enter the number of the field you want to remove: ";
-    std::cin >> choice;
+                // Validate user choice
+                if (choice_int >= 1 && choice_int <= static_cast<int>(fm.field.size())) {
+                    validChoice = true;
+                } else {
+                    cout << "Invalid choice. Please try again." << endl;
+                    // Display all fields again
+                    for (size_t i = 0; i < fm.field.size(); ++i) {
+                        cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"<< endl;
+                    }
+                }
+            } catch (const std::exception &e) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please try again." << endl;
+                for (size_t i = 0; i < fm.field.size(); ++i) {
+                    cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"<< endl;
+                }
+            }
+        } while (!validChoice);
 
-    // Validate user choice
-    if (choice >= 1 && choice <= static_cast<int>(fm.field.size())) {
         // Remove the field from the field manager's vector
-        fm.field.erase(fm.field.begin() + (choice - 1));
-        std::cout << "Field removed successfully." << std::endl;
+        fm.field.erase(fm.field.begin() + (choice_int - 1));
+        cout << "Field removed successfully." << endl;
 
         // Update the field manager in the database
         fm.update_to_DB();
 
         // Remove the field manager from the vector of field managers
         field_managers.erase(remove(field_managers.begin(), field_managers.end(), &fm), field_managers.end());
-    } else {
-        std::cout << "Invalid choice. Please try again." << std::endl;
     }
+
+    cout << "No fields to remove." << endl;
 }
+
+
 
 
 
 //Field Manager Profile
 void MyMain:: FM_menu_profile(Field_manager &fm){
-    cout<<GREEN << "You are logged in as " << fm.Get_Name()<<RESET << endl;
+
 
     // Define the menu options and corresponding actions
     std::map<int, std::function<void(Field_manager &)>> menu = {
             {1, [](Field_manager &fm) { fm.print(); }},
             {2, [this](Field_manager &fm) { FM_profile_menu_2(fm); }},
-            {3, [](Field_manager &fm) { cout<<CYAN << "Logging out..."<<RESET << endl; /* Logout */ }},
+            {3, [](Field_manager &fm) { cout<<CYAN << "Back to main menu..."<<RESET << endl; /* Logout */ }},
     };
 
-    int choice;
+    string choice;
+    int choice_int;
     do {
-        cout<<CYAN << "Choose an option:"<<RESET << endl;
+        cout<<GREEN << "You are logged in as " << fm.Get_Name()<<RESET << endl;
+        cout << CYAN << "Choose an option:" << RESET << endl;
         cout << "1. View your profile" << endl;
         cout << "2. Edit your profile" << endl;
-        cout << "3. Logout" << endl;
+        cout << "3. Back" << endl;
         cin >> choice;
 
-        // Execute the corresponding action based on the user's choice
-        auto it = menu.find(choice);
-        if (it != menu.end()) {
-            it->second(fm);
-        } else {
-            cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
+        try {
+            choice_int = stoi(choice);
+            if (choice_int < 1 || choice_int > 3) {
+                throw std::invalid_argument("Invalid choice. Please try again.");
+            }
+            // Execute the corresponding action based on the user's choice
+            auto it = menu.find(choice_int);
+            if (it != menu.end()) {
+                it->second(fm);
+            } else {
+                cout << RED << "Invalid choice. Please try again." << RESET << endl;
+            }
         }
-    } while (choice != 3); // Corrected loop condition
+        catch (const std::exception& e) {
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            continue;
+        }
+    } while (choice_int != 3); // Corrected loop condition
 
 }
 void MyMain::FM_profile_menu_2(Field_manager &fm) {
-    int choice;
+    cout << CYAN << "Choose what to edit:" << RESET << endl;
+    string choice;
     do {
         cout << "1. Name" << endl;
         cout << "2. Address" << endl;
         cout << "3. Phone number" << endl;
         cout << "4. Password" << endl;
-        cout << YELLOW << "5. Save changes" << RESET << endl;
-        cout << "6. Back" << endl;
+        cout << "5. Back" << endl;
         cin >> choice;
+        int choice_int;
+        try {
+            choice_int = stoi(choice);
+            if (choice_int < 1 || choice_int > 6) {
+                throw std::invalid_argument("Invalid choice. Please try again.");
+            }
 
-        switch (choice) {
-            case 1:
-                fm.Set_Name();
-                break;
-            case 2:
-                fm.Set_Address();
-                break;
-            case 3:
-                fm.Set_phone_number();
-                break;
-            case 4:
-                fm.Set_password();
-                break;
-            case 5:
-                fm.update_to_DB();
-                break;
-            case 6:
-                // Back
-                return;
-            default:
-                cout << RED << "Invalid choice. Please try again." << RESET << endl;
-                break;
+            switch (choice_int) {
+                case 1:
+                    fm.Set_Name();
+                    break;
+                case 2:
+                    fm.Set_Address();
+                    break;
+                case 3:
+                    fm.Set_phone_number();
+                    break;
+                case 4:
+                    fm.Set_password();
+                    break;
+                case 5:
+                    return;
+                default:
+                    cout << RED << "Invalid choice. Please try again." << RESET << endl;
+                    break;
+            }
+        } catch (const exception& e) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << RED << "Invalid input. Please try again." << RESET << endl;
         }
     } while (true);
 }
 void MyMain::closed_by_manager(Field_manager &fm, vector<Field_manager *> &field_managers) {
     string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};
-    cout<<"which field do you want to close?"<<endl;
-
-    for (int i = 0; i < fm.field.size(); ++i) {
-        cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"
-             << endl;
-    }
     int choice;
-    cin >> choice;
+    do {
+        cout << "Which field do you want to close? (Enter 0 to exit)" << endl;
 
-    if (choice >= 1 && choice <= static_cast<int>(fm.field.size())) {
-        cout<<"Which day do you want to close?"<<endl;
-        for (int i = 0; i < 5; ++i) {
-            cout << i + 1 << ". " << days[i] << endl;
+        for (int i = 0; i < fm.field.size(); ++i) {
+            cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"
+                 << endl;
         }
-        int choice2;
-        cin >> choice2;
-        int startHour, endHour;
-        cout<<"Which hour do you want to close?"<<endl;
-        cin>>startHour;
-        cout<< "Until what hour do you want to close?"<<endl;
-        cin>>endHour;
-        fm.field[choice - 1].close_field(choice2, startHour, endHour);
 
-    }
+        try{
+            cin >> choice;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please try again." << endl;
+                continue;
+            }
+            if (choice == 0) {
+                return; // Exit the function
+            }
+            if (choice < 1 || choice > static_cast<int>(fm.field.size())) {
+                cout << "Invalid field choice. Please try again." << endl;
+                continue;
+            }
 
+
+            cout << "Which day do you want to close?" << endl;
+            for (int i = 0; i < 5; ++i) {
+                cout << i + 1 << ". " << days[i] << endl;
+            }
+            int choice2;
+            cin >> choice2;
+            if (choice2 < 1 || choice2 > 5) {
+                cout << "Invalid day choice. Please try again." << endl;
+                continue;
+            }
+
+            int startHour, endHour;
+            cout << "Which hour do you want to close?" << endl;
+            cin >> startHour;
+            cout << "Until what hour do you want to close?" << endl;
+            cin >> endHour;
+            if (startHour < 0 || startHour > 24 || endHour < 0 || endHour > 24 || endHour <= startHour) {
+                cout << "Invalid hour range. Please try again." << endl;
+                continue;
+            }
+
+            fm.field[choice - 1].close_field(choice2, startHour, endHour);
+        }catch (const exception& e){
+            cout << "Invalid input. Please try again." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+
+    } while (true);
 
 }
+
