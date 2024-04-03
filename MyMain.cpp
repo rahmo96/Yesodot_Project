@@ -477,7 +477,7 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
         for (size_t i = 0; i < cities.size(); ++i) {
             cout << i + 1 << ". " << cities[i] << endl;
         }
-        cout << "Enter the number of the city (or '0' to main menu): " << endl;
+        cout << "Enter the number of the city (or '0' to main menu): ";
         string input;
         cin >> input;
         try {
@@ -510,122 +510,109 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
 
     if (!availableFields.empty()) {
         // Display the available fields for booking in the chosen city
-        if (!availableFields.empty()) {
-            // Display the available fields for booking in the chosen city
-            int fieldChoice;
-            do {
-                cout << "Choose a field:" << endl;
-                for (size_t i = 0; i < availableFields.size(); ++i) {
-                    cout << i + 1 << ". " << availableFields[i].get_field_name() << endl;
-                }
-                cout << "Enter the number of the field (or '0' to return to main menu): ";
-                string input;
-                cin >> input;
-                try {
-                    fieldChoice = stoi(input);
-                    if (fieldChoice == 0) {
-                        Clear::clear_screen();
-                        return; // Return to main menu
-                    }
-                    if (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size())) {
-                        throw out_of_range("Field choice is out of range.");
-                    }
-                } catch (const exception &e) {
-                    cerr << "Error: " << e.what() << endl;
+        int fieldChoice;
+        do {
+            cout << "Choose a field:" << endl;
+            for (size_t i = 0; i < availableFields.size(); ++i) {
+                cout << i + 1 << ". " << availableFields[i].get_field_name() << endl;
+            }
+            cout << "Enter the number of the field (or '0' to return to main menu): ";
+            string input;
+            cin >> input;
+            try {
+                fieldChoice = stoi(input);
+                if (fieldChoice == 0) {
                     Clear::clear_screen();
-                    continue;
+                    return; // Return to main menu
                 }
-            } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
-            Field chosenField = availableFields[fieldChoice - 1];
-            Clear::clear_screen();
-
-            // Display available days for booking
-            int dayChoice;
-            do {
-                cout << "Choose a day:" << endl;
-                for (size_t i = 0; i < 5; ++i) {
-                    cout << i + 1 << ". " << days[i] << endl;
+                if (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size())) {
+                    throw out_of_range("Field choice is out of range.");
                 }
-                cout << "Enter the number of the day: ";
-                string input;
-                cin >> input;
-                try {
-                    dayChoice = stoi(input);
-                    if (dayChoice < 1 || dayChoice > 5) {
-                        throw out_of_range("Day choice is out of range.");
-                    }
-                } catch (const exception &e) {
-                    cerr << "Error: " << e.what() << endl;
-                    Clear::clear_screen();
-                    continue;
+            } catch (const exception &e) {
+                cerr << "Error: " << e.what() << endl;
+                Clear::clear_screen();
+                continue;
+            }
+        } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
+        Field chosenField = availableFields[fieldChoice - 1];
+        Clear::clear_screen();
+
+        // Display available days for booking
+        int dayChoice;
+        do {
+            cout << "Choose a day:" << endl;
+            for (size_t i = 0; i < 5; ++i) {
+                cout << i + 1 << ". " << days[i] << endl;
+            }
+            cout << "Enter the number of the day: ";
+            string input;
+            cin >> input;
+            try {
+                dayChoice = stoi(input);
+                if (dayChoice < 1 || dayChoice > 5) {
+                    throw out_of_range("Day choice is out of range.");
                 }
-            } while (dayChoice < 1 || dayChoice > 5);
-            int dayIndex = dayChoice - 1;
-            Clear::clear_screen();
+            } catch (const exception &e) {
+                cerr << "Error: " << e.what() << endl;
+                Clear::clear_screen();
+                continue;
+            }
+        } while (dayChoice < 1 || dayChoice > 5);
+        int dayIndex = dayChoice - 1;
+        Clear::clear_screen();
 
-            // Get user choice for hours range
-            int startHour, endHour;
-            do {
-                cout << "Enter the starting hour (8-19): ";
-                string input;
-                cin >> input;
-                try {
-                    startHour = stoi(input);
-                    if (startHour < 8 || startHour > 19) {
-                        throw out_of_range("Starting hour is out of range.");
-                    }
-                } catch (const exception &e) {
-                    cerr << "Error: " << e.what() << endl;
-                    Clear::clear_screen();
-                    continue;
-                }
+        // Display available hours for booking
+        cout << "Available hours for booking:" << endl;
+        for (int hour = 8; hour <= 19; ++hour) {
+            if (chosenField.get_occupied(dayIndex, hour - 8)==0 && chosenField.get_occupied(dayIndex, hour - 7)==0) {
+                cout << hour << ":00 - " << hour + 1 << ":00" << endl;
+            }
+        }
+        cout << "Enter the starting hour (8-18): ";
+        int startHour;
+        cin >> startHour;
+        if (startHour < 8 || startHour > 18) {
+            cerr << "Invalid starting hour. Please try again." << endl;
+            return;
+        }
+        Clear::clear_screen();
 
-                cout << "Enter the ending hour (8-19): ";
-                cin >> input;
-                try {
-                    endHour = stoi(input);
-                    if (endHour < 8 || endHour > 19 || endHour < startHour) {
-                        throw out_of_range("Ending hour is out of range or less than start hour.");
-                    }
-                } catch (const exception &e) {
-                    cerr << "Error: " << e.what() << endl;
-                    Clear::clear_screen();
-                    continue;
-                }
-            } while (!(startHour >= 8 && startHour <= 19 && endHour >= 8 && endHour <= 19 && startHour <= endHour));
-            Clear::clear_screen();
+        // Process the booking for the chosen field, day, and hour
+        long playerId = p.Get_id();
+        Field_manager* manager = nullptr;
+        for (auto& fm: field_managers) {
+            if (find(fm->field.begin(), fm->field.end(), chosenField) != fm->field.end()) {
+                manager = fm;
+                break;
+            }
+        }
+        if (manager) {
+            Field temp = manager->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, startHour);
+            p.booked.booked_fields.push_back(temp);
+            p.booked.setOccupied_slots(dayIndex, startHour - 8, playerId);
+            manager->FM_update_to_DB();
+            p.P_update_to_DB();
 
-            // Process the booking for the chosen field, day, and hours range
-            for (auto &fm: field_managers) {
-                if (find(fm->field.begin(), fm->field.end(), chosenField) != fm->field.end()) {
-                    long playerId = p.Get_id();
-                    for (int hour = startHour; hour <= endHour; ++hour) {
-                        fm->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, hour);
-                        p.booked.setOccupied_slots(dayIndex, hour - 8, playerId);
-                    }
-                    fm->update_to_DB();
-
-                    // Ask user if they want to add the booked field to their favorites
-                    char addToFavorites;
-                    cout << "Add this field to your favorites? (y/n): ";
-                    cin >> addToFavorites;
-                    if (addToFavorites == 'y' || addToFavorites == 'Y') {
-                        p.f += chosenField;
-                        p.update_to_DB();
-                        cout << "Field added to favorites." << endl;
-                        Clear::clear_screen();
-                    } else {
-                        cout << "Field not added to favorites." << endl;
-                        Clear::clear_screen();
-                    }
-
-                    break;
-                }
+            // Ask user if they want to add the booked field to their favorites
+            char addToFavorites;
+            cout << "Add this field to your favorites? (y/n): ";
+            cin >> addToFavorites;
+            if (addToFavorites == 'y' || addToFavorites == 'Y') {
+                p.f += chosenField;
+                p.update_to_DB();
+                cout << "Field added to favorites." << endl;
+                Clear::clear_screen();
+            } else {
+                cout << "Field not added to favorites." << endl;
+                Clear::clear_screen();
             }
         } else {
-            cout << "No available fields in " << chosenCity << "." << endl;
+            cerr << "Failed to book field." << endl;
             Clear::clear_screen();
         }
+    } else {
+        cout << "No available fields in " << chosenCity << "." << endl;
+        Clear::clear_screen();
     }
 }
 void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_managers) {

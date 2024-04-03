@@ -90,19 +90,20 @@ public:
     }
 
     void print_booked_fields(long id) {
-        string days[5]={"Sunday","Monday","Tuesday","Wednesday","Thursday"};
-        for (const auto &field_item : booked_fields) {
+        string days[5] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
+        for (const auto& field_item : booked_fields) {
             field_item.print();
             cout << endl;
             for (int i = 0; i < 5; ++i) {
                 for (int j = 0; j < 12; ++j) {
                     if (occupied_slots[i][j] == id) {
-                        cout << "Day: " << days[i] << " Time: " << j+8<<":00" << endl;
+                        cout << "Day: " << days[i] << " Time: " << j + 8 << ":00" << endl;
                     }
                 }
             }
         }
     }
+
     bool remove_booking(long id) {
         auto it = std::remove_if(booked_fields.begin(), booked_fields.end(), [&](const Field& field) {
             return field.is_field_booked_by(id);
@@ -115,6 +116,7 @@ public:
 
         return false;
     }
+    bool isAvailable(int dayIndex, int hourIndex);
 
 
 

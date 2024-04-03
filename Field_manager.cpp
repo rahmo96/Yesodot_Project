@@ -152,25 +152,29 @@ bool Field_manager::is_day_occupied(const string &city, int day) const {
     }
     return false; // Day is not occupied
 }
-void Field_manager::book_field_in_city_at_day_hour(long id, const string &city, int day, int hour) {
+Field Field_manager::book_field_in_city_at_day_hour(long id, const string &city, int day, int hour) {
     // Find the field in the specified city
+    Field t_field;
     string days[5]={"Sunday","Monday","Tuesday","Wednesday","Thursday"};
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
             // Check if the slot is already booked
             if (field[i].get_occupied(day, hour) != 0) {
                 cout << "This slot is already booked." << endl;
-                return;
+                break;
             }
 
             // Mark the hour as occupied with the player's ID
             field[i].set_occupied(day, hour, id);
+            t_field = field[i];
 
             // Additional logic to handle the booking (e.g., updating records)
             cout << "Field booked in " << city << " on day " << days[day] << " at " << hour << ":00." << endl;
-            break;
+            return field[i];
         }
     }
+    return t_field;
+
 }
 bool Field_manager::is_field_booked_by(long id) {
     for (int i = 0; i < 5; ++i) {
@@ -378,3 +382,4 @@ bool Field_manager::Pay_to_be_first() {
     cout << "You already paid thanks" << endl;
 
 }
+
