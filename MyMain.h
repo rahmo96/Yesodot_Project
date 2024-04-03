@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Field_manager.h"
 #include "sqlite3.h"
+#include "Clear_Screen.h"
 using namespace std;
 
 class MyMain {
@@ -31,6 +32,7 @@ static void clear_the_buffer() {
     static Player P_login();
     Field_manager FM_login();
     void retrieve_field_managers_from_db();
+
 
     //Menus
     static int player_menu_1();

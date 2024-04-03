@@ -6,6 +6,7 @@
 #define YESODOT_PROJECT_DATE_H
 #include <string>
 #include "nlohmann/json.hpp"
+#include "Clear_Screen.h"
 
 using namespace std;
 

@@ -9,34 +9,19 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeCInformation.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeCXXInformation.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeDependentOption.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeFindCodeBlocks.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeGenericSystem.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakePackageConfigHelpers.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeRCInformation.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CheckCXXCompilerFlag.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/CheckCXXSourceCompiles.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Compiler/GNU-C.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Compiler/GNU.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/ExternalProject/shared_internal_commands.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/FetchContent.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/FetchContent/CMakeLists.cmake.in"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/FindGit.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/FindPackageHandleStandardArgs.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/FindPackageMessage.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/GNUInstallDirs.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Internal/CheckCompilerFlag.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Internal/CheckFlagCommonConfig.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Platform/Windows-GNU-C-ABI.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Platform/Windows-GNU-C.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX-ABI.cmake"
@@ -47,17 +32,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Platform/Windows.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/Platform/WindowsPaths.cmake"
   "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/ProcessorCount.cmake"
-  "C:/Program Files/JetBrains/CLion 2023.3.4/bin/cmake/win/x64/share/cmake-3.27/Modules/WriteBasicConfigVersionFile.cmake"
   "C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/CMakeLists.txt"
   "CMakeFiles/3.27.8/CMakeCCompiler.cmake"
   "CMakeFiles/3.27.8/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.27.8/CMakeRCCompiler.cmake"
   "CMakeFiles/3.27.8/CMakeSystem.cmake"
-  "_deps/catch2-src/CMake/CatchConfigOptions.cmake"
-  "_deps/catch2-src/CMake/CatchMiscFunctions.cmake"
-  "_deps/catch2-src/CMakeLists.txt"
-  "_deps/catch2-src/src/CMakeLists.txt"
-  "_deps/catch2-src/src/catch2/catch_user_config.hpp.in"
   )
 
 # The corresponding makefile is:
@@ -68,17 +47,10 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "_deps/catch2-subbuild/CMakeLists.txt"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
-  "_deps/catch2-build/CMakeFiles/CMakeDirectoryInformation.cmake"
-  "_deps/catch2-build/generated-includes/catch2/catch_user_config.hpp"
-  "_deps/catch2-build/src/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/tests.dir/DependInfo.cmake"
   "CMakeFiles/Yesodot_Project.dir/DependInfo.cmake"
-  "_deps/catch2-build/src/CMakeFiles/Catch2.dir/DependInfo.cmake"
-  "_deps/catch2-build/src/CMakeFiles/Catch2WithMain.dir/DependInfo.cmake"
   )

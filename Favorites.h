@@ -4,6 +4,7 @@
 #include "Field.h"
 #include "nlohmann/json.hpp"
 #include "sqlite3.h"
+#include "Clear_Screen.h"
 #ifndef YESODOT_PROJECT_FAVORITES_H
 #define YESODOT_PROJECT_FAVORITES_H
 

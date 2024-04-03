@@ -28,6 +28,7 @@ vector<Field> Favorites::get_favorite_field() {
 void Favorites::print() {
     if (favorite_field.size() == 0) {
         cout << "No favorite fields yet " << endl;
+        Clear::clear_screen();
         return;
     }
     for (int i = 0; i < favorite_field.size(); ++i) {
@@ -43,8 +44,10 @@ void Favorites::print() {
             cin.clear();
             choice = 1;
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            Clear::clear_screen();
         }
     } while (choice != 0);
+    Clear::clear_screen();
 }
 
 Favorites Favorites::operator+=(Field &f_field) {

@@ -116,19 +116,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named tests
-
-# Build rule for target.
-tests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 tests
-.PHONY : tests
-
-# fast build rule for target.
-tests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/build
-.PHONY : tests/fast
-
-#=============================================================================
 # Target rules for targets named Yesodot_Project
 
 # Build rule for target.
@@ -141,38 +128,11 @@ Yesodot_Project/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/build
 .PHONY : Yesodot_Project/fast
 
-#=============================================================================
-# Target rules for targets named Catch2
-
-# Build rule for target.
-Catch2: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Catch2
-.PHONY : Catch2
-
-# fast build rule for target.
-Catch2/fast:
-	$(MAKE) $(MAKESILENT) -f _deps\catch2-build\src\CMakeFiles\Catch2.dir\build.make _deps/catch2-build/src/CMakeFiles/Catch2.dir/build
-.PHONY : Catch2/fast
-
-#=============================================================================
-# Target rules for targets named Catch2WithMain
-
-# Build rule for target.
-Catch2WithMain: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Catch2WithMain
-.PHONY : Catch2WithMain
-
-# fast build rule for target.
-Catch2WithMain/fast:
-	$(MAKE) $(MAKESILENT) -f _deps\catch2-build\src\CMakeFiles\Catch2WithMain.dir\build.make _deps/catch2-build/src/CMakeFiles/Catch2WithMain.dir/build
-.PHONY : Catch2WithMain/fast
-
 Booked.obj: Booked.cpp.obj
 .PHONY : Booked.obj
 
 # target to build an object file
 Booked.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Booked.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Booked.cpp.obj
 .PHONY : Booked.cpp.obj
 
@@ -181,7 +141,6 @@ Booked.i: Booked.cpp.i
 
 # target to preprocess a source file
 Booked.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Booked.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Booked.cpp.i
 .PHONY : Booked.cpp.i
 
@@ -190,16 +149,38 @@ Booked.s: Booked.cpp.s
 
 # target to generate assembly for a file
 Booked.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Booked.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Booked.cpp.s
 .PHONY : Booked.cpp.s
+
+Clear_Screen.obj: Clear_Screen.cpp.obj
+.PHONY : Clear_Screen.obj
+
+# target to build an object file
+Clear_Screen.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Clear_Screen.cpp.obj
+.PHONY : Clear_Screen.cpp.obj
+
+Clear_Screen.i: Clear_Screen.cpp.i
+.PHONY : Clear_Screen.i
+
+# target to preprocess a source file
+Clear_Screen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Clear_Screen.cpp.i
+.PHONY : Clear_Screen.cpp.i
+
+Clear_Screen.s: Clear_Screen.cpp.s
+.PHONY : Clear_Screen.s
+
+# target to generate assembly for a file
+Clear_Screen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Clear_Screen.cpp.s
+.PHONY : Clear_Screen.cpp.s
 
 Date.obj: Date.cpp.obj
 .PHONY : Date.obj
 
 # target to build an object file
 Date.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Date.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Date.cpp.obj
 .PHONY : Date.cpp.obj
 
@@ -208,7 +189,6 @@ Date.i: Date.cpp.i
 
 # target to preprocess a source file
 Date.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Date.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Date.cpp.i
 .PHONY : Date.cpp.i
 
@@ -217,7 +197,6 @@ Date.s: Date.cpp.s
 
 # target to generate assembly for a file
 Date.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Date.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Date.cpp.s
 .PHONY : Date.cpp.s
 
@@ -226,7 +205,6 @@ Favorites.obj: Favorites.cpp.obj
 
 # target to build an object file
 Favorites.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Favorites.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Favorites.cpp.obj
 .PHONY : Favorites.cpp.obj
 
@@ -235,7 +213,6 @@ Favorites.i: Favorites.cpp.i
 
 # target to preprocess a source file
 Favorites.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Favorites.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Favorites.cpp.i
 .PHONY : Favorites.cpp.i
 
@@ -244,7 +221,6 @@ Favorites.s: Favorites.cpp.s
 
 # target to generate assembly for a file
 Favorites.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Favorites.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Favorites.cpp.s
 .PHONY : Favorites.cpp.s
 
@@ -253,7 +229,6 @@ Field.obj: Field.cpp.obj
 
 # target to build an object file
 Field.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Field.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Field.cpp.obj
 .PHONY : Field.cpp.obj
 
@@ -262,7 +237,6 @@ Field.i: Field.cpp.i
 
 # target to preprocess a source file
 Field.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Field.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Field.cpp.i
 .PHONY : Field.cpp.i
 
@@ -271,7 +245,6 @@ Field.s: Field.cpp.s
 
 # target to generate assembly for a file
 Field.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Field.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Field.cpp.s
 .PHONY : Field.cpp.s
 
@@ -280,7 +253,6 @@ Field_manager.obj: Field_manager.cpp.obj
 
 # target to build an object file
 Field_manager.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Field_manager.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.obj
 .PHONY : Field_manager.cpp.obj
 
@@ -289,7 +261,6 @@ Field_manager.i: Field_manager.cpp.i
 
 # target to preprocess a source file
 Field_manager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Field_manager.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.i
 .PHONY : Field_manager.cpp.i
 
@@ -298,7 +269,6 @@ Field_manager.s: Field_manager.cpp.s
 
 # target to generate assembly for a file
 Field_manager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Field_manager.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Field_manager.cpp.s
 .PHONY : Field_manager.cpp.s
 
@@ -307,7 +277,6 @@ Functions.obj: Functions.cpp.obj
 
 # target to build an object file
 Functions.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Functions.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Functions.cpp.obj
 .PHONY : Functions.cpp.obj
 
@@ -316,7 +285,6 @@ Functions.i: Functions.cpp.i
 
 # target to preprocess a source file
 Functions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Functions.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Functions.cpp.i
 .PHONY : Functions.cpp.i
 
@@ -325,7 +293,6 @@ Functions.s: Functions.cpp.s
 
 # target to generate assembly for a file
 Functions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Functions.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Functions.cpp.s
 .PHONY : Functions.cpp.s
 
@@ -334,7 +301,6 @@ MyMain.obj: MyMain.cpp.obj
 
 # target to build an object file
 MyMain.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/MyMain.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/MyMain.cpp.obj
 .PHONY : MyMain.cpp.obj
 
@@ -343,7 +309,6 @@ MyMain.i: MyMain.cpp.i
 
 # target to preprocess a source file
 MyMain.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/MyMain.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/MyMain.cpp.i
 .PHONY : MyMain.cpp.i
 
@@ -352,7 +317,6 @@ MyMain.s: MyMain.cpp.s
 
 # target to generate assembly for a file
 MyMain.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/MyMain.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/MyMain.cpp.s
 .PHONY : MyMain.cpp.s
 
@@ -361,7 +325,6 @@ Player.obj: Player.cpp.obj
 
 # target to build an object file
 Player.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Player.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Player.cpp.obj
 .PHONY : Player.cpp.obj
 
@@ -370,7 +333,6 @@ Player.i: Player.cpp.i
 
 # target to preprocess a source file
 Player.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Player.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Player.cpp.i
 .PHONY : Player.cpp.i
 
@@ -379,40 +341,14 @@ Player.s: Player.cpp.s
 
 # target to generate assembly for a file
 Player.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/Player.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/Player.cpp.s
 .PHONY : Player.cpp.s
-
-UnitTests/test.obj: UnitTests/test.cpp.obj
-.PHONY : UnitTests/test.obj
-
-# target to build an object file
-UnitTests/test.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/UnitTests/test.cpp.obj
-.PHONY : UnitTests/test.cpp.obj
-
-UnitTests/test.i: UnitTests/test.cpp.i
-.PHONY : UnitTests/test.i
-
-# target to preprocess a source file
-UnitTests/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/UnitTests/test.cpp.i
-.PHONY : UnitTests/test.cpp.i
-
-UnitTests/test.s: UnitTests/test.cpp.s
-.PHONY : UnitTests/test.s
-
-# target to generate assembly for a file
-UnitTests/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/UnitTests/test.cpp.s
-.PHONY : UnitTests/test.cpp.s
 
 User.obj: User.cpp.obj
 .PHONY : User.obj
 
 # target to build an object file
 User.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/User.cpp.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/User.cpp.obj
 .PHONY : User.cpp.obj
 
@@ -421,7 +357,6 @@ User.i: User.cpp.i
 
 # target to preprocess a source file
 User.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/User.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/User.cpp.i
 .PHONY : User.cpp.i
 
@@ -430,7 +365,6 @@ User.s: User.cpp.s
 
 # target to generate assembly for a file
 User.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/User.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/User.cpp.s
 .PHONY : User.cpp.s
 
@@ -463,7 +397,6 @@ sqlite3.obj: sqlite3.c.obj
 
 # target to build an object file
 sqlite3.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/sqlite3.c.obj
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/sqlite3.c.obj
 .PHONY : sqlite3.c.obj
 
@@ -472,7 +405,6 @@ sqlite3.i: sqlite3.c.i
 
 # target to preprocess a source file
 sqlite3.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/sqlite3.c.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/sqlite3.c.i
 .PHONY : sqlite3.c.i
 
@@ -481,7 +413,6 @@ sqlite3.s: sqlite3.c.s
 
 # target to generate assembly for a file
 sqlite3.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/sqlite3.c.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Yesodot_Project.dir\build.make CMakeFiles/Yesodot_Project.dir/sqlite3.c.s
 .PHONY : sqlite3.c.s
 
@@ -493,13 +424,13 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... Catch2
-	@echo ... Catch2WithMain
 	@echo ... Yesodot_Project
-	@echo ... tests
 	@echo ... Booked.obj
 	@echo ... Booked.i
 	@echo ... Booked.s
+	@echo ... Clear_Screen.obj
+	@echo ... Clear_Screen.i
+	@echo ... Clear_Screen.s
 	@echo ... Date.obj
 	@echo ... Date.i
 	@echo ... Date.s
@@ -521,9 +452,6 @@ help:
 	@echo ... Player.obj
 	@echo ... Player.i
 	@echo ... Player.s
-	@echo ... UnitTests/test.obj
-	@echo ... UnitTests/test.i
-	@echo ... UnitTests/test.s
 	@echo ... User.obj
 	@echo ... User.i
 	@echo ... User.s

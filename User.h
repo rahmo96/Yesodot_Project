@@ -10,6 +10,7 @@
 #include "Date.h"
 #include "sqlite3.h"
 #include "Booked.h"
+#include "Clear_Screen.h"
 
 
 using namespace std;

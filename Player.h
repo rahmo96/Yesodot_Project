@@ -12,6 +12,7 @@
 #include "Favorites.h"
 #include "vector"
 #include "sqlite3.h"
+#include "Clear_Screen.h"
 
 using namespace std;
 

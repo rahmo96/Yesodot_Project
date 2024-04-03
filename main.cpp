@@ -6,6 +6,8 @@
 #include "MyMain.h"
 using namespace std;
 
+
+
  int Field_manager::counter = 0;
 int main() {
     MyMain M1;

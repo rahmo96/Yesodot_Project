@@ -29,6 +29,7 @@ void MyMain::print_Menu(const std::map<int, std::string> &menuOptions) {
     }
 }
 
+
 //Login
 Player MyMain::P_login() {
     sqlite3 *db;
@@ -48,6 +49,7 @@ Player MyMain::P_login() {
         if (!(Functions::checkLogin_P(db, to_string(id), password))) {
             cout << RED << "Login failed. Please try again." << RESET << endl;
         }
+        Clear::clear_screen();
     } while (!(Functions::checkLogin_P(db, to_string(id), password)) || !(is_9_digit(id)));
 
     cout << GREEN << "Login successful" << RESET << endl;
@@ -119,6 +121,7 @@ int MyMain::runMenu() {
         print_Menu(currentMenu);
         int choice, choice1, choice2, choice3;
         std::cin >> choice;
+        Clear::clear_screen();
         if (std::cin.fail()) {
             std::cin.clear(); // Clear the fail state
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the invalid input
@@ -131,9 +134,11 @@ int MyMain::runMenu() {
                 currentMenu = playerMenu;
                 print_Menu(currentMenu);
                 cin >> choice1;
+               Clear::clear_screen();
                 switch (choice1) {
                     case 1: {
                         Player p = P_login();
+                        Clear::clear_screen();
                         int choice;
                         do {
                             cout <<CYAN "Choose one of the following options:" <<RESET<< endl;
@@ -148,29 +153,35 @@ int MyMain::runMenu() {
 
                             switch (choice) {
                                 case 1:
+;                                    Clear::clear_screen();
                                     cout <<CYAN<< "Favorites" <<RESET<< endl;
                                     p.f.print();
                                     break;
                                 case 2:
+                                    Clear::clear_screen();
                                     cout << CYAN<<"Book field" << RESET<<endl;
                                     player_menu_booking(p, Field_manager::field_managers);
                                     p.update_to_DB();
                                     break;
                                 case 3:
+                                    Clear::clear_screen();
                                     cout <<CYAN<< "Cancel field"<<RESET << endl;
                                     player_menu_cancel(p, Field_manager::field_managers);
                                     break;
                                 case 4:
+                                    Clear::clear_screen();
                                     cout <<CYAN<< "Rate field" <<RESET << endl;
                                     // Add code to handle Rate field
                                     player_rating_booking(p);
 
                                     break;
                                 case 5:
+                                    Clear::clear_screen();
                                     cout <<CYAN<< "Profile" <<RESET << endl;
                                     P_menu_profile(p);
                                     break;
                                 case 6:
+                                    Clear::clear_screen();
                                     cout <<CYAN << "Booked fields" <<RESET<< endl;
                                     p.booked.print_booked_fields(p.Get_id());
                                     break;
@@ -179,6 +190,8 @@ int MyMain::runMenu() {
                                     return 0;
                                 default:
                                     cout<<RED << "Invalid choice. Please try again."<<RESET << endl;
+                                    Clear::clear_screen();
+                                    break;
                             }
 
                         } while (true);
@@ -462,15 +475,18 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
         try {
             cityChoice = stoi(input);
             if (cityChoice == 0) {
+                Clear::clear_screen();
                 return;
             }
             if (cityChoice < 1 || cityChoice > static_cast<int>(cities.size())) {
                 throw out_of_range("City choice is out of range.");
             }
         } catch (const exception &e) {
+            Clear::clear_screen();
             continue;
         }
     } while (cityChoice < 1 || cityChoice > static_cast<int>(cities.size()));
+    Clear::clear_screen();
 
     string chosenCity = cities[cityChoice - 1];
     vector<Field> availableFields;
@@ -500,6 +516,7 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                 try {
                     fieldChoice = stoi(input);
                     if (fieldChoice == 0) {
+                        Clear::clear_screen();
                         return; // Return to main menu
                     }
                     if (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size())) {
@@ -507,10 +524,12 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                     }
                 } catch (const exception &e) {
                     cerr << "Error: " << e.what() << endl;
+                    Clear::clear_screen();
                     continue;
                 }
             } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
             Field chosenField = availableFields[fieldChoice - 1];
+            Clear::clear_screen();
 
             // Display available days for booking
             int dayChoice;
@@ -529,10 +548,12 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                     }
                 } catch (const exception &e) {
                     cerr << "Error: " << e.what() << endl;
+                    Clear::clear_screen();
                     continue;
                 }
             } while (dayChoice < 1 || dayChoice > 5);
             int dayIndex = dayChoice - 1;
+            Clear::clear_screen();
 
             // Get user choice for hours range
             int startHour, endHour;
@@ -547,6 +568,7 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                     }
                 } catch (const exception &e) {
                     cerr << "Error: " << e.what() << endl;
+                    Clear::clear_screen();
                     continue;
                 }
 
@@ -559,9 +581,11 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                     }
                 } catch (const exception &e) {
                     cerr << "Error: " << e.what() << endl;
+                    Clear::clear_screen();
                     continue;
                 }
             } while (!(startHour >= 8 && startHour <= 19 && endHour >= 8 && endHour <= 19 && startHour <= endHour));
+            Clear::clear_screen();
 
             // Process the booking for the chosen field, day, and hours range
             for (auto &fm: field_managers) {
@@ -581,8 +605,10 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                         p.f += chosenField;
                         p.update_to_DB();
                         cout << "Field added to favorites." << endl;
+                        Clear::clear_screen();
                     } else {
                         cout << "Field not added to favorites." << endl;
+                        Clear::clear_screen();
                     }
 
                     break;
@@ -590,6 +616,7 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
             }
         } else {
             cout << "No available fields in " << chosenCity << "." << endl;
+            Clear::clear_screen();
         }
     }
 }
@@ -657,8 +684,10 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
                 char continueChoice;
                 cout << "Do you want to cancel another field? (y/n): ";
                 cin >> continueChoice;
+                Clear::clear_screen();
                 if (continueChoice == 'n') {
                     exit = true;
+
                 }
             } catch (const std::exception& e) {
                 cin.clear();
@@ -694,6 +723,7 @@ void MyMain::P_menu_profile(Player &p) {
             choice_int = stoi(choice);
             if (choice_int < 1 || choice_int > 3) {
                 throw std::invalid_argument("Invalid choice. Please try again.");
+                Clear::clear_screen();
             }
             // Execute the corresponding action based on the user's choice
             auto it = menu.find(choice_int);
@@ -701,6 +731,7 @@ void MyMain::P_menu_profile(Player &p) {
                 it->second(p);
             } else {
                 cout << RED << "Invalid choice. Please try again." << RESET << endl;
+                Clear::clear_screen();
             }
         }
         catch (const std::exception& e) {
@@ -709,6 +740,7 @@ void MyMain::P_menu_profile(Player &p) {
             continue;
         }
     } while (choice_int != 3); // Corrected loop condition
+    Clear::clear_screen();
 }
 void MyMain::P_profile_menu_2(Player &p) {
     cout << CYAN << "Choose what to edit:" << RESET << endl;
@@ -721,6 +753,7 @@ void MyMain::P_profile_menu_2(Player &p) {
         cout << "5. Back" << endl;
         cin >> choice;
         int choice_int;
+        Clear::clear_screen();
         try {
             choice_int = stoi(choice);
             if (choice_int < 1 || choice_int > 6) {
@@ -729,19 +762,23 @@ void MyMain::P_profile_menu_2(Player &p) {
 
             switch (choice_int) {
                 case 1:
+                    Clear::clear_screen();
                     p.Set_Name();
                     break;
                 case 2:
+                    Clear::clear_screen();
                     p.Set_Address();
                     break;
                 case 3:
+                    Clear::clear_screen();
                     p.Set_phone_number();
                     break;
                 case 4:
+                    Clear::clear_screen();
                     p.Set_password();
                     break;
                 case 5:
-                    // Back
+                    Clear::clear_screen();
                     return;
                 default:
                     cout << RED << "Invalid choice. Please try again." << RESET << endl;
@@ -751,8 +788,10 @@ void MyMain::P_profile_menu_2(Player &p) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << RED << "Invalid input. Please try again." << RESET << endl;
+            Clear::clear_screen();
         }
     } while (true);
+    Clear::clear_screen();
 }
 
 
@@ -825,6 +864,7 @@ void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_mana
                 if (choice_int >= 1 && choice_int <= static_cast<int>(fm.field.size())) {
                     validChoice = true;
                 } else {
+                    Clear::clear_screen();
                     cout << "Invalid choice. Please try again." << endl;
                     // Display all fields again
                     for (size_t i = 0; i < fm.field.size(); ++i) {
@@ -834,6 +874,7 @@ void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_mana
             } catch (const std::exception &e) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                Clear::clear_screen();
                 cout << "Invalid input. Please try again." << endl;
                 for (size_t i = 0; i < fm.field.size(); ++i) {
                     cout << i + 1 << ". " << fm.field[i].get_field_name() << " (City: " << fm.field[i].get_field_city() << ")"<< endl;
@@ -844,7 +885,7 @@ void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_mana
         // Remove the field from the field manager's vector
         fm.field.erase(fm.field.begin() + (choice_int - 1));
         cout << "Field removed successfully." << endl;
-
+        Clear::clear_screen();
         // Update the field manager in the database
         fm.update_to_DB();
 
@@ -853,6 +894,7 @@ void MyMain::remove_field(Field_manager &fm, vector<Field_manager *> &field_mana
     }
 
     cout << "No fields to remove." << endl;
+    Clear::clear_screen();
 }
 
 
@@ -884,6 +926,7 @@ void MyMain:: FM_menu_profile(Field_manager &fm){
             choice_int = stoi(choice);
             if (choice_int < 1 || choice_int > 3) {
                 throw std::invalid_argument("Invalid choice. Please try again.");
+                Clear::clear_screen();
             }
             // Execute the corresponding action based on the user's choice
             auto it = menu.find(choice_int);
@@ -891,14 +934,17 @@ void MyMain:: FM_menu_profile(Field_manager &fm){
                 it->second(fm);
             } else {
                 cout << RED << "Invalid choice. Please try again." << RESET << endl;
+                Clear::clear_screen();
             }
         }
         catch (const std::exception& e) {
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            Clear::clear_screen();
             continue;
         }
     } while (choice_int != 3); // Corrected loop condition
+    Clear::clear_screen();
 
 }
 void MyMain::FM_profile_menu_2(Field_manager &fm) {
@@ -920,20 +966,26 @@ void MyMain::FM_profile_menu_2(Field_manager &fm) {
 
             switch (choice_int) {
                 case 1:
+                    Clear::clear_screen();
                     fm.Set_Name();
                     break;
                 case 2:
+                    Clear::clear_screen();
                     fm.Set_Address();
                     break;
                 case 3:
+                    Clear::clear_screen();
                     fm.Set_phone_number();
                     break;
                 case 4:
+                    Clear::clear_screen();
                     fm.Set_password();
                     break;
                 case 5:
+                    Clear::clear_screen();
                     return;
                 default:
+                    Clear::clear_screen();
                     cout << RED << "Invalid choice. Please try again." << RESET << endl;
                     break;
             }
@@ -941,8 +993,10 @@ void MyMain::FM_profile_menu_2(Field_manager &fm) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << RED << "Invalid input. Please try again." << RESET << endl;
+            Clear::clear_screen();
         }
     } while (true);
+    Clear::clear_screen();
 }
 void MyMain::closed_by_manager(Field_manager &fm, vector<Field_manager *> &field_managers) {
     string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};

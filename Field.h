@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include "nlohmann/json.hpp"
+#include "Clear_Screen.h"
 
 using namespace nlohmann;
 using namespace std;

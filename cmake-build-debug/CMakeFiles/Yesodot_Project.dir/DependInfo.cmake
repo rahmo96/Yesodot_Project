@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/sqlite3.c" "CMakeFiles/Yesodot_Project.dir/sqlite3.c.obj" "gcc" "CMakeFiles/Yesodot_Project.dir/sqlite3.c.obj.d"
   "C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/Booked.cpp" "CMakeFiles/Yesodot_Project.dir/Booked.cpp.obj" "gcc" "CMakeFiles/Yesodot_Project.dir/Booked.cpp.obj.d"
+  "C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/Clear_Screen.cpp" "CMakeFiles/Yesodot_Project.dir/Clear_Screen.cpp.obj" "gcc" "CMakeFiles/Yesodot_Project.dir/Clear_Screen.cpp.obj.d"
   "C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/Date.cpp" "CMakeFiles/Yesodot_Project.dir/Date.cpp.obj" "gcc" "CMakeFiles/Yesodot_Project.dir/Date.cpp.obj.d"
   "C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/Favorites.cpp" "CMakeFiles/Yesodot_Project.dir/Favorites.cpp.obj" "gcc" "CMakeFiles/Yesodot_Project.dir/Favorites.cpp.obj.d"
   "C:/Users/raha1/Documents/CLionProjects/Yesodot_Project/Field.cpp" "CMakeFiles/Yesodot_Project.dir/Field.cpp.obj" "gcc" "CMakeFiles/Yesodot_Project.dir/Field.cpp.obj.d"

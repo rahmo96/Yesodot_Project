@@ -182,7 +182,6 @@ Player Player::build_from_DB(long id) {
 
         Favorites f;
         f.from_json(j.at("Favorites"));
-        std::cout << "Favorites size after construction: " << f.get_size() << std::endl;
 
         Player p(name, id, Address, phone_number, gender, b_day, password, fields, f);
 

@@ -9,6 +9,7 @@
 #include "Field.h"
 #include <vector>
 #include "Player.h"
+#include "Clear_Screen.h"
 class Field_manager: virtual public User{
 private:
     friend class Functions;

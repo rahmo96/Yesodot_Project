@@ -15,6 +15,7 @@ using namespace std;
 #include "Date.h"
 #include "sqlite3.h"
 #include <cctype>
+#include "Clear_Screen.h"
 
 
 class Functions{
@@ -40,6 +41,7 @@ public:
         cout << "Enter your name: ";
         cin.ignore();
         getline(cin, name);
+        Clear::clear_screen();
 
         do {
             cout << "Enter your ID number: \n";
@@ -50,11 +52,13 @@ public:
 
                 if (!IsValidIsraeliID(t_id)) {
                     cout << "Invalid ID. Please enter a valid ID number." << endl;
+                    Clear::clear_screen();
                     continue; // Restart the loop to get a new ID
                 }
 
                 if (isIdInDatabase(id)) {
                     cout << "This ID is already in use. Please enter another one." << endl;
+                    Clear::clear_screen();
                     continue; // Restart the loop to get a new ID
                 }
 
@@ -62,6 +66,8 @@ public:
             }
             else {
                 cout << "Invalid ID. Please enter a valid ID number." << endl;
+                Clear::clear_screen();
+                continue; // Restart the loop to get a new ID
             }
 
         } while (true);
@@ -74,6 +80,8 @@ public:
             getline(cin, t_phone_number);
             if (t_phone_number.length() != 9 || !isNumber(t_phone_number)) {
                 cout << "Invalid phone number. Please enter a 10-digit number." << endl;
+                Clear::clear_screen();
+                continue; // Restart the loop to get a new phone number
             }
         } while (t_phone_number.length() != 9 || !isNumber(t_phone_number));
         phone_number = stol(t_phone_number);
@@ -82,17 +90,20 @@ public:
             cout << "Enter your gender (m/f):\n ";
             cin >> gender;
             gender = tolower(gender);
+            Clear::clear_screen();
         } while (gender != 'm' && gender != 'f');
 
         do {
             cout << "Enter your date of birth (DD.MM.YYYY): \n";
             getline(cin, t_birthday);
+            Clear::clear_screen();
         } while (t_birthday.length() != 10);
         Date birthday;
         birthday.setDateFromString(t_birthday);
 
         cout << "Enter your password: ";
         cin >> password;
+        Clear::clear_screen();
 
         T player1(name, id, Address, phone_number, gender, birthday, password);
         player1.print(); // Assuming T has a print method

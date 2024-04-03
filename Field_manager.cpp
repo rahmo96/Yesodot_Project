@@ -253,12 +253,7 @@ Field_manager Field_manager::from_json(const nlohmann::json &j) {
     return *this;
 
 }
-Field_manager Field_manager::build_from_json(string json_str) {
-    nlohmann::json j = nlohmann::json::parse(json_str);
-    Field_manager fm;
-    fm.from_json(j);
-    return fm;
-}
+
 
 //Build from DB
 Field_manager Field_manager::build_from_DB(long id) {
