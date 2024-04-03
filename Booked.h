@@ -118,6 +118,7 @@ public:
     }
     bool isAvailable(int dayIndex, int hourIndex);
 
+    void remove_booking_by_day_hour(long id ,int dayIndex, int hourIndex);
 
 
 };

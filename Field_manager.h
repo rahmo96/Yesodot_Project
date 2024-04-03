@@ -66,7 +66,7 @@ public:
 
     bool update_to_DB();
 
-    bool cancel_field_booking(long id, const Field& field);
+    bool cancel_field_booking(long id, const Field& field, int dayIndex, int hourIndex);
 
     bool field_contains(const Field& field) {
         for (auto& f : this->field) {

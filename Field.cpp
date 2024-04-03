@@ -195,6 +195,10 @@ void Field::close_field(int choice2, int startHour,int endHour){
     }
 }
 
+bool Field::isAvailable(int dayIndex, int hourIndex) {
+    return occupied[dayIndex][hourIndex] == 0;
+}
+
 
 
 

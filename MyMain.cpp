@@ -534,7 +534,17 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                 continue;
             }
         } while (fieldChoice < 1 || fieldChoice > static_cast<int>(availableFields.size()));
-        Field chosenField = availableFields[fieldChoice - 1];
+        Field* chosenField = nullptr;
+        Field_manager* manager = nullptr;
+        for (auto& fm : field_managers) {
+            auto it = find(fm->field.begin(), fm->field.end(), availableFields[fieldChoice - 1]);
+            if (it != fm->field.end()) {
+                manager = fm;
+                chosenField = &(*it);  // Assign the address of the found field to chosenField
+                break;
+            }
+        }
+
         Clear::clear_screen();
 
         // Display available days for booking
@@ -564,7 +574,7 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
         // Display available hours for booking
         cout << "Available hours for booking:" << endl;
         for (int hour = 8; hour <= 19; ++hour) {
-            if (chosenField.get_occupied(dayIndex, hour - 8)==0 && chosenField.get_occupied(dayIndex, hour - 7)==0) {
+            if (chosenField->isAvailable(dayIndex, hour - 8)) {
                 cout << hour << ":00 - " << hour + 1 << ":00" << endl;
             }
         }
@@ -579,13 +589,7 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
 
         // Process the booking for the chosen field, day, and hour
         long playerId = p.Get_id();
-        Field_manager* manager = nullptr;
-        for (auto& fm: field_managers) {
-            if (find(fm->field.begin(), fm->field.end(), chosenField) != fm->field.end()) {
-                manager = fm;
-                break;
-            }
-        }
+
         if (manager) {
             Field temp = manager->book_field_in_city_at_day_hour(playerId, chosenCity, dayIndex, startHour);
             p.booked.booked_fields.push_back(temp);
@@ -598,7 +602,7 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
             cout << "Add this field to your favorites? (y/n): ";
             cin >> addToFavorites;
             if (addToFavorites == 'y' || addToFavorites == 'Y') {
-                p.f += chosenField;
+                p.f += *chosenField;
                 p.update_to_DB();
                 cout << "Field added to favorites." << endl;
                 Clear::clear_screen();
@@ -616,12 +620,17 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
     }
 }
 void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_managers) {
+    string days[5] = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
     // Find all fields booked by the player
-    std::vector<std::pair<Field*, Field_manager*>> booked_fields;
+    std::vector<std::tuple<Field*, Field_manager*, int, int>> booked_fields;
     for (auto fm : field_managers) {
         for (auto& field : fm->field) {
-            if (field.is_field_booked_by(p.Get_id())) {
-                booked_fields.push_back({&field, fm});
+            for (int day = 0; day < 5; ++day) {
+                for (int hour = 0; hour < 12; ++hour) {
+                    if (field.get_occupied(day, hour) == p.Get_id()) {
+                        booked_fields.push_back({&field, fm, day, hour});
+                    }
+                }
             }
         }
     }
@@ -636,7 +645,9 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
             std::cout << "Choose a field to cancel (or '0' to return to main menu):" << std::endl;
             for (size_t i = 0; i < booked_fields.size(); ++i) {
                 std::cout << i + 1 << ". ";
-                booked_fields[i].first->print();
+                std::cout << "Field: " << std::get<0>(booked_fields[i])->get_field_name() << ", ";
+                std::cout << "Day: " << days[std::get<2>(booked_fields[i])] << ", ";
+                std::cout << "Hour: " << (std::get<3>(booked_fields[i]) + 8) << ":00" << std::endl;
             }
 
             // Get user choice
@@ -655,19 +666,16 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
                     throw std::invalid_argument("Invalid choice. Please try again.");
                 }
 
-                // Validate user choice
-                if (choice < 1 || choice > static_cast<int>(booked_fields.size())) {
-                    throw std::invalid_argument("Invalid choice. Please try again.");
-                }
-
                 // Process user choice
-                Field* field = booked_fields[choice - 1].first;
-                Field_manager* manager = booked_fields[choice - 1].second;
+                Field* field = std::get<0>(booked_fields[choice - 1]);
+                Field_manager* manager = std::get<1>(booked_fields[choice - 1]);
+                int day = std::get<2>(booked_fields[choice - 1]);
+                int hour = std::get<3>(booked_fields[choice - 1]);
 
-                if (manager && manager->cancel_field_booking(p.Get_id(), *field)) {
+                if (manager && manager->cancel_field_booking(p.Get_id(), *field, day, hour)) {
                     cout << "Field booking canceled." << endl;
                     // Remove the canceled field from the player's booked fields
-                    p.booked.remove_booking(p.Get_id());
+                    p.booked.remove_booking_by_day_hour(p.Get_id(), day, hour);
 
                     // Remove the canceled field from the booked_fields vector
                     booked_fields.erase(booked_fields.begin() + choice - 1);

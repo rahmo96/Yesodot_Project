@@ -159,13 +159,13 @@ Field Field_manager::book_field_in_city_at_day_hour(long id, const string &city,
     for (int i = 0; i < counter; ++i) {
         if (field[i].get_field_city() == city) {
             // Check if the slot is already booked
-            if (field[i].get_occupied(day, hour) != 0) {
+            if (field[i].get_occupied(day, hour-8) != 0) {
                 cout << "This slot is already booked." << endl;
                 break;
             }
 
             // Mark the hour as occupied with the player's ID
-            field[i].set_occupied(day, hour, id);
+            field[i].set_occupied(day, hour-8, id);
             t_field = field[i];
 
             // Additional logic to handle the booking (e.g., updating records)
@@ -186,16 +186,13 @@ bool Field_manager::is_field_booked_by(long id) {
     }
     return false; // Field is not booked
 }
-bool Field_manager::cancel_field_booking(long id, const Field& field) {
+
+bool Field_manager::cancel_field_booking(long id, const Field& field, int day, int hour) {
     for (auto& f : this->field) {
         if (f == field) {
-            for (int j = 0; j < 5; ++j) {
-                for (int k = 0; k < 12; ++k) {
-                    if (f.get_occupied(j, k) == id) {
-                        f.set_occupied(j, k, 0); // Cancel the booking by setting it to 0
-                        return true;
-                    }
-                }
+            if (f.get_occupied(day, hour) == id) {
+                f.set_occupied(day, hour, 0); // Cancel the booking by setting it to 0
+                return true;
             }
         }
     }

@@ -55,6 +55,7 @@ public:
 
     //checks
     bool is_field_booked_by(long id) const;
+    bool isAvailable(int dayIndex, int hourIndex);
 
     bool cancel_booking(long id);
     void close_field(int choice2, int startHour,int endHour);
