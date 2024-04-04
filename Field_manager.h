@@ -10,6 +10,9 @@
 #include <vector>
 #include "Player.h"
 #include "Clear_Screen.h"
+#include <thread>
+#include <chrono>
+
 class Field_manager: virtual public User{
 private:
     friend class Functions;

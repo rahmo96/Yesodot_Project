@@ -16,6 +16,8 @@ using namespace std;
 #include "sqlite3.h"
 #include <cctype>
 #include "Clear_Screen.h"
+#include <thread>
+#include <chrono>
 
 
 class Functions{
@@ -39,12 +41,11 @@ public:
         string password;
 
         cout << "Enter your name: ";
-        cin.ignore();
-        getline(cin, name);
-        Clear::clear_screen();
+        cin>>name;
 
         do {
             cout << "Enter your ID number: \n";
+            cin.ignore();
             getline(cin, t_id);
 
             if (isNumber(t_id)) {
@@ -52,12 +53,14 @@ public:
 
                 if (!IsValidIsraeliID(t_id)) {
                     cout << "Invalid ID. Please enter a valid ID number." << endl;
+                    this_thread::sleep_for(chrono::seconds(2));
                     Clear::clear_screen();
                     continue; // Restart the loop to get a new ID
                 }
 
                 if (isIdInDatabase(id)) {
                     cout << "This ID is already in use. Please enter another one." << endl;
+                    this_thread::sleep_for(chrono::seconds(2));
                     Clear::clear_screen();
                     continue; // Restart the loop to get a new ID
                 }
@@ -66,11 +69,15 @@ public:
             }
             else {
                 cout << "Invalid ID. Please enter a valid ID number." << endl;
+                this_thread::sleep_for(chrono::seconds(2));
                 Clear::clear_screen();
                 continue; // Restart the loop to get a new ID
             }
 
         } while (true);
+        Clear::clear_screen();
+
+        cout<<"**Personal Information**"<<endl;
 
         cout << "Enter your Address: \n";
         getline(cin, Address);
@@ -78,19 +85,19 @@ public:
         do {
             cout << "Enter your phone number: ";
             getline(cin, t_phone_number);
-            if (t_phone_number.length() != 9 || !isNumber(t_phone_number)) {
+            if (t_phone_number.length() != 10 || !isNumber(t_phone_number)) {
                 cout << "Invalid phone number. Please enter a 10-digit number." << endl;
+                this_thread::sleep_for(chrono::seconds(2));
                 Clear::clear_screen();
                 continue; // Restart the loop to get a new phone number
             }
-        } while (t_phone_number.length() != 9 || !isNumber(t_phone_number));
+        } while (t_phone_number.length() != 10 || !isNumber(t_phone_number));
         phone_number = stol(t_phone_number);
 
         do {
             cout << "Enter your gender (m/f):\n ";
             cin >> gender;
             gender = tolower(gender);
-            Clear::clear_screen();
         } while (gender != 'm' && gender != 'f');
 
         do {
@@ -101,12 +108,19 @@ public:
         Date birthday;
         birthday.setDateFromString(t_birthday);
 
+        cout<<"***Password***"<<endl;
         cout << "Enter your password: ";
         cin >> password;
         Clear::clear_screen();
 
         T player1(name, id, Address, phone_number, gender, birthday, password);
-        player1.print(); // Assuming T has a print method
+        cout<<"*** Player created successfully ***"<<endl;
+        this_thread::sleep_for(chrono::seconds(2));
+        Clear::clear_screen();
+        cout<<"*** Player details ***"<<endl;
+        player1.print();// Print the player details
+        this_thread::sleep_for(chrono::seconds(2));
+        Clear::clear_screen();
         return player1;
     }
 

@@ -11,6 +11,8 @@
 #include "sqlite3.h"
 #include "Booked.h"
 #include "Clear_Screen.h"
+#include <thread>
+#include <chrono>
 
 
 using namespace std;
@@ -31,7 +33,7 @@ public:
 
     User(const User &user);
 
-    User():b_day(){};
+    User():id(0),name(""),Address(""),phone_number(0),gender('M'),b_day(){};
 
     //Setters
 

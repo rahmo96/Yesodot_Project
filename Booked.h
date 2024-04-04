@@ -8,6 +8,8 @@
 #include "Field.h"
 #include <iostream>
 #include "Clear_Screen.h"
+#include <thread>
+#include <chrono>
 using namespace std;
 
 
@@ -91,17 +93,43 @@ public:
 
     void print_booked_fields(long id) {
         string days[5] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
+        if (booked_fields.empty()) {
+            cout << "No booked fields found." << endl;
+            int choice;
+            do{
+                cout<<"Press '0' to return to main menu"<<endl;
+                cin>>choice;
+                if (cin.fail()){
+                    cin.clear();
+                    cout<<"Invalid input. Please enter a number"<<endl;
+                }
+            } while (choice != 0);
+
+        }
         for (const auto& field_item : booked_fields) {
             field_item.print();
             cout << endl;
             for (int i = 0; i < 5; ++i) {
                 for (int j = 0; j < 12; ++j) {
-                    if (occupied_slots[i][j] == id) {
+                    if (occupied_slots[i][j] == id && occupied_slots[i][j] == field_item.get_occupied(i, j)) {
                         cout << "Day: " << days[i] << " Time: " << j + 8 << ":00" << endl;
                     }
                 }
             }
         }
+
+        int choice;
+        do{
+            cout<<"Press '0' to return to main menu"<<endl;
+            cin>>choice;
+            if (cin.fail()){
+                cin.clear();
+                cout<<"Invalid input. Please enter a number"<<endl;
+            }
+        } while (choice != 0);
+
+        cout<< "\n\n";
+        Clear::clear_screen();
     }
 
     bool remove_booking(long id) {

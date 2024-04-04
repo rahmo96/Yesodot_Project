@@ -8,6 +8,8 @@
 #include <string>
 #include "nlohmann/json.hpp"
 #include "vector"
+#include <thread>
+#include <chrono>
 
 using namespace nlohmann;
 using namespace std;
@@ -56,10 +58,12 @@ void Player::Set_phone_number() {
             phone_num = stol(t_phone_num);
         } catch (const exception &e) {
             cout << "Invalid phone number. Please try again." << endl;
+            this_thread::sleep_for(chrono::seconds(2));
             continue; // Ask for phone number again
         }
         if ( phone_num<100000000 || phone_num>999999999){
             cout << "Invalid phone number. Please try again." << endl;
+            this_thread::sleep_for(chrono::seconds(2));
             continue; // Ask for phone number again
         }
         this->phone_number = phone_num;
@@ -101,6 +105,7 @@ void Player::Set_password() {
         P_send_password_to_DB(new_password);
     } else{
         cout<<"Wrong password"<<endl;
+        this_thread::sleep_for(chrono::seconds(2));
         return;
     }
 
@@ -157,8 +162,6 @@ Player::Set_player(string name, long id, string address, long phone_num, char ge
     this->passowrd = passowrd;
     this->booked = booked;
     this->f = f;
-
-    std::cout << "Favorites size in Set_player: " << f.get_size() << std::endl;
 }
 
 Player Player::build_from_DB(long id) {

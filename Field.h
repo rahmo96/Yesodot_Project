@@ -8,6 +8,8 @@
 #include <string>
 #include "nlohmann/json.hpp"
 #include "Clear_Screen.h"
+#include <thread>
+#include <chrono>
 
 using namespace nlohmann;
 using namespace std;

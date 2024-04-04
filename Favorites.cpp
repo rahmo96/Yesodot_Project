@@ -41,6 +41,7 @@ void Favorites::print() {
         cin >> choice;
         if (cin.fail() || choice != 0) {
             cout << "Invalid choice. Please try again." << endl;
+            this_thread::sleep_for(chrono::seconds(2));
             cin.clear();
             choice = 1;
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');

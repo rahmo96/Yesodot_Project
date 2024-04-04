@@ -124,29 +124,32 @@ void Field::from_json(const json &j) {
 }
 
 Field Field::add_field() {
+
     string name, type, city, description;
+    cin.ignore();
     cout << "Enter field name: " << endl;
-    cin >> name;
+    getline(cin , name);
     cout << "Enter field type: " << endl;
-    cin >> type;
+    getline(cin, type);
     cout << "Enter field city: " << endl;
-    cin >> city;
+    getline(cin, city);
 
     cout << "Would you like to add description? (y/n)" << endl;
-    string answer;
+    char answer;
     cin >> answer;
-    while (answer != "y" && answer != "Y" && answer != "n" && answer != "N") {
+    while (answer != 'y' && answer != 'Y'&& answer != 'n' && answer != 'N') {
         cout << "Invalid input. Please enter 'y' or 'n'." << endl;
         cin >> answer;
     }
 
-    if (answer == "y" || answer == "Y") {
+    if (answer == 'y' || answer == 'Y') {
         cout << "Enter description: " << endl;
         cin.ignore(); // Ignore newline character from previous cin
         getline(cin, description);
     } else {
-        description = "no description";
+        description = "No description";
     }
+    Clear::clear_screen();
 
     return Field(name, type, city, description);
 }

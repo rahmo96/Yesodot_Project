@@ -5,6 +5,9 @@
 #include "nlohmann/json.hpp"
 #include "sqlite3.h"
 #include "Clear_Screen.h"
+#include <thread>
+#include <chrono>
+
 #ifndef YESODOT_PROJECT_FAVORITES_H
 #define YESODOT_PROJECT_FAVORITES_H
 

@@ -11,6 +11,9 @@
 #include "Field_manager.h"
 #include "sqlite3.h"
 #include "Clear_Screen.h"
+#include <thread>
+#include <chrono>
+
 using namespace std;
 
 class MyMain {
