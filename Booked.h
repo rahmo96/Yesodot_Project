@@ -95,15 +95,9 @@ public:
         string days[5] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday" };
         if (booked_fields.empty()) {
             cout << "No booked fields found." << endl;
-            int choice;
-            do{
-                cout<<"Press '0' to return to main menu"<<endl;
-                cin>>choice;
-                if (cin.fail()){
-                    cin.clear();
-                    cout<<"Invalid input. Please enter a number"<<endl;
-                }
-            } while (choice != 0);
+            this_thread::sleep_for(chrono::seconds(2));
+            Clear::clear_screen();
+            return;
 
         }
         for (const auto& field_item : booked_fields) {

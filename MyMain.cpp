@@ -403,8 +403,8 @@ int MyMain::runMenu() {
                             std::cout << "2. Remove Field" << std::endl;
                             std::cout << "3. Profile" << std::endl;
                             std::cout << "4. Closed Hours in Field" << std::endl;
-                            std::cout << "5.Pay to be first" << std::endl;
-                            std::cout << "6. Back" << std::endl;
+                            std::cout << "5. Pay to be first" << std::endl;
+                            std::cout << "6. Exit" << std::endl;
                             std::cout << "Enter your choice: ";
 
                             // Get user choice
@@ -443,7 +443,8 @@ int MyMain::runMenu() {
                                     break;
                                 case 6:
                                     Clear::clear_screen();
-                                    std::cout << CYAN << "Going back..." << RESET << std::endl;
+                                    std::cout << CYAN <<"Exiting..."<< RESET << std::endl;
+                                    this_thread::sleep_for(chrono::seconds(2));
                                     exitMenu = true;
                                     break;
                                 default:
@@ -525,7 +526,6 @@ void MyMain::retrieve_field_managers_from_db() {
 }
 
 
-//PLAYER!!
 //PLAYER!!
 void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field_managers) {
     string days[5] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"};
@@ -649,14 +649,18 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                 cout << hour << ":00 - " << hour + 1 << ":00" << endl;
             }
         }
-        cout << "Enter the starting hour (8-18): ";
         int startHour;
-        cin >> startHour;
-        if (startHour < 8 || startHour > 18) {
-            cerr << "Invalid starting hour. Please try again." << endl;
-            return;
+        while (true) {
+            cout << "Enter the starting hour (8-18): ";
+            cin >> startHour;
+            if (startHour < 8 || startHour > 18) {
+                cerr << "Invalid starting hour. Please try again." << endl;
+                return;
+            }
+            Clear::clear_screen(); // Clear screen after input
+            this_thread::sleep_for(chrono::seconds(2)); // Add delay
+            break;
         }
-        Clear::clear_screen();
 
         // Process the booking for the chosen field, day, and hour
         long playerId = p.Get_id();
@@ -676,18 +680,23 @@ void MyMain::player_menu_booking(Player &p, const vector<Field_manager *> &field
                 p.f += *chosenField;
                 p.update_to_DB();
                 cout << "Field added to favorites." << endl;
+                this_thread::sleep_for(chrono::seconds(2));
                 Clear::clear_screen();
             } else {
                 cout << "Field not added to favorites." << endl;
+                this_thread::sleep_for(chrono::seconds(2));
                 Clear::clear_screen();
             }
         } else {
             cerr << "Failed to book field." << endl;
+            this_thread::sleep_for(chrono::seconds(2));
             Clear::clear_screen();
         }
     } else {
         cout << "No available fields in " << chosenCity << "." << endl;
-        Clear::clear_screen();
+        this_thread::sleep_for(chrono::seconds(2)); // Add delay
+        Clear::clear_screen(); // Clear screen before return
+
     }
 }
 void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_managers) {
@@ -709,6 +718,9 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
     // Display the booked fields
     if (booked_fields.empty()) {
         std::cout << "You have no booked fields to cancel." << std::endl;
+        this_thread::sleep_for(chrono::seconds(2)); // Add delay
+        Clear::clear_screen(); // Clear screen before return
+
         return;
     } else {
         bool exit = false;
@@ -729,6 +741,8 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
 
                 // Check if the user wants to return to main menu
                 if (choice == 0) {
+                    Clear::clear_screen(); // Clear screen before return
+                    this_thread::sleep_for(chrono::seconds(2)); // Add delay
                     return; // Return to main menu
                 }
 
@@ -745,20 +759,34 @@ void MyMain::player_menu_cancel(Player &p, const vector<Field_manager *> &field_
 
                 if (manager && manager->cancel_field_booking(p.Get_id(), *field, day, hour)) {
                     cout << "Field booking canceled." << endl;
+                    this_thread::sleep_for(chrono::seconds(2));
                     // Remove the canceled field from the player's booked fields
                     p.booked.remove_booking_by_day_hour(p.Get_id(), day, hour);
 
+                    if (p.booked.booked_fields.empty()) {
+                        cout << "You have no more booked fields." << endl;
+                        exit = true;
+                        this_thread::sleep_for(chrono::seconds(2));
+                        Clear::clear_screen();
+                        return;
+                    }
                     // Remove the canceled field from the booked_fields vector
                     p.booked.booked_fields.erase(p.booked.booked_fields.begin() + choice - 1);
                 } else {
                     std::cout << "Failed to cancel field booking." << std::endl;
+                    this_thread::sleep_for(chrono::seconds(2));
+                    Clear::clear_screen();
+                    return;
                 }
+
+                // Add a delay and clear the screen
+                this_thread::sleep_for(chrono::seconds(2));
+                Clear::clear_screen();
 
                 // Ask user if they want to continue
                 char continueChoice;
                 cout << "Do you want to cancel another field? (y/n): ";
                 cin >> continueChoice;
-                Clear::clear_screen();
                 if (continueChoice == 'n') {
                     exit = true;
 
@@ -1020,6 +1048,7 @@ void MyMain:: FM_menu_profile(Field_manager &fm){
                 it->second(fm);
             } else {
                 cout << RED << "Invalid choice. Please try again." << RESET << endl;
+                this_thread::sleep_for(chrono::seconds(2));
                 Clear::clear_screen();
             }
         }
@@ -1034,6 +1063,7 @@ void MyMain:: FM_menu_profile(Field_manager &fm){
 
 }
 void MyMain::FM_profile_menu_2(Field_manager &fm) {
+    Clear::clear_screen();
     cout << CYAN << "Choose what to edit:" << RESET << endl;
     string choice;
     do {

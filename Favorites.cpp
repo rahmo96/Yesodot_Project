@@ -28,6 +28,7 @@ vector<Field> Favorites::get_favorite_field() {
 void Favorites::print() {
     if (favorite_field.size() == 0) {
         cout << "No favorite fields yet " << endl;
+        this_thread::sleep_for(chrono::seconds(2));
         Clear::clear_screen();
         return;
     }

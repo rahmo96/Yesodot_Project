@@ -31,6 +31,7 @@ void Field_manager::Set_Name() {
     this->name=name;
     P_send_name_to_DB(name);
     this->update_to_DB();
+    Clear::clear_screen();
 
 }
 
@@ -59,6 +60,7 @@ void Field_manager::Set_phone_number() {
         this->update_to_DB();
         break; // Exit the loop if a valid phone number is provided
     }
+    Clear::clear_screen();
 }
 
 
@@ -75,6 +77,7 @@ void Field_manager::Set_Address() {
     this->Address=address;
     P_send_address_to_DB(address);
     this->update_to_DB();
+    Clear::clear_screen();
 }
 
 void Field_manager::Set_password() {
@@ -97,6 +100,7 @@ void Field_manager::Set_password() {
     }
 
     this->update_to_DB();
+    Clear::clear_screen();
 
 
 }
@@ -109,6 +113,7 @@ Field_manager::Field_manager(string name, long id, string address, long phone_nu
 
 //printer
 void Field_manager::print() {
+    Clear::clear_screen();
     User::print(); // Print user details
 
     // Print fields
